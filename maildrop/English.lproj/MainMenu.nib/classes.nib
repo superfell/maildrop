@@ -1,0 +1,65 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {logout = id; showActivityHelp = id; showPreferencesHelp = id; }; 
+            CLASS = AppDelegate; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                createAcitivityController = CreateActivityController; 
+                loginController = LoginController; 
+                welcomeController = WelcomeController; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {
+                cancel = id; 
+                cancelCreateContact = id; 
+                cancelCreateLead = id; 
+                create = id; 
+                createContact = id; 
+                createLead = id; 
+                searchWhat = id; 
+                searchWho = id; 
+                showCreateContact = id; 
+                showCreateLead = id; 
+            }; 
+            CLASS = CreateActivityController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                createContactWindow = NSWindow; 
+                createLeadWindow = NSWindow; 
+                whatSearchResults = NSTableView; 
+                whoSearchController = NSArrayController; 
+                window = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {"" = id; }; 
+            CLASS = FirstResponder; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {logout = id; openSalesforceInBrowser = id; showLoginDialog = id; }; 
+            CLASS = LoginController; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {checkForUpdates = id; }; 
+            CLASS = SUUpdater; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {installScripts = id; showHelp = id; }; 
+            CLASS = WelcomeController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {window = NSWindow; }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

@@ -1,0 +1,28 @@
+{
+    IBClasses = (
+        {CLASS = Credential; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {
+                addNewServer = id; 
+                cancelLogin = id; 
+                closeAddNewServer = id; 
+                deleteServer = id; 
+                login = id; 
+                showAddNewServer = id; 
+            }; 
+            CLASS = ZKLoginController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                addButton = NSButton; 
+                delButton = NSButton; 
+                loginProgress = NSProgressIndicator; 
+                newUrlWindow = NSWindow; 
+                target = id; 
+                window = NSWindow; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

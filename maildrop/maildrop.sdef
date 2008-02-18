@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+<!--
+	This is Foundation Kit's NSCoreSuite terminology recast as an sdef.  NSCoreSuite
+	is itself AppleScript's Standard Suite recast as a plist instead of the original
+	aete.  There are several differences between the original Standard Suite and
+	Cocoa's version of it, and not all of them are correct: these places are noted
+	with "supposed to" comments.
+-->
+<dictionary title="Standard Terminology">
+	<suite name="Standard Suite" code="????" description="Common classes and commands for most applications.">
+		<cocoa name="NSCoreSuite"/>
+		<command name="count" code="corecnte" description="Return the number of elements of a particular class within an object.">
+			<cocoa class="NSCountCommand"/>
+			<direct-parameter description="the object whose elements are to be counted" type="specifier"/>
+			<parameter name="each" code="kocl" description="The class of objects to be counted." type="type" optional="yes">
+				<cocoa key="ObjectClass"/>
+			</parameter>
+			<result description="the number of elements" type="integer"/>
+		</command>
+		<command name="delete" code="coredelo" description="Delete an object.">
+			<cocoa class="NSDeleteCommand"/>
+			<direct-parameter description="the object to delete" type="specifier"/>
+		</command>
+		<command name="exists" code="coredoex" description="Verify if an object exists.">
+			<cocoa class="NSExistsCommand"/>
+			<direct-parameter description="the object in question" type="specifier"/>
+			<result description="true if it exists, false if not" type="boolean"/>
+		</command>
+		<command name="make" code="corecrel" description="Make a new object.">
+			<cocoa name="Create" class="NSCreateCommand"/>
+			<parameter name="new" code="kocl" description="The class of the new object." type="type">
+				<cocoa key="ObjectClass"/>
+			</parameter>
+			<parameter name="at" code="insh" description="The location at which to insert the object." type="location specifier" optional="yes">
+				<cocoa key="Location"/>
+			</parameter>
+			<parameter name="with data" code="data" description="The initial data for the object." type="any" optional="yes">
+				<cocoa key="ObjectData"/>
+			</parameter>
+			<parameter name="with properties" code="prdt" description="The initial values for properties of the object." type="record" optional="yes">
+				<cocoa key="KeyDictionary"/>
+			</parameter>
+			<result description="to the new object" type="specifier"/>
+		</command>
+	</suite>
+	<suite name="Maildrop Suite" code="mDRP" description="Classes and commands for creating salesforce items from emails">
+		<class name="application" code="capp" description="An application&apos;s top level scripting object.">
+			<cocoa class="NSApplication"/>
+			<element description="The Emails" type="email">
+				<cocoa key="emails"/>
+			</element>
+			<property name="name" code="pnam" description="The name of the application." type="text" access="r"/>
+			<property name="frontmost" code="pisf" description="Is this the frontmost (active) application?" type="boolean" access="r">
+				<cocoa key="isActive"/>
+			</property>
+			<property name="version" code="vers" description="The version of the application." type="text" access="r"/>
+		</class>
+		<class name="email" code="maIL" plural="emails">
+			<cocoa class="Email"/>
+			<property name="from address" code="frAD" description="The address the email was from" type="text">
+				<cocoa key="fromAddr"/>
+			</property>
+			<property name="to address" code="toAD" description="the address the email was sent to" type="text">
+				<cocoa key="toAddr"/>
+			</property>
+			<property name="plain body" code="pBDY" description="The plain text email body" type="text">
+				<cocoa key="body"/>
+			</property>
+			<property name="ID" code="ID  " description="unique ID" type="text" access="r">
+				<cocoa key="uniqueId"/>
+			</property>
+			<property name="from name" code="frNM" description="the name of the person the email was from" type="text">
+				<cocoa key="fromName"/>
+			</property>
+			<property name="subject" code="suBJ" description="The subject line of the email" type="text">
+				<cocoa key="subject"/>
+			</property>
+			<property name="salesforce id" code="sfID" description="The Id of the object in salesforce that was created from this email" type="text" access="r">
+				<cocoa key="salesforceId"/>
+			</property>
+			<property name="date received" code="DATE" description="Date/time that the email was recieved" type="date">
+				<cocoa key="date"/>
+			</property>
+			<responds-to name="create activity">
+				<cocoa method="createActivity:"/>
+			</responds-to>
+			<responds-to name="create case">
+				<cocoa method="createCase:"/>
+			</responds-to>
+		</class>
+		<command name="create activity" code="creaACTV" description="adds the email to Salesforce.com">
+			<direct-parameter description="The email to create the activity from" type="email"/>
+			<result description="The salesforce.com Id of the newly created item" type="text"/>
+		</command>
+		<command name="create case" code="creaCASE" description="Create&apos;s a new Case from the email">
+			<direct-parameter description="The email to create the case from" type="email"/>
+			<result description="The Id of the case created in salesforce" type="text"/>
+		</command>
+	</suite>
+</dictionary>
