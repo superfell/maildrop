@@ -257,6 +257,32 @@ static NSString *test = @"https://test.salesforce.com";
 	return sforce;
 }
 
+-(BOOL)hasLoginHelp {
+	return [[NSApp delegate] respondsToSelector:@selector(showLoginHelp:)];
+}
+
+-(IBAction)showLoginHelp:(id)sender {
+	if ([self hasLoginHelp])
+		[[NSApp delegate] performSelector:@selector(showLoginHelp:) withObject:self];
+}
+
+-(void)loginErrorClosing:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo {
+	if (returnCode == NSAlertAlternateReturn) {
+		[self showLoginHelp:self];
+	}
+}
+
+-(void)showException:(ZKSoapException *)ex {
+	NSString *alt = [self hasLoginHelp] ? @"Help" : nil;
+	[self showAlertSheetWithMessageText:[ex reason]
+		defaultButton:@"Close"
+		altButton:alt
+		otherButton:nil
+		additionalText:@""
+		didEndSelector:@selector(loginErrorClosing:returnCode:contextInfo:)
+		contextInfo:nil];	
+}
+
 - (IBAction)login:(id)sender {
 	[self setStatusText:nil];
 	[loginProgress setHidden:NO];
@@ -266,6 +292,7 @@ static NSString *test = @"https://test.salesforce.com";
 		[self performLogin:&ex];
 		if (ex != nil) {
 			[self setStatusText:[ex reason]];
+			[self showException:ex];
 			return;
 		} 
 		if (selectedCredential == nil || (![[[selectedCredential username] lowercaseString] isEqualToString:[username lowercaseString]])) {

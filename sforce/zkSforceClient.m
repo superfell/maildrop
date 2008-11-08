@@ -102,7 +102,7 @@ static const int SAVE_BATCH_SIZE = 25;
 }
 
 - (void)setLoginProtocolAndHost:(NSString *)protocolAndHost {
-	[self setLoginProtocolAndHost:protocolAndHost andVersion:11];
+	[self setLoginProtocolAndHost:protocolAndHost andVersion:14];
 }
 
 - (void)setLoginProtocolAndHost:(NSString *)protocolAndHost andVersion:(int)version {

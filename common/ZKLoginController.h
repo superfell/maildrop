@@ -75,4 +75,7 @@
 - (void)setClientId:(NSString *)aClientId;
 - (void)setClientIdFromInfoPlist;
 - (ZKSforceClient *)performLogin:(ZKSoapException **)error;
+
+-(IBAction)showLoginHelp:(id)sender;
+-(BOOL)hasLoginHelp;
 @end

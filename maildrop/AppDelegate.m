@@ -88,6 +88,10 @@
 	return [createAcitivityController createActivity:email sforce:[self sforce]];
 }
 
+-(IBAction)showLoginHelp:(id)sender {
+	[[NSHelpManager sharedHelpManager] openHelpAnchor:@"Login" inBook:@"Maildrop Help"];
+}
+
 - (IBAction)showActivityHelp:(id)sender {
 	[[NSHelpManager sharedHelpManager] openHelpAnchor:@"Activity" inBook:@"Maildrop Help"];
 }
