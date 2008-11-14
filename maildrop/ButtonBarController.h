@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2008 Simon Fell
+// Copyright (c) 2008 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -20,30 +20,26 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "../sforce/zkSforce.h"
 
-@class LoginController;
-@class CreateActivityController;
-@class WelcomeController;
-@class ButtonBarController;
-@class Email;
+@class ZKSforceClient;
 
-@interface AppDelegate : NSObject {
-	IBOutlet LoginController			*loginController;
-	IBOutlet CreateActivityController	*createAcitivityController;
-	IBOutlet WelcomeController			*welcomeController;
-	IBOutlet ButtonBarController		*buttonBarController;
-	
-	NSMutableArray				*emails;
-	ZKSforceClient				*sforce;
+@interface ButtonBarController : NSObject {
+	IBOutlet	NSWindow		*window;
+	IBOutlet	NSButton		*addEmailButton;
+	IBOutlet	NSButton		*createCaseButton;
+	IBOutlet	NSButton		*toggleButton;
+	BOOL						usingEntourage;
+	BOOL						isFrontMostApp;
+	NSTimer						*frontAppTimer;
 }
 
-- (NSMutableArray *)emails;
-- (ZKSforceClient *)sforce;
+-(IBAction)showWindow:(id)sender;
+-(IBAction)closeWindow:(id)sender;
 
-- (NSString *)createActivity:(Email *)email;
-- (IBAction)showActivityHelp:(id)sender;
-- (IBAction)showPreferencesHelp:(id)sender;
-- (IBAction)logout:(id)sender;
-- (IBAction)showButtonBar:(id)sender;
+-(IBAction)addEmail:(id)sender;
+-(IBAction)createCase:(id)sender;
+-(IBAction)toggleClient:(id)sender;
+-(IBAction)showHelp:(id)sender;
+
 @end
+

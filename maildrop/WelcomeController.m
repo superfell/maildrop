@@ -20,6 +20,7 @@
 //
 
 #import "WelcomeController.h"
+#import "Constants.h"
 
 @implementation WelcomeController
 
@@ -61,10 +62,10 @@
 }
 
 - (void)buildInstallList {
-	NSString *a1 = [[NSBundle mainBundle] pathForResource:@"Add Email to Salesforce.com"   ofType:@"scpt" inDirectory:@"mail scripts"];
-	NSString *a2 = [[NSBundle mainBundle] pathForResource:@"Create Case In Salesforce.com" ofType:@"scpt" inDirectory:@"mail scripts"];
-	NSString *e1 = [[NSBundle mainBundle] pathForResource:@"Add Email to Salesforce.com"   ofType:@"scpt" inDirectory:@"entourage scripts"];
-	NSString *e2 = [[NSBundle mainBundle] pathForResource:@"Create Case In Salesforce.com" ofType:@"scpt" inDirectory:@"entourage scripts"];
+	NSString *a1 = [[NSBundle mainBundle] pathForResource:ADD_EMAIL_SCRIPT_NAME ofType:@"scpt" inDirectory:MAIL_SCRIPTS_FOLDER];
+	NSString *a2 = [[NSBundle mainBundle] pathForResource:ADD_CASE_SCRIPT_NAME	ofType:@"scpt" inDirectory:MAIL_SCRIPTS_FOLDER];
+	NSString *e1 = [[NSBundle mainBundle] pathForResource:ADD_EMAIL_SCRIPT_NAME ofType:@"scpt" inDirectory:ENTOURAGE_SCRIPTS_FOLDER];
+	NSString *e2 = [[NSBundle mainBundle] pathForResource:ADD_CASE_SCRIPT_NAME	ofType:@"scpt" inDirectory:ENTOURAGE_SCRIPTS_FOLDER];
 	NSArray *library = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
 	NSString *mailScripts = [[library objectAtIndex:0] stringByAppendingPathComponent:@"Scripts/Applications/Mail"];
 	NSArray *docs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

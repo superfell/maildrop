@@ -1,65 +1,180 @@
-{
-    IBClasses = (
-        {
-            ACTIONS = {logout = id; showActivityHelp = id; showPreferencesHelp = id; }; 
-            CLASS = AppDelegate; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                createAcitivityController = CreateActivityController; 
-                loginController = LoginController; 
-                welcomeController = WelcomeController; 
-            }; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {
-            ACTIONS = {
-                cancel = id; 
-                cancelCreateContact = id; 
-                cancelCreateLead = id; 
-                create = id; 
-                createContact = id; 
-                createLead = id; 
-                searchWhat = id; 
-                searchWho = id; 
-                showCreateContact = id; 
-                showCreateLead = id; 
-            }; 
-            CLASS = CreateActivityController; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                createContactWindow = NSWindow; 
-                createLeadWindow = NSWindow; 
-                whatSearchResults = NSTableView; 
-                whoSearchController = NSArrayController; 
-                window = NSWindow; 
-            }; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {
-            ACTIONS = {"" = id; }; 
-            CLASS = FirstResponder; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {
-            ACTIONS = {logout = id; openSalesforceInBrowser = id; showLoginDialog = id; }; 
-            CLASS = LoginController; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {
-            ACTIONS = {checkForUpdates = id; }; 
-            CLASS = SUUpdater; 
-            LANGUAGE = ObjC; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {
-            ACTIONS = {installScripts = id; showHelp = id; }; 
-            CLASS = WelcomeController; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {window = NSWindow; }; 
-            SUPERCLASS = NSObject; 
-        }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>logout</key>
+				<string>id</string>
+				<key>showActivityHelp</key>
+				<string>id</string>
+				<key>showButtonBar</key>
+				<string>id</string>
+				<key>showPreferencesHelp</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>AppDelegate</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>buttonBarController</key>
+				<string>ButtonBarController</string>
+				<key>createAcitivityController</key>
+				<string>CreateActivityController</string>
+				<key>loginController</key>
+				<string>LoginController</string>
+				<key>welcomeController</key>
+				<string>WelcomeController</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>installScripts</key>
+				<string>id</string>
+				<key>showHelp</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>WelcomeController</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>window</key>
+				<string>NSWindow</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>addEmail</key>
+				<string>id</string>
+				<key>closeWindow</key>
+				<string>id</string>
+				<key>createCase</key>
+				<string>id</string>
+				<key>showHelp</key>
+				<string>id</string>
+				<key>toggleClient</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>ButtonBarController</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>addEmailButton</key>
+				<string>NSButton</string>
+				<key>createCaseButton</key>
+				<string>NSButton</string>
+				<key>toggleButton</key>
+				<string>NSButton</string>
+				<key>window</key>
+				<string>NSWindow</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key></key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>logout</key>
+				<string>id</string>
+				<key>openSalesforceInBrowser</key>
+				<string>id</string>
+				<key>showLoginDialog</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>LoginController</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>checkForUpdates</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>SUUpdater</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>cancel</key>
+				<string>id</string>
+				<key>cancelCreateContact</key>
+				<string>id</string>
+				<key>cancelCreateLead</key>
+				<string>id</string>
+				<key>create</key>
+				<string>id</string>
+				<key>createContact</key>
+				<string>id</string>
+				<key>createLead</key>
+				<string>id</string>
+				<key>searchWhat</key>
+				<string>id</string>
+				<key>searchWho</key>
+				<string>id</string>
+				<key>showCreateContact</key>
+				<string>id</string>
+				<key>showCreateLead</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>CreateActivityController</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>createContactWindow</key>
+				<string>NSWindow</string>
+				<key>createLeadWindow</key>
+				<string>NSWindow</string>
+				<key>whatSearchResults</key>
+				<string>NSTableView</string>
+				<key>whoSearchController</key>
+				<string>NSArrayController</string>
+				<key>window</key>
+				<string>NSWindow</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>

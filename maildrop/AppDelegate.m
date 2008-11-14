@@ -65,6 +65,10 @@
     return NO; 
 }
 
+-(void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+	[self showButtonBar:self];
+}
+
 - (IBAction)logout:(id)sender {
 	[loginController logout:sender];
 	[sforce release];
@@ -86,6 +90,10 @@
 	ZKSforceClient *sf = [self sforce];
 	if (sf == nil) return nil;
 	return [createAcitivityController createActivity:email sforce:[self sforce]];
+}
+
+-(IBAction)showButtonBar:(id)sender {
+	[buttonBarController showWindow:sender];
 }
 
 -(IBAction)showLoginHelp:(id)sender {

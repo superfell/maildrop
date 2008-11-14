@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2008 Simon Fell
+// Copyright (c) 2008 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -19,31 +19,10 @@
 // THE SOFTWARE.
 //
 
-#import <Cocoa/Cocoa.h>
-#import "../sforce/zkSforce.h"
+#import "Constants.h"
 
-@class LoginController;
-@class CreateActivityController;
-@class WelcomeController;
-@class ButtonBarController;
-@class Email;
 
-@interface AppDelegate : NSObject {
-	IBOutlet LoginController			*loginController;
-	IBOutlet CreateActivityController	*createAcitivityController;
-	IBOutlet WelcomeController			*welcomeController;
-	IBOutlet ButtonBarController		*buttonBarController;
-	
-	NSMutableArray				*emails;
-	ZKSforceClient				*sforce;
-}
-
-- (NSMutableArray *)emails;
-- (ZKSforceClient *)sforce;
-
-- (NSString *)createActivity:(Email *)email;
-- (IBAction)showActivityHelp:(id)sender;
-- (IBAction)showPreferencesHelp:(id)sender;
-- (IBAction)logout:(id)sender;
-- (IBAction)showButtonBar:(id)sender;
-@end
+NSString *ADD_EMAIL_SCRIPT_NAME			= @"Add Email to Salesforce.com";
+NSString *ADD_CASE_SCRIPT_NAME			= @"Create Case In Salesforce.com";
+NSString *MAIL_SCRIPTS_FOLDER			= @"mail scripts";
+NSString *ENTOURAGE_SCRIPTS_FOLDER		= @"entourage scripts";
