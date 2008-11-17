@@ -72,6 +72,13 @@
 	return n;
 }
 
+-(NSString *)additionalValue:(ZKSObject *)row {
+	ZKDescribeSObject *d = [sforce describeSObject:[row type]];
+	NSArray *a = [d additionalDisplayFields];
+	if ([a count] == 0) return @"";
+	return [row fieldValue:[[a objectAtIndex:0] name]];
+}
+
 - (id)tableView:(NSTableView *)view objectValueForTableColumn:(NSTableColumn *)tc row:(int)rowIdx {
 	ZKSObject *r = [results objectAtIndex:rowIdx];
 	NSString *ident = [tc identifier];
@@ -81,6 +88,8 @@
 		return [self nameValueForRow:r];
 	} else if ([ident isEqualToString:@"id"]) {
 		return [r id];
+	} else if ([ident isEqualToString:@"additional"]) {
+		return [self additionalValue:r];
 	}
 	return @"";
 }

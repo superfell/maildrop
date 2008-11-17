@@ -29,4 +29,6 @@
 
 @interface ZKDescribeSObject (FieldHelpers)
 - (NSArray *)nameFields;
+
+- (NSArray *)additionalDisplayFields;
 @end

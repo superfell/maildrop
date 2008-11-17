@@ -65,6 +65,8 @@
 				<string>id</string>
 				<key>showHelp</key>
 				<string>id</string>
+				<key>showWindow</key>
+				<string>id</string>
 				<key>toggleClient</key>
 				<string>id</string>
 			</dict>

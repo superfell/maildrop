@@ -47,4 +47,14 @@
 	return names;
 }
 
+- (NSArray *)additionalDisplayFields {
+	// todo, support additional fields on other types via config
+	if ([[self name] isEqualToString:@"Case"]) { 
+		ZKDescribeField *f = [self fieldWithName:@"subject"];
+		if (f != nil)
+			return [NSArray arrayWithObject:f];
+	}
+	return [NSArray array];
+}
+
 @end

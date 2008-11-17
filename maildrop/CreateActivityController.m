@@ -171,6 +171,9 @@
 		NSEnumerator *fe = [[desc nameFields] objectEnumerator];
 		while (f = [fe nextObject]) 
 			[sosl appendFormat:@", %@", [f name]];
+		fe = [[desc additionalDisplayFields] objectEnumerator];
+		while (f = [fe nextObject]) 
+			[sosl appendFormat:@", %@", [f name]];
 		[sosl appendFormat:@")"];
 		first = NO;
 	}
