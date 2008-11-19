@@ -171,8 +171,8 @@
 		NSEnumerator *fe = [[desc nameFields] objectEnumerator];
 		while (f = [fe nextObject]) 
 			[sosl appendFormat:@", %@", [f name]];
-		fe = [[desc additionalDisplayFields] objectEnumerator];
-		while (f = [fe nextObject]) 
+		f = [desc additionalDisplayField];
+		if (f != nil) 
 			[sosl appendFormat:@", %@", [f name]];
 		[sosl appendFormat:@")"];
 		first = NO;
@@ -407,23 +407,43 @@
 	return [NSNumber numberWithBool:checked];
 }
 
-- (NSArray *)whatObjectTypes {
-	if (whatObjectTypes != nil) return whatObjectTypes;
-	ZKDescribeSObject *taskDesc = [sforce describeSObject:@"Task"];
-	NSMutableArray * types = [NSMutableArray array];
-	NSEnumerator *e = [[[taskDesc fieldWithName:@"WhatId"] referenceTo] objectEnumerator];
+- (NSArray *)whatObjectTypeDescribes {
+	ZKDescribeSObject *desc = [sforce describeSObject:@"Task"];
+	NSMutableArray *types = [NSMutableArray array];
+	NSEnumerator *e = [[[desc fieldWithName:@"WhatId"] referenceTo] objectEnumerator];
 	NSString *type;
 	while (type = [e nextObject]) {
 		// for sosl, you can't search products or solutions with everything else
 		// they have to be done on there own, so for now, we'll just exclude them
 		// from the list all together.
 		if ([type isEqualToString:@"Product2"] || [type isEqualToString:@"Solution"]) continue;
-		ZKDescribeSObject *td = [sforce describeSObject:type];
-		NSMutableDictionary *t = [NSMutableDictionary dictionaryWithObjectsAndKeys:[self shouldWhatObjectBeChecked:td], @"checked", [td labelPlural], @"sobjectLabel", type, @"type", nil];
+		ZKDescribeSObject * rd = [sforce describeSObject:type];
+		[types addObject:rd];
+	}
+	return types;
+}
+
+- (NSArray *)whatObjectTypes {
+	if (whatObjectTypes != nil) return whatObjectTypes;
+	NSArray *t = [self whatObjectTypeDescribes];
+	NSMutableArray * types = [NSMutableArray array];
+	NSEnumerator *e = [t objectEnumerator];
+	ZKDescribeSObject *type;
+	while (type = [e nextObject]) {
+		NSMutableDictionary *t = [NSMutableDictionary dictionaryWithObjectsAndKeys:[self shouldWhatObjectBeChecked:type], @"checked", [type labelPlural], @"sobjectLabel", [type name], @"type", nil];
 		[types addObject:t];
 	}
 	whatObjectTypes = [types retain];
 	return whatObjectTypes;
+}
+
+- (IBAction)configureWhatSearchColumns:(id)sender {
+	[NSApp beginSheet:whatSearchConfigWindow modalForWindow:window modalDelegate:nil didEndSelector:nil contextInfo:nil];
+}
+
+- (IBAction)closeWhatConfig:(id)sender {
+	[NSApp endSheet:whatSearchConfigWindow];
+	[whatSearchConfigWindow orderOut:sender];
 }
 
 - (BOOL)isCreateableObjectType:(NSString *)sobjectName {
@@ -443,6 +463,8 @@
 	[leadStatus release];
 	leadStatus = nil;
 	[self didChangeValueForKey:@"leadStatus"];
+	[self willChangeValueForKey:@"whatObjectTypeDescribes"];
+	[self didChangeValueForKey:@"whatObjectTypeDescribes"];
 }
 
 - (NSString *)closedTaskStatus {

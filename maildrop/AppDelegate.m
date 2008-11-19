@@ -37,6 +37,7 @@
 	[defaults setObject:[NSNumber numberWithBool:YES] forKey:@"SUCheckAtStartup"];
 	[defaults setObject:[NSNumber numberWithBool:YES] forKey:@"showNewCase"];
 	[defaults setObject:[NSNumber numberWithBool:YES] forKey:@"showNewEmail"];
+	[defaults setObject:@"Subject" forKey:@"additionalField_Case"];
 	[[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }
 

@@ -24,11 +24,16 @@
 #import "../sforce/ZKDescribeSObject.h"
 
 @interface ZKSObject (KVCHelper) 
-- (id)valueForUndefinedKey:(NSString *)key;
+-(id)valueForUndefinedKey:(NSString *)key;
 @end
 
 @interface ZKDescribeSObject (FieldHelpers)
-- (NSArray *)nameFields;
+-(NSArray *)nameFields;						// the subset of fields for this sobject that are flagged as 'Name' fields
+-(NSArray *)validAdditionalFields;			// the subset of fields that are valid for the additionalDisplayField property
+-(ZKDescribeField *)additionalDisplayField;	// extra field that we want to display, set by the user.
+-(void)setAdditionalDisplayField:(ZKDescribeField *)f;
+@end
 
-- (NSArray *)additionalDisplayFields;
+@interface ZKDescribeField (BindingHelpers)
+-(NSString *)labelAndName;				// foo bar (foobar__c)
 @end

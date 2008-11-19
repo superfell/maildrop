@@ -33,6 +33,7 @@
 	IBOutlet NSWindow			*window;
 	IBOutlet NSWindow			*createContactWindow;
 	IBOutlet NSWindow			*createLeadWindow;
+	IBOutlet NSWindow			*whatSearchConfigWindow;
 	
 	ZKSforceClient			*sforce;
 	NSArray					*whatObjectTypes;
@@ -81,6 +82,7 @@
 - (void)setEmailSubject:(NSString *)aEmailSubject;
 - (Email *)email;
 - (void)setEmail:(Email *)aValue;
+- (NSArray *)whatObjectTypeDescribes;
 
 - (BOOL)createContactAllowed;
 - (void)setCreateContactAllowed:(BOOL)newCreateContactAllowed;
@@ -99,4 +101,8 @@
 - (IBAction)showCreateLead:(id)sender;
 - (IBAction)cancelCreateLead:(id)sender;
 - (IBAction)createLead:(id)sender;
+
+- (IBAction)configureWhatSearchColumns:(id)sender;
+- (IBAction)closeWhatConfig:(id)sender;
+
 @end

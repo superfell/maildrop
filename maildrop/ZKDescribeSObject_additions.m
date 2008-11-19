@@ -47,14 +47,39 @@
 	return names;
 }
 
-- (NSArray *)additionalDisplayFields {
-	// todo, support additional fields on other types via config
-	if ([[self name] isEqualToString:@"Case"]) { 
-		ZKDescribeField *f = [self fieldWithName:@"subject"];
-		if (f != nil)
-			return [NSArray arrayWithObject:f];
+// As we already include the name fields in the search, we need to filter those out of the options
+-(NSArray *)validAdditionalFields {
+	NSArray *allFields = [self fields];
+	NSMutableArray *fs = [NSMutableArray arrayWithCapacity:[allFields count]];
+	NSEnumerator *e = [allFields objectEnumerator];
+	ZKDescribeField *f;
+	while (f = [e nextObject]) {
+		if (![f nameField])
+			[fs addObject:f];
 	}
-	return [NSArray array];
+	return fs;
+}
+
+-(NSString *)additionalFieldDefaultsKeyName {
+	return [NSString stringWithFormat:@"additionalField_%@", [self name]];
+}
+
+-(ZKDescribeField *)additionalDisplayField {
+	NSString *fn = [[NSUserDefaults standardUserDefaults] objectForKey:[self additionalFieldDefaultsKeyName]];
+	if (fn == nil) return nil;
+	return [self fieldWithName:fn];
+}
+
+-(void)setAdditionalDisplayField:(ZKDescribeField *)f {
+	[[NSUserDefaults standardUserDefaults] setObject:[f name] forKey:[self additionalFieldDefaultsKeyName]];
+}
+
+@end
+
+@implementation ZKDescribeField (BindingHelpers)
+
+-(NSString *)labelAndName {
+	return [NSString stringWithFormat:@"%@ (%@)", [self label], [self name]];
 }
 
 @end

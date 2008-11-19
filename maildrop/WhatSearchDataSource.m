@@ -74,9 +74,9 @@
 
 -(NSString *)additionalValue:(ZKSObject *)row {
 	ZKDescribeSObject *d = [sforce describeSObject:[row type]];
-	NSArray *a = [d additionalDisplayFields];
-	if ([a count] == 0) return @"";
-	return [row fieldValue:[[a objectAtIndex:0] name]];
+	ZKDescribeField *f = [d additionalDisplayField];
+	if (f == nil) return @"";
+	return [row fieldValue:[f name]];
 }
 
 - (id)tableView:(NSTableView *)view objectValueForTableColumn:(NSTableColumn *)tc row:(int)rowIdx {
