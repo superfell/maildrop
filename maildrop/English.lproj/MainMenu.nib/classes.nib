@@ -37,6 +37,26 @@
 		<dict>
 			<key>ACTIONS</key>
 			<dict>
+				<key>installScripts</key>
+				<string>id</string>
+				<key>showHelp</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>WelcomeController</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>window</key>
+				<string>NSWindow</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
 				<key>addEmail</key>
 				<string>id</string>
 				<key>closeWindow</key>
@@ -62,26 +82,6 @@
 				<string>NSButton</string>
 				<key>toggleButton</key>
 				<string>NSButton</string>
-				<key>window</key>
-				<string>NSWindow</string>
-			</dict>
-			<key>SUPERCLASS</key>
-			<string>NSObject</string>
-		</dict>
-		<dict>
-			<key>ACTIONS</key>
-			<dict>
-				<key>installScripts</key>
-				<string>id</string>
-				<key>showHelp</key>
-				<string>id</string>
-			</dict>
-			<key>CLASS</key>
-			<string>WelcomeController</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>OUTLETS</key>
-			<dict>
 				<key>window</key>
 				<string>NSWindow</string>
 			</dict>
