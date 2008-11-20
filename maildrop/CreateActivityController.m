@@ -59,6 +59,10 @@
 	[NSApp abortModal];
 }
 
+- (void)windowWillClose:(NSNotification *)notification {
+	[NSApp abortModal];
+}
+
 - (BOOL)hasEntity:(NSString *)entity {
 	if (availableEntities == nil)
 		availableEntities = [[sforce describeGlobal] retain];
