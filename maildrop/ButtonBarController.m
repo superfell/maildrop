@@ -60,7 +60,7 @@ NSString *enotourageBundleId = @"com.microsoft.Entourage";
 	while (noErr == GetNextProcess(&psn)) {
 		NSDictionary *d = (NSDictionary *)ProcessInformationCopyDictionary(&psn, kProcessDictionaryIncludeAllInformationMask);
 		NSString *bid = [d objectForKey:(NSString*)kCFBundleIdentifierKey];
-		[d release];
+		[d autorelease];
 		if ([bid isEqualToString:mailBundleId]) {
 			[self setUseEntourage:NO];
 			return;
