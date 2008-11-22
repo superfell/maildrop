@@ -163,7 +163,7 @@
 }
 
 - (NSString *)buildWhatSosl {
-	NSMutableString *sosl = [NSMutableString stringWithFormat:@"FIND {%@} IN ALL FIELDS RETURNING", [self escapeSosl:[self whatSearchText]]];
+	NSMutableString *sosl = [NSMutableString stringWithFormat:@"FIND {%@*} IN ALL FIELDS RETURNING", [self escapeSosl:[self whatSearchText]]];
 	NSMutableDictionary *sobject;
 	BOOL first = YES;
 	NSEnumerator *e = [[self whatObjectTypes] objectEnumerator];
