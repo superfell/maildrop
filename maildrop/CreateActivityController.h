@@ -35,6 +35,8 @@
 	IBOutlet NSWindow			*createLeadWindow;
 	IBOutlet NSWindow			*whatSearchConfigWindow;
 	
+	NSTextField					*whatNoResults;
+	
 	ZKSforceClient			*sforce;
 	NSArray					*whatObjectTypes;
 	NSArray					*availableEntities;

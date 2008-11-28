@@ -44,25 +44,56 @@
 - (id)init {
 	self = [super init];
 	emails = [[NSMutableArray alloc] init];
+	attachments = [[NSMutableArray alloc] init];
 	return self;
 }
 
 - (void)dealloc {
 	[emails release];
+	[attachments release];
 	[sforce release];
 	[super dealloc];
 }
 
-- (NSMutableArray *)emails {
+- (NSArray *)emails {
 	return emails;
 }
 
 - (void)insertInEmails:(Email *)e {
+	[e setContainer:NSApp propertyName:@"emails"];
 	[emails addObject:e];
 }
 
+- (void)insertObject:(Email *)e inEmailsAtIndex:(unsigned int)index {
+	[e setContainer:NSApp propertyName:@"emails"];
+	[emails insertObject:e atIndex:index];
+}
+
+- (void)removeObjectFromEmailsAtIndex:(unsigned int)index {
+	[emails removeObjectAtIndex:index];
+}
+
+- (NSArray *)attachments {
+	return attachments;
+}
+
+- (void)insertInAttachments:(Attachment *)att {
+	[att setContainer:NSApp propertyName:@"attachments"];
+	[attachments addObject:att];
+}
+
+- (void)insertObject:(Attachment *)att inAttachmentsAtIndex:(unsigned int)index {
+	[att setContainer:NSApp propertyName:@"attachments"];
+	[attachments insertObject:att atIndex:index];
+}
+
+- (void)removeObjectFromAttachmentsAtIndex:(unsigned int)index {
+	[attachments removeObjectAtIndex:index];
+}
+
 - (BOOL)application:(NSApplication *)sender delegateHandlesKey:(NSString *)key { 
-    if ([key isEqualToString: @"emails"]) return YES; 
+    if ([key isEqualToString: @"emails"]) return YES;
+	if ([key isEqualToString:@"attachments"]) return YES; 
     return NO; 
 }
 

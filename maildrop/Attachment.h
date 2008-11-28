@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2008 Simon Fell
+// Copyright (c) 2008 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -22,45 +22,23 @@
 #import <Cocoa/Cocoa.h>
 #import "AsItem.h"
 
-@class Attachment;
+@class Email;
+@class ZKSObject;
 
-@interface Email : AsItem {
-	NSString 	*fromAddr, *toAddr, *body;
-	NSString	*fromName;
-	NSString	*subject;
-	NSString	*salesforceId;
-	NSDate		*date;
-	NSMutableArray *attachments;
+@interface Attachment : AsItem {
+	NSString	*name, *mimeType, *salesforceId;
+	NSURL		*file;
 }
 
-- (NSString *)fromAddr;
-- (void)setFromAddr:(NSString *)aFrom;
+-(void)setName:(NSString *)newName;
+-(void)setMimeType:(NSString *)mimeType;
+-(void)setFile:(NSURL *)file;
 
-- (NSString *)fromName;
-- (void)setFromName:(NSString *)aFromName;
+-(NSString *)name;
+-(NSString *)mimeType;
+-(NSString *)salesforceId;
+-(NSURL *)file;
 
-- (NSString *)toAddr;
-- (void)setToAddr:(NSString *)aTo;
-
-- (NSString *)subject;
-- (void)setSubject:(NSString *)aSubject;
-
-- (NSString *)body;
-- (void)setBody:(NSString *)aBody;
-
-- (NSDate *)date;
-- (void)setDate:(NSDate *)newDate;
-
-- (NSString *)salesforceId;
-- (void)setSalesforceId:(NSString *)aSalesforceId;
-
-- (NSArray *)attachments;
-- (void)setAttachments:(NSArray *)atts;
-- (void)insertInAttachments:(Attachment *)att;
-- (void)insertObject:(Attachment *)att inAttachmentsAtIndex:(unsigned int)index;
-- (void)removeObjectFromAttachmentsAtIndex:(unsigned int)index;
-
-- (void)createActivity:(NSScriptCommand *)cmd;
-- (void)createCase:(NSScriptCommand *)cmd;
+-(ZKSObject *)makeSobjectWithParent:(NSString *)parentId;
 
 @end

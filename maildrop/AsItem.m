@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2008 Simon Fell
+// Copyright (c) 2008 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -18,49 +18,42 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
 // THE SOFTWARE.
 //
-
-#import <Cocoa/Cocoa.h>
 #import "AsItem.h"
 
-@class Attachment;
 
-@interface Email : AsItem {
-	NSString 	*fromAddr, *toAddr, *body;
-	NSString	*fromName;
-	NSString	*subject;
-	NSString	*salesforceId;
-	NSDate		*date;
-	NSMutableArray *attachments;
+@implementation AsItem
+
+-(id)init {
+	self = [super init];
+	CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
+  	uniqueId = (NSString *)CFUUIDCreateString(kCFAllocatorDefault, uuid);
+  	CFRelease(uuid);
+	return self;
 }
 
-- (NSString *)fromAddr;
-- (void)setFromAddr:(NSString *)aFrom;
+-(void)dealloc {
+	[uniqueId release];
+	[container release];
+	[containerProperty release];
+	[super dealloc];
+}
 
-- (NSString *)fromName;
-- (void)setFromName:(NSString *)aFromName;
+-(NSString *)uniqueId {
+	return uniqueId;
+}
 
-- (NSString *)toAddr;
-- (void)setToAddr:(NSString *)aTo;
+-(void)setContainer:(NSObject *)newContainer propertyName:(NSString *)propName {
+	[container autorelease];
+	container = [newContainer retain];
+	[containerProperty autorelease];
+	containerProperty = [propName retain];
+}
 
-- (NSString *)subject;
-- (void)setSubject:(NSString *)aSubject;
-
-- (NSString *)body;
-- (void)setBody:(NSString *)aBody;
-
-- (NSDate *)date;
-- (void)setDate:(NSDate *)newDate;
-
-- (NSString *)salesforceId;
-- (void)setSalesforceId:(NSString *)aSalesforceId;
-
-- (NSArray *)attachments;
-- (void)setAttachments:(NSArray *)atts;
-- (void)insertInAttachments:(Attachment *)att;
-- (void)insertObject:(Attachment *)att inAttachmentsAtIndex:(unsigned int)index;
-- (void)removeObjectFromAttachmentsAtIndex:(unsigned int)index;
-
-- (void)createActivity:(NSScriptCommand *)cmd;
-- (void)createCase:(NSScriptCommand *)cmd;
+- (NSScriptObjectSpecifier *)objectSpecifier { 
+	return [[[NSUniqueIDSpecifier alloc] initWithContainerClassDescription:(NSScriptClassDescription*)[container classDescription] 
+										containerSpecifier:[container objectSpecifier]
+										key:containerProperty
+										uniqueID:uniqueId] autorelease];
+}
 
 @end

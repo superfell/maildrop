@@ -27,6 +27,7 @@
 @class WelcomeController;
 @class ButtonBarController;
 @class Email;
+@class Attachment;
 
 @interface AppDelegate : NSObject {
 	IBOutlet LoginController			*loginController;
@@ -34,11 +35,21 @@
 	IBOutlet WelcomeController			*welcomeController;
 	IBOutlet ButtonBarController		*buttonBarController;
 	
-	NSMutableArray				*emails;
-	ZKSforceClient				*sforce;
+	NSMutableArray		*emails;
+	NSMutableArray		*attachments;
+	ZKSforceClient		*sforce;
 }
 
-- (NSMutableArray *)emails;
+- (NSArray *)emails;
+- (void)insertInEmails:(Email *)e;
+- (void)insertObject:(Email *)e inEmailsAtIndex:(unsigned int)index;
+- (void)removeObjectFromEmailsAtIndex:(unsigned int)index;
+
+- (NSArray *)attachments;
+- (void)insertInAttachments:(Attachment *)att;
+- (void)insertObject:(Attachment *)att inAttachmentsAtIndex:(unsigned int)index;
+- (void)removeObjectFromAttachmentsAtIndex:(unsigned int)index;
+
 - (ZKSforceClient *)sforce;
 
 - (NSString *)createActivity:(Email *)email;

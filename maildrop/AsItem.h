@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2008 Simon Fell
+// Copyright (c) 2008 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -20,47 +20,16 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "AsItem.h"
 
-@class Attachment;
+// base class for all the AppleScript shenanigans
 
-@interface Email : AsItem {
-	NSString 	*fromAddr, *toAddr, *body;
-	NSString	*fromName;
-	NSString	*subject;
-	NSString	*salesforceId;
-	NSDate		*date;
-	NSMutableArray *attachments;
+@interface AsItem : NSObject {
+	NSObject	*container;
+	NSString	*containerProperty;
+	NSString	*uniqueId;
 }
 
-- (NSString *)fromAddr;
-- (void)setFromAddr:(NSString *)aFrom;
-
-- (NSString *)fromName;
-- (void)setFromName:(NSString *)aFromName;
-
-- (NSString *)toAddr;
-- (void)setToAddr:(NSString *)aTo;
-
-- (NSString *)subject;
-- (void)setSubject:(NSString *)aSubject;
-
-- (NSString *)body;
-- (void)setBody:(NSString *)aBody;
-
-- (NSDate *)date;
-- (void)setDate:(NSDate *)newDate;
-
-- (NSString *)salesforceId;
-- (void)setSalesforceId:(NSString *)aSalesforceId;
-
-- (NSArray *)attachments;
-- (void)setAttachments:(NSArray *)atts;
-- (void)insertInAttachments:(Attachment *)att;
-- (void)insertObject:(Attachment *)att inAttachmentsAtIndex:(unsigned int)index;
-- (void)removeObjectFromAttachmentsAtIndex:(unsigned int)index;
-
-- (void)createActivity:(NSScriptCommand *)cmd;
-- (void)createCase:(NSScriptCommand *)cmd;
+-(NSString *)uniqueId;
+-(void)setContainer:(NSObject *)container propertyName:(NSString *)propName;
 
 @end

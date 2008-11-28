@@ -24,6 +24,7 @@
 #import "ZKSObject.h"
 #import "SObjectPermsWrapper.h"
 #import "AppDelegate.h"
+#import "Attachment.h"
 #import <Carbon/Carbon.h>
 
 typedef enum GrowlNotification {
@@ -39,14 +40,12 @@ typedef enum GrowlNotification {
 
 - (id)init {
 	self = [super init];
-  	CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
-  	uniqueId = (NSString *)CFUUIDCreateString(kCFAllocatorDefault, uuid);
-  	CFRelease(uuid);
+	attachments = [[NSMutableArray alloc] init];
  	return self;
 }
 
 - (void)dealloc {
-	[uniqueId release];
+	[attachments release];
 	[fromAddr release];
 	[fromName release];
 	[toAddr release];
@@ -55,14 +54,6 @@ typedef enum GrowlNotification {
 	[date release];
 	[salesforceId release];
 	[super dealloc];
-}
-
-- (NSScriptObjectSpecifier *)objectSpecifier { 
-    NSScriptClassDescription* appDesc = (NSScriptClassDescription*)[NSApp classDescription]; 
-	return [[[NSUniqueIDSpecifier alloc] initWithContainerClassDescription:appDesc 
-										containerSpecifier:nil
-										key:@"emails" 
-										uniqueID:uniqueId] autorelease];
 }
 
 - (NSString *)escapeForSoql:(NSString *)src {
@@ -80,6 +71,36 @@ typedef enum GrowlNotification {
 	[[NSWorkspace sharedWorkspace] openURL:frontdoor];
 }
 
+-(BOOL)checkSObjectType:(NSString *)sobjectType hasAccess:(ZKSforceClient *)sforce {
+	if (sforce == nil) return NO;
+	NSArray *types = [sforce describeGlobal];
+	BOOL acc = [types containsObject:sobjectType];
+	BOOL creatable = acc && [[sforce describeSObject:sobjectType] createable];
+	if (creatable) return YES;
+	NSString *endUserType = acc ? [[sforce describeSObject:sobjectType] labelPlural] : [NSString stringWithFormat:@"%@s", sobjectType];
+	NSAlert * a = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"No Access to create %@", endUserType] defaultButton:@"OK" alternateButton:nil otherButton:nil 
+						informativeTextWithFormat:@"Your login does not have the create %@ access, please contact your Salesforce.com administrator", endUserType];
+	[a runModal];
+	return NO;
+}
+
+-(void)saveAttachmentsWithParent:(NSString *)parentId sforce:(ZKSforceClient *)sforce {
+	if ([attachments count] == 0) return;
+	if (![self checkSObjectType:@"Attachment" hasAccess:sforce]) return;
+	NSMutableArray *sobjects = [NSMutableArray arrayWithCapacity:[attachments count]];
+	Attachment *a;
+	NSEnumerator *e = [attachments objectEnumerator];
+	while (a = [e nextObject]) 
+		[sobjects addObject:[a makeSobjectWithParent:parentId]];
+	NSArray *sr = [sforce create:sobjects];
+	ZKSaveResult *r;
+	e = [sr objectEnumerator];
+	while (r = [e nextObject]) {
+		if (![r success])
+			NSLog(@"%@ %@", [r statusCode], [r message]);
+	}
+}
+
 - (void)createActivity:(NSScriptCommand *)cmd {
 	AppDelegate *app = (AppDelegate *)[NSApp delegate];
 	NSString *activityId = [app createActivity:self];
@@ -95,15 +116,12 @@ typedef enum GrowlNotification {
 	AppDelegate *app = (AppDelegate *)[NSApp delegate];
 	ZKSforceClient *sforce = [app sforce];
 	if (sforce == nil) return;
-	NSArray *types = [sforce describeGlobal];
-	if ((![types containsObject:@"Case"]) || (![[sforce describeSObject:@"Case"] createable])) {
-		NSAlert * a = [NSAlert alertWithMessageText:@"No Access to create Cases" defaultButton:@"OK" alternateButton:nil otherButton:nil 
-						informativeTextWithFormat:@"Your login does not have the create case access, please contact your Salesforce.com administrator"];
-		[a runModal];
-	}
+	if (![self checkSObjectType:@"Case" hasAccess:sforce]) return;
+
 	// look for a matching contact
 	ZKDescribeSObject *caseDesc = [sforce describeSObject:@"Case"];
 	SObjectPermsWrapper *cse = [SObjectPermsWrapper withDescribe:caseDesc forUpdate:NO];
+	NSArray *types = [sforce describeGlobal];
 	if ([types containsObject:@"Contact"] && [[caseDesc fieldWithName:@"ContactId"] createable]) {
 		ZKQueryResult *qr = [sforce query:[NSString stringWithFormat:@"select id from contact where email='%@'", [self escapeForSoql:fromAddr]]];
 		if ([qr size] == 1)
@@ -118,6 +136,7 @@ typedef enum GrowlNotification {
 	ZKSaveResult *sr = [[sforce create:[NSArray arrayWithObject:[cse sobject]]] objectAtIndex:0];
 	if ([sr success]) {
 		[self setSalesforceId:[sr id]];
+		[self saveAttachmentsWithParent:[sr id] sforce:sforce];
 		[self growl:CaseCreated];
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"showNewCase"])
 			[self openInSalesforce:salesforceId sobject:@"Case" sforce:sforce];
@@ -129,10 +148,6 @@ typedef enum GrowlNotification {
 
 - (NSString *)description {
 	return [NSString stringWithFormat:@"%@ (%@) -> %@ : %@\r%@", fromAddr, fromName, toAddr, subject, body];
-}
-
-- (NSString *)uniqueId {
-	return uniqueId;
 }
 
 - (BOOL)growlIsRunning {
@@ -207,6 +222,29 @@ typedef enum GrowlNotification {
 			NSLog(@"errors: %@",errors);
         }
 	}
+}
+
+- (NSArray *)attachments {
+	return attachments;
+}
+
+- (void)setAttachments:(NSArray *)atts {
+	[attachments removeAllObjects];
+	[attachments addObjectsFromArray:atts];
+}
+
+- (void)insertInAttachments:(Attachment *)att {
+	[att setContainer:self propertyName:@"attachments"];
+	[attachments addObject:att];
+}
+
+- (void)insertObject:(Attachment *)att inAttachmentsAtIndex:(unsigned int)index {
+	[att setContainer:self propertyName:@"attachments"];
+	[attachments insertObject:att atIndex:index];
+}
+ 
+- (void)removeObjectFromAttachmentsAtIndex:(unsigned int)index {
+	[attachments removeObjectAtIndex:index];
 }
 
 - (NSString *)salesforceId {

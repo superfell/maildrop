@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 42;
+	objectVersion = 44;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,6 +27,8 @@
 		F4329C480B3DA4A9003AB463 /* zkUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = F4329C3C0B3DA4A9003AB463 /* zkUserInfo.m */; };
 		F4329C490B3DA4A9003AB463 /* zkXmlDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = F4329C3E0B3DA4A9003AB463 /* zkXmlDeserializer.m */; };
 		F44421E00B5351A0002AB629 /* maildropGrowl.scpt in Resources */ = {isa = PBXBuildFile; fileRef = F44421DF0B5351A0002AB629 /* maildropGrowl.scpt */; };
+		F4451E370EDBAE9700ABBC35 /* Attachment.m in Sources */ = {isa = PBXBuildFile; fileRef = F4451E360EDBAE9700ABBC35 /* Attachment.m */; };
+		F4451EF20EDBC9DA00ABBC35 /* AsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F4451EF10EDBC9DA00ABBC35 /* AsItem.m */; };
 		F450990D0B51A969007D82E9 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F450990C0B51A969007D82E9 /* Sparkle.framework */; };
 		F45099260B51A993007D82E9 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F450990C0B51A969007D82E9 /* Sparkle.framework */; };
 		F459943A0B54A50D00EE154D /* SObjectPermsWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F45994380B54A50D00EE154D /* SObjectPermsWrapper.m */; };
@@ -40,6 +42,7 @@
 		F47BD7080B4E3F3D00E15CEE /* entourage scripts in Resources */ = {isa = PBXBuildFile; fileRef = F47BD7040B4E3F3D00E15CEE /* entourage scripts */; };
 		F49210690B44CED100C5C9AB /* WhatSearchDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F49210680B44CED100C5C9AB /* WhatSearchDataSource.m */; };
 		F49210760B44D0D500C5C9AB /* ZKDescribeSObject_additions.m in Sources */ = {isa = PBXBuildFile; fileRef = F49210750B44D0D500C5C9AB /* ZKDescribeSObject_additions.m */; };
+		F4921CFC0EDFA52E00E95E03 /* NSData-Base64Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F4921CFB0EDFA52E00E95E03 /* NSData-Base64Extensions.m */; };
 		F49D970E0B498F21005BF9E0 /* Maildrop help in Resources */ = {isa = PBXBuildFile; fileRef = F49D96F60B498F21005BF9E0 /* Maildrop help */; };
 		F4DBCAF70B3DC0C700D94639 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DBCAF50B3DC0C700D94639 /* LoginController.m */; };
 		F4DBCB0D0B3DC4F000D94639 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DBCB0C0B3DC4F000D94639 /* Security.framework */; };
@@ -113,6 +116,10 @@
 		F4329C3D0B3DA4A9003AB463 /* zkXmlDeserializer.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = zkXmlDeserializer.h; path = ../sforce/zkXmlDeserializer.h; sourceTree = SOURCE_ROOT; };
 		F4329C3E0B3DA4A9003AB463 /* zkXmlDeserializer.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = zkXmlDeserializer.m; path = ../sforce/zkXmlDeserializer.m; sourceTree = SOURCE_ROOT; };
 		F44421DF0B5351A0002AB629 /* maildropGrowl.scpt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.scpt; path = maildropGrowl.scpt; sourceTree = "<group>"; };
+		F4451E350EDBAE9700ABBC35 /* Attachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attachment.h; sourceTree = "<group>"; };
+		F4451E360EDBAE9700ABBC35 /* Attachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attachment.m; sourceTree = "<group>"; };
+		F4451EF00EDBC9DA00ABBC35 /* AsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsItem.h; sourceTree = "<group>"; };
+		F4451EF10EDBC9DA00ABBC35 /* AsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsItem.m; sourceTree = "<group>"; };
 		F450990C0B51A969007D82E9 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		F45994370B54A50C00EE154D /* SObjectPermsWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SObjectPermsWrapper.h; sourceTree = "<group>"; };
 		F45994380B54A50D00EE154D /* SObjectPermsWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SObjectPermsWrapper.m; sourceTree = "<group>"; };
@@ -130,6 +137,8 @@
 		F49210680B44CED100C5C9AB /* WhatSearchDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhatSearchDataSource.m; sourceTree = "<group>"; };
 		F49210740B44D0D500C5C9AB /* ZKDescribeSObject_additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKDescribeSObject_additions.h; sourceTree = "<group>"; };
 		F49210750B44D0D500C5C9AB /* ZKDescribeSObject_additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKDescribeSObject_additions.m; sourceTree = "<group>"; };
+		F4921CFA0EDFA52E00E95E03 /* NSData-Base64Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData-Base64Extensions.h"; sourceTree = "<group>"; };
+		F4921CFB0EDFA52E00E95E03 /* NSData-Base64Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData-Base64Extensions.m"; sourceTree = "<group>"; };
 		F49D96F70B498F21005BF9E0 /* English */ = {isa = PBXFileReference; lastKnownFileType = folder; name = English; path = "English.lproj/Maildrop help"; sourceTree = "<group>"; };
 		F4DBCAF50B3DC0C700D94639 /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
 		F4DBCAF60B3DC0C700D94639 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
@@ -173,8 +182,16 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F4921CFA0EDFA52E00E95E03 /* NSData-Base64Extensions.h */,
+				F4921CFB0EDFA52E00E95E03 /* NSData-Base64Extensions.m */,
+				F49210740B44D0D500C5C9AB /* ZKDescribeSObject_additions.h */,
+				F49210750B44D0D500C5C9AB /* ZKDescribeSObject_additions.m */,
+				F4451EF00EDBC9DA00ABBC35 /* AsItem.h */,
+				F4451EF10EDBC9DA00ABBC35 /* AsItem.m */,
 				F41B85550B3CFB5200971C0B /* Email.h */,
 				F41B85560B3CFB5200971C0B /* Email.m */,
+				F4451E350EDBAE9700ABBC35 /* Attachment.h */,
+				F4451E360EDBAE9700ABBC35 /* Attachment.m */,
 				F41B85610B3CFF0800971C0B /* AppDelegate.h */,
 				F41B85620B3CFF0800971C0B /* AppDelegate.m */,
 				F4DBCAF50B3DC0C700D94639 /* LoginController.m */,
@@ -183,8 +200,6 @@
 				F41532EB0B4227FE00E36D7B /* CreateActivityController.m */,
 				F49210670B44CED100C5C9AB /* WhatSearchDataSource.h */,
 				F49210680B44CED100C5C9AB /* WhatSearchDataSource.m */,
-				F49210740B44D0D500C5C9AB /* ZKDescribeSObject_additions.h */,
-				F49210750B44D0D500C5C9AB /* ZKDescribeSObject_additions.m */,
 				F4F87CFA0B4E1FDF006F6B63 /* WelcomeController.h */,
 				F4F87CFB0B4E1FDF006F6B63 /* WelcomeController.m */,
 				F45994370B54A50C00EE154D /* SObjectPermsWrapper.h */,
@@ -359,7 +374,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "maildrop" */;
-			compatibilityVersion = "Xcode 2.4";
+			compatibilityVersion = "Xcode 3.0";
 			hasScannedForEncodings = 1;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* maildrop */;
 			projectDirPath = "";
@@ -430,6 +445,9 @@
 				F4F8F1680C4AF3DA00116C66 /* ZKPartnerEnvelope.m in Sources */,
 				F46C83890EC6429800944C77 /* ButtonBarController.m in Sources */,
 				F46C83AA0EC6777200944C77 /* Constants.m in Sources */,
+				F4451E370EDBAE9700ABBC35 /* Attachment.m in Sources */,
+				F4451EF20EDBC9DA00ABBC35 /* AsItem.m in Sources */,
+				F4921CFC0EDFA52E00E95E03 /* NSData-Base64Extensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,6 +497,11 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/usr/lib\"",
+				);
+				OTHER_LDFLAGS = "-lcrypto";
 				PRODUCT_NAME = Maildrop;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = YES;
@@ -502,6 +525,11 @@
 				GCC_MODEL_TUNING = G5;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/usr/lib\"",
+				);
+				OTHER_LDFLAGS = "-lcrypto";
 				PRODUCT_NAME = Maildrop;
 				WRAPPER_EXTENSION = app;
 			};
@@ -515,18 +543,19 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
 			};
 			name = Debug;
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPYING_PRESERVES_HFS_DATA = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.4u.sdk";
 			};
 			name = Release;
 		};

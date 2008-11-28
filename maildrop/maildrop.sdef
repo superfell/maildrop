@@ -50,6 +50,9 @@
 			<element description="The Emails" type="email">
 				<cocoa key="emails"/>
 			</element>
+			<element description="The Attachments" type="attachment">
+				<cocoa key="attachments"/>
+			</element>
 			<property name="name" code="pnam" description="The name of the application." type="text" access="r"/>
 			<property name="frontmost" code="pisf" description="Is this the frontmost (active) application?" type="boolean" access="r">
 				<cocoa key="isActive"/>
@@ -58,6 +61,9 @@
 		</class>
 		<class name="email" code="maIL" plural="emails">
 			<cocoa class="Email"/>
+			<element description="attachments for an email" type="attachment">
+				<cocoa key="attachments"/>
+			</element>
 			<property name="from address" code="frAD" description="The address the email was from" type="text">
 				<cocoa key="fromAddr"/>
 			</property>
@@ -88,6 +94,24 @@
 			<responds-to name="create case">
 				<cocoa method="createCase:"/>
 			</responds-to>
+		</class>
+		<class name="attachment" code="atTT" plural="attachments">
+			<cocoa class="Attachment"/>
+			<property name="ID" code="ID  " description="unique ID" type="text" access="r">
+				<cocoa key="uniqueId"/>
+			</property>
+			<property name="name" code="pnam" description="attachment name" type="text">
+				<cocoa key="name"/>
+			</property>
+			<property name="mimeType" code="miME" description="mime type" type="text">
+				<cocoa key="mimeType"/>
+			</property>
+			<property name="salesforce id" code="sfID" description="Salesforce Id" type="text" access="r">
+				<cocoa key="salesforceId"/>
+			</property>
+			<property name="file" code="fiLE" description="The file that contains the actual attachment data." type="file">
+				<cocoa key="file"/>
+			</property>
 		</class>
 		<command name="create activity" code="creaACTV" description="adds the email to Salesforce.com">
 			<direct-parameter description="The email to create the activity from" type="email"/>
