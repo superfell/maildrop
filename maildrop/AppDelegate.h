@@ -51,10 +51,12 @@
 - (void)removeObjectFromAttachmentsAtIndex:(unsigned int)index;
 
 - (ZKSforceClient *)sforce;
+- (ButtonBarController *)buttonBarController;
 
 - (NSString *)createActivity:(Email *)email;
 - (IBAction)showActivityHelp:(id)sender;
 - (IBAction)showPreferencesHelp:(id)sender;
 - (IBAction)logout:(id)sender;
 - (IBAction)showButtonBar:(id)sender;
+
 @end

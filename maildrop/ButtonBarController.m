@@ -26,6 +26,13 @@
 NSString *mailBundleId = @"com.apple.mail";
 NSString *enotourageBundleId = @"com.microsoft.Entourage";
 
+static const float WINDOW_HEIGHT_NORMAL = 105.0f;
+static const float WINDOW_HEIGHT_PROGRESS = 140.0f;
+
+@interface ButtonBarController ()
+-(void)setIsFrontMostApp:(BOOL)fm;
+@end
+
 @implementation ButtonBarController
 
 -(void)setFrontAppTimer:(NSTimer *)t {
@@ -38,6 +45,33 @@ NSString *enotourageBundleId = @"com.microsoft.Entourage";
 -(void)dealloc {
 	[self setFrontAppTimer:nil];
 	[super dealloc];
+}
+
+-(void)showProgressOf:(int)value max:(int)maxValue withText:(NSString *)progressLabel {
+	NSRect f = [window frame];
+	if (f.size.height != WINDOW_HEIGHT_PROGRESS) { 
+		f.origin.y -= WINDOW_HEIGHT_PROGRESS - WINDOW_HEIGHT_NORMAL;
+		f.size.height = WINDOW_HEIGHT_PROGRESS;
+		[window setFrame:f display:YES animate:YES];
+		[self setIsFrontMostApp:YES];
+	}
+	[progress setUsesThreadedAnimation:YES];
+	[progress startAnimation:self];
+	[progress setMaxValue:maxValue];
+	[progress setDoubleValue:value];
+	[progressText setStringValue:progressLabel];
+	[progress display];
+	[progressText display];
+}
+
+-(void)hideProgress {
+	NSRect f = [window frame];
+	if (f.size.height != WINDOW_HEIGHT_NORMAL) {
+		f.size.height = WINDOW_HEIGHT_NORMAL;
+		f.origin.y += (WINDOW_HEIGHT_PROGRESS - WINDOW_HEIGHT_NORMAL);
+		[window setFrame:f display:YES animate:YES];
+	}
+	[progress stopAnimation:self];
 }
 
 -(void)setUseEntourage:(BOOL)newState {
@@ -112,6 +146,7 @@ NSString *enotourageBundleId = @"com.microsoft.Entourage";
 }
 
 -(void)showWindow:(id)sender {
+	[self hideProgress];
 	[self setUseEntourage:NO];
 	[self checkProcesses];
 	isFrontMostApp = YES;

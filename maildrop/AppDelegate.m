@@ -37,6 +37,7 @@
 	[defaults setObject:[NSNumber numberWithBool:YES] forKey:@"SUCheckAtStartup"];
 	[defaults setObject:[NSNumber numberWithBool:YES] forKey:@"showNewCase"];
 	[defaults setObject:[NSNumber numberWithBool:YES] forKey:@"showNewEmail"];
+	[defaults setObject:[NSNumber numberWithBool:YES] forKey:@"addAttachmentsToCases"];
 	[defaults setObject:@"Subject" forKey:@"additionalField_Case"];
 	[[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }
@@ -53,6 +54,10 @@
 	[attachments release];
 	[sforce release];
 	[super dealloc];
+}
+
+- (ButtonBarController *)buttonBarController {
+	return buttonBarController;
 }
 
 - (NSArray *)emails {

@@ -80,6 +80,10 @@
 				<string>NSButton</string>
 				<key>createCaseButton</key>
 				<string>NSButton</string>
+				<key>progress</key>
+				<string>NSProgressIndicator</string>
+				<key>progressText</key>
+				<string>NSTextField</string>
 				<key>toggleButton</key>
 				<string>NSButton</string>
 				<key>window</key>

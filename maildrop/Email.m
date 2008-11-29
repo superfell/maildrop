@@ -25,6 +25,7 @@
 #import "SObjectPermsWrapper.h"
 #import "AppDelegate.h"
 #import "Attachment.h"
+#import "ButtonBarController.h"
 #import <Carbon/Carbon.h>
 
 typedef enum GrowlNotification {
@@ -87,18 +88,20 @@ typedef enum GrowlNotification {
 -(void)saveAttachmentsWithParent:(NSString *)parentId sforce:(ZKSforceClient *)sforce {
 	if ([attachments count] == 0) return;
 	if (![self checkSObjectType:@"Attachment" hasAccess:sforce]) return;
-	NSMutableArray *sobjects = [NSMutableArray arrayWithCapacity:[attachments count]];
+	AppDelegate *app = (AppDelegate *)[NSApp delegate];
 	Attachment *a;
 	NSEnumerator *e = [attachments objectEnumerator];
-	while (a = [e nextObject]) 
-		[sobjects addObject:[a makeSobjectWithParent:parentId]];
-	NSArray *sr = [sforce create:sobjects];
-	ZKSaveResult *r;
-	e = [sr objectEnumerator];
-	while (r = [e nextObject]) {
+	int progress = 1;
+	while (a = [e nextObject]) {
+		[[app buttonBarController] showProgressOf:progress max:[attachments count] + 1 withText:[NSString stringWithFormat:@"Attachment %d %@", progress, [a name]]]; 
+		ZKSObject *o = [a makeSobjectWithParent:parentId];
+		NSArray *sr = [sforce create:[NSArray arrayWithObject:o]];
+		ZKSaveResult *r = [sr objectAtIndex:0];
 		if (![r success])
 			NSLog(@"%@ %@", [r statusCode], [r message]);
+		progress++;
 	}
+	[[app buttonBarController] hideProgress];
 }
 
 - (void)createActivity:(NSScriptCommand *)cmd {
@@ -117,7 +120,7 @@ typedef enum GrowlNotification {
 	ZKSforceClient *sforce = [app sforce];
 	if (sforce == nil) return;
 	if (![self checkSObjectType:@"Case" hasAccess:sforce]) return;
-
+	BOOL addAttachments = [[NSUserDefaults standardUserDefaults] boolForKey:@"addAttachmentsToCases"];
 	// look for a matching contact
 	ZKDescribeSObject *caseDesc = [sforce describeSObject:@"Case"];
 	SObjectPermsWrapper *cse = [SObjectPermsWrapper withDescribe:caseDesc forUpdate:NO];
@@ -133,10 +136,14 @@ typedef enum GrowlNotification {
 	[cse setFieldValue:fromName field:@"SuppliedName"];
 	[cse setFieldValue:fromAddr field:@"SuppliedEmail"];
 	[cse setFieldValue:@"Email" field:@"Origin"];
+	if (addAttachments && [attachments count] > 0)
+		[[app buttonBarController] showProgressOf:0 max:1 + [attachments count] withText:[NSString stringWithFormat:@"Creating new %@", [caseDesc label]]];
+		
 	ZKSaveResult *sr = [[sforce create:[NSArray arrayWithObject:[cse sobject]]] objectAtIndex:0];
 	if ([sr success]) {
 		[self setSalesforceId:[sr id]];
-		[self saveAttachmentsWithParent:[sr id] sforce:sforce];
+		if (addAttachments)
+			[self saveAttachmentsWithParent:[sr id] sforce:sforce];
 		[self growl:CaseCreated];
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"showNewCase"])
 			[self openInSalesforce:salesforceId sobject:@"Case" sforce:sforce];

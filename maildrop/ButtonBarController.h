@@ -28,6 +28,10 @@
 	IBOutlet	NSButton		*addEmailButton;
 	IBOutlet	NSButton		*createCaseButton;
 	IBOutlet	NSButton		*toggleButton;
+	
+	IBOutlet	NSProgressIndicator	*progress;
+	IBOutlet	NSTextField			*progressText;
+	
 	BOOL						usingEntourage;
 	BOOL						isFrontMostApp;
 	NSTimer						*frontAppTimer;
@@ -40,6 +44,9 @@
 -(IBAction)createCase:(id)sender;
 -(IBAction)toggleClient:(id)sender;
 -(IBAction)showHelp:(id)sender;
+
+-(void)showProgressOf:(int)value max:(int)maxValue withText:(NSString *)progressLabel;
+-(void)hideProgress;
 
 @end
 
