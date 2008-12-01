@@ -24,6 +24,10 @@
 #import "ZKSforce.h"
 #import "ZKDescribeSObject_Additions.h"
 #import "SObjectPermsWrapper.h"
+#import "WhoWhat.h"
+#import "Attachment.h"
+
+static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 
 @interface CreateActivityController (private)
 - (void)saveCheckedWhats;
@@ -79,6 +83,39 @@
 	int sel = [whatSearchResults selectedRow];
 	if (sel < 0) return nil;
 	return [[whatResultsTableSource results] objectAtIndex:sel];
+}
+
+-(void)updateWhoWhat:(WhoWhat **)whoWhat from:(ZKSObject *)o {
+	if (o == nil) {
+		[*whoWhat release];
+		*whoWhat = nil;
+	} else {
+		if (*whoWhat == nil) 
+			*whoWhat = [[WhoWhat alloc] initWithClient:sforce];
+		[*whoWhat setSobject:o];
+	}
+}
+
+-(NSArray *)selectedWhoWhats {
+	[self updateWhoWhat:&selectedWho from:[self selectedWho]];
+	[self updateWhoWhat:&selectedWhat from:[self selectedWhat]];
+	NSMutableArray *s = [NSMutableArray arrayWithCapacity:2];
+	if (selectedWho != nil)  [s addObject:selectedWho];
+	if (selectedWhat != nil) [s addObject:selectedWhat];
+	return s;
+}
+
+// there was a selection change in one of the results tables, notifiy that this changes the selectedWhoWhats property
+-(void)tableViewSelectionDidChange:(NSNotification *)aNotification {
+	[self willChangeValueForKey:@"selectedWhoWhats"];
+	[self selectedWhoWhats];
+	[self didChangeValueForKey:@"selectedWhoWhats"];
+	Attachment *a;
+	NSEnumerator *e = [[email attachments] objectEnumerator];
+	while (a = [e nextObject]) {
+		if ([a parentWhoWhat] == nil)
+			[a setParentWhoWhat:selectedWho != nil ? selectedWho : selectedWhat];
+	}
 }
 
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo {
@@ -149,9 +186,9 @@
 	BOOL hasLeads =    [self hasEntity:@"Lead"];
 	NSMutableString *sosl = [NSMutableString stringWithFormat:@"FIND {%@} IN ALL FIELDS RETURNING ", [self escapeSosl:[self whoSearchText]]];
 	if (hasLeads)
-		[sosl appendString:@"Lead(Id, Email, FirstName, LastName)"];
+		[sosl appendFormat:@"Lead(%@)", WHO_FIELDS];
 	if (hasContacts)
-		[sosl appendFormat:@"%@Contact(Id, Email, FirstName, LastName)", hasLeads ? @", " : @""];
+		[sosl appendFormat:@"%@Contact(%@)", hasLeads ? @", " : @"", WHO_FIELDS];
 	@try {
 		NSArray *res = [sforce search:sosl];
 		[self setWhoSearchResults:res];
@@ -369,8 +406,9 @@
 	if ([sr success]) {
 		[NSApp endSheet:sheetWindow];
 		[sheetWindow orderOut:self];
-		// add info to list view
-		[n setId:[sr id]];
+		// query the record back from salesforce.com, pick up the compound name, plus anything else done server side
+		n = [[[sforce query:[NSString stringWithFormat:@"select %@ from %@ where id='%@'", WHO_FIELDS, [n type], [sr id]]] records] objectAtIndex:0];
+		// add info to list view, 
 		NSMutableArray *newList = [NSMutableArray arrayWithArray:[self whoSearchResults]];
 		[newList insertObject:n atIndex:0];
 		[self setWhoSearchResults:newList];
@@ -517,6 +555,12 @@
 	leadStatus = nil;
 	[defaultLeadStatus release];
 	defaultLeadStatus = nil;
+	[selectedWho release];
+	selectedWho = nil;
+	[selectedWhat release];
+	selectedWhat = nil;
+	[self willChangeValueForKey:@"selectedWhoWhats"];
+	[self didChangeValueForKey:@"selectedWhoWhats"];
 	[self setCreateContactAllowed:[self isCreateableObjectType:@"Contact"]];
 	[self setCreateLeadAllowed:[self isCreateableObjectType:@"Lead"]];	
 }

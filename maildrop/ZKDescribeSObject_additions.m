@@ -20,7 +20,7 @@
 //
 
 #import "ZKDescribeSObject_additions.h"
-
+#import "zkSforceClient.h"
 
 @implementation ZKSObject (KVCHelper)
 
@@ -30,6 +30,10 @@
 		return v == [NSNull null] ? nil : v;
 	}
 	return [super valueForUndefinedKey:key];
+}
+
+-(ZKDescribeSObject *)describe:(ZKSforceClient *)client {
+	return [client describeSObject:[self type]];
 }
 
 @end

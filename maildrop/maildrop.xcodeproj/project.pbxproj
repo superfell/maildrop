@@ -44,6 +44,7 @@
 		F49210760B44D0D500C5C9AB /* ZKDescribeSObject_additions.m in Sources */ = {isa = PBXBuildFile; fileRef = F49210750B44D0D500C5C9AB /* ZKDescribeSObject_additions.m */; };
 		F4921CFC0EDFA52E00E95E03 /* NSData-Base64Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F4921CFB0EDFA52E00E95E03 /* NSData-Base64Extensions.m */; };
 		F49D970E0B498F21005BF9E0 /* Maildrop help in Resources */ = {isa = PBXBuildFile; fileRef = F49D96F60B498F21005BF9E0 /* Maildrop help */; };
+		F4BF64B40EE1F3D600F52263 /* WhoWhat.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BF64B30EE1F3D600F52263 /* WhoWhat.m */; };
 		F4DBCAF70B3DC0C700D94639 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DBCAF50B3DC0C700D94639 /* LoginController.m */; };
 		F4DBCB0D0B3DC4F000D94639 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DBCB0C0B3DC4F000D94639 /* Security.framework */; };
 		F4DBCB390B3E259400D94639 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = F4DBCB380B3E259400D94639 /* Credits.html */; };
@@ -140,6 +141,8 @@
 		F4921CFA0EDFA52E00E95E03 /* NSData-Base64Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData-Base64Extensions.h"; sourceTree = "<group>"; };
 		F4921CFB0EDFA52E00E95E03 /* NSData-Base64Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData-Base64Extensions.m"; sourceTree = "<group>"; };
 		F49D96F70B498F21005BF9E0 /* English */ = {isa = PBXFileReference; lastKnownFileType = folder; name = English; path = "English.lproj/Maildrop help"; sourceTree = "<group>"; };
+		F4BF64B20EE1F3D600F52263 /* WhoWhat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoWhat.h; sourceTree = "<group>"; };
+		F4BF64B30EE1F3D600F52263 /* WhoWhat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhoWhat.m; sourceTree = "<group>"; };
 		F4DBCAF50B3DC0C700D94639 /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
 		F4DBCAF60B3DC0C700D94639 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
 		F4DBCB0C0B3DC4F000D94639 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
@@ -182,24 +185,13 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				F4921CFA0EDFA52E00E95E03 /* NSData-Base64Extensions.h */,
-				F4921CFB0EDFA52E00E95E03 /* NSData-Base64Extensions.m */,
-				F49210740B44D0D500C5C9AB /* ZKDescribeSObject_additions.h */,
-				F49210750B44D0D500C5C9AB /* ZKDescribeSObject_additions.m */,
-				F4451EF00EDBC9DA00ABBC35 /* AsItem.h */,
-				F4451EF10EDBC9DA00ABBC35 /* AsItem.m */,
-				F41B85550B3CFB5200971C0B /* Email.h */,
-				F41B85560B3CFB5200971C0B /* Email.m */,
-				F4451E350EDBAE9700ABBC35 /* Attachment.h */,
-				F4451E360EDBAE9700ABBC35 /* Attachment.m */,
+				F4BF64C60EE1FAD800F52263 /* addEmail */,
+				F4BF64C50EE1FACF00F52263 /* appleScript objects */,
+				F4BF64C40EE1FAC400F52263 /* extensions */,
 				F41B85610B3CFF0800971C0B /* AppDelegate.h */,
 				F41B85620B3CFF0800971C0B /* AppDelegate.m */,
 				F4DBCAF50B3DC0C700D94639 /* LoginController.m */,
 				F4DBCAF60B3DC0C700D94639 /* LoginController.h */,
-				F41532EA0B4227FE00E36D7B /* CreateActivityController.h */,
-				F41532EB0B4227FE00E36D7B /* CreateActivityController.m */,
-				F49210670B44CED100C5C9AB /* WhatSearchDataSource.h */,
-				F49210680B44CED100C5C9AB /* WhatSearchDataSource.m */,
 				F4F87CFA0B4E1FDF006F6B63 /* WelcomeController.h */,
 				F4F87CFB0B4E1FDF006F6B63 /* WelcomeController.m */,
 				F45994370B54A50C00EE154D /* SObjectPermsWrapper.h */,
@@ -335,6 +327,43 @@
 			name = sforce;
 			sourceTree = "<group>";
 		};
+		F4BF64C40EE1FAC400F52263 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F4921CFA0EDFA52E00E95E03 /* NSData-Base64Extensions.h */,
+				F4921CFB0EDFA52E00E95E03 /* NSData-Base64Extensions.m */,
+				F49210740B44D0D500C5C9AB /* ZKDescribeSObject_additions.h */,
+				F49210750B44D0D500C5C9AB /* ZKDescribeSObject_additions.m */,
+			);
+			name = extensions;
+			sourceTree = "<group>";
+		};
+		F4BF64C50EE1FACF00F52263 /* appleScript objects */ = {
+			isa = PBXGroup;
+			children = (
+				F4451EF00EDBC9DA00ABBC35 /* AsItem.h */,
+				F4451EF10EDBC9DA00ABBC35 /* AsItem.m */,
+				F41B85550B3CFB5200971C0B /* Email.h */,
+				F41B85560B3CFB5200971C0B /* Email.m */,
+				F4451E350EDBAE9700ABBC35 /* Attachment.h */,
+				F4451E360EDBAE9700ABBC35 /* Attachment.m */,
+			);
+			name = "appleScript objects";
+			sourceTree = "<group>";
+		};
+		F4BF64C60EE1FAD800F52263 /* addEmail */ = {
+			isa = PBXGroup;
+			children = (
+				F41532EA0B4227FE00E36D7B /* CreateActivityController.h */,
+				F41532EB0B4227FE00E36D7B /* CreateActivityController.m */,
+				F49210670B44CED100C5C9AB /* WhatSearchDataSource.h */,
+				F49210680B44CED100C5C9AB /* WhatSearchDataSource.m */,
+				F4BF64B20EE1F3D600F52263 /* WhoWhat.h */,
+				F4BF64B30EE1F3D600F52263 /* WhoWhat.m */,
+			);
+			name = addEmail;
+			sourceTree = "<group>";
+		};
 		F4DBCB040B3DC2AB00D94639 /* common */ = {
 			isa = PBXGroup;
 			children = (
@@ -448,6 +477,7 @@
 				F4451E370EDBAE9700ABBC35 /* Attachment.m in Sources */,
 				F4451EF20EDBC9DA00ABBC35 /* AsItem.m in Sources */,
 				F4921CFC0EDFA52E00E95E03 /* NSData-Base64Extensions.m in Sources */,
+				F4BF64B40EE1F3D600F52263 /* WhoWhat.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

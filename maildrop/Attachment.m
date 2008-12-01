@@ -23,26 +23,30 @@
 #import "Email.h"
 #import "zkSObject.h"
 #import "NSData-Base64Extensions.h"
+#import "WhoWhat.h"
 
 @implementation Attachment
 
 -(id)init {
 	self = [super init];
 	file = [[[NSURL URLWithString:uniqueId relativeToURL:[NSURL fileURLWithPath:NSTemporaryDirectory()]] absoluteURL] retain];
+	shouldUpload = YES;
 	return self;
 }
 
 - (void)dealloc {
 	[salesforceId release];
+	[parentId release];
+	[parentWhoWhat release];
 	[name release];
 	[mimeType release];
 	[file release];
 	[super dealloc];
 }
 
--(ZKSObject *)makeSobjectWithParent:(NSString *)parentId {
+-(ZKSObject *)makeSObject {
 	ZKSObject *a = [[ZKSObject alloc] initWithType:@"Attachment"];
-	[a setFieldValue:parentId field:@"ParentId"];
+	[a setFieldValue:[self parentId] field:@"ParentId"];
 	[a setFieldValue:name field:@"Name"];
 	[a setFieldValue:mimeType field:@"ContentType"];
 	NSData *d = [[NSData alloc] initWithContentsOfURL:file];
@@ -53,17 +57,28 @@
 
 -(void)setName:(NSString *)newName {
 	[name autorelease];
-	name = [newName retain];
+	name = [newName copy];
 }
 
 -(void)setMimeType:(NSString *)mt {
 	[mimeType autorelease];
-	mimeType = [mt retain];
+	mimeType = [mt copy];
 }
 
 -(void)setFile:(NSURL *)newFile {
 	[file autorelease];
 	file = [newFile retain];
+}
+
+-(void)setParentId:(NSString *)pid {
+	[parentId autorelease];
+	parentId = [pid copy];
+}
+
+-(void)setParentWhoWhat:(WhoWhat *)ww {
+	NSLog(@"setParentWhoWhat: %@", ww);
+	[parentWhoWhat autorelease];
+	parentWhoWhat = [ww retain];
 }
 
 -(NSString *)uniqueId {
@@ -72,6 +87,10 @@
 
 -(NSString *)salesforceId {
 	return salesforceId;
+}
+
+-(NSString *)parentId {
+	return parentId != nil ? parentId : [parentWhoWhat salesforceId];
 }
 
 -(NSString *)name {
@@ -86,8 +105,30 @@
 	return file;
 }
 
+-(WhoWhat *)parentWhoWhat {
+	return parentWhoWhat;
+}
+
+-(NSString *)formattedSize {
+	NSDictionary *p = [[NSFileManager defaultManager] fileAttributesAtPath:[[file absoluteURL] path] traverseLink:YES];
+	long sz = [[p objectForKey:NSFileSize] longValue];
+	if (sz < 1024)
+		return [NSString stringWithFormat:@"%d bytes", sz];
+	if (sz < (1024 * 1024))
+		return [NSString stringWithFormat:@"%2.1f Kb", (sz / 1024.0f)];
+	return [NSString stringWithFormat:@"%2.1f Mb", (sz / (1024.0f * 1024))];
+}
+
 -(NSString *)description {
 	return [NSString stringWithFormat:@"%@ :type %@ url %@ id %@", name, mimeType, file, uniqueId];
+}
+
+-(BOOL)shouldUpload {
+	return shouldUpload;
+}
+
+-(void)setShouldUpload:(BOOL)s {
+	shouldUpload = s;
 }
 
 @end

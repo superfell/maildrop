@@ -30,7 +30,7 @@
 	NSString	*subject;
 	NSString	*salesforceId;
 	NSDate		*date;
-	NSMutableArray *attachments;
+	NSMutableArray	*attachments;
 }
 
 - (NSString *)fromAddr;

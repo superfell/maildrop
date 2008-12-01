@@ -23,8 +23,14 @@
 #import "../sforce/ZKSObject.h"
 #import "../sforce/ZKDescribeSObject.h"
 
+@class ZKSforceClient;
+
 @interface ZKSObject (KVCHelper) 
 -(id)valueForUndefinedKey:(NSString *)key;
+@end
+
+@interface ZKSObject (Describe)
+-(ZKDescribeSObject *)describe:(ZKSforceClient *)client;
 @end
 
 @interface ZKDescribeSObject (FieldHelpers)

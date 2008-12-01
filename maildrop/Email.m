@@ -85,7 +85,7 @@ typedef enum GrowlNotification {
 	return NO;
 }
 
--(void)saveAttachmentsWithParent:(NSString *)parentId sforce:(ZKSforceClient *)sforce {
+-(void)saveAttachmentsUsingClient:(ZKSforceClient *)sforce numTotal:(int)totalAttachments  {
 	if ([attachments count] == 0) return;
 	if (![self checkSObjectType:@"Attachment" hasAccess:sforce]) return;
 	AppDelegate *app = (AppDelegate *)[NSApp delegate];
@@ -93,22 +93,53 @@ typedef enum GrowlNotification {
 	NSEnumerator *e = [attachments objectEnumerator];
 	int progress = 1;
 	while (a = [e nextObject]) {
-		[[app buttonBarController] showProgressOf:progress max:[attachments count] + 1 withText:[NSString stringWithFormat:@"Attachment %d %@", progress, [a name]]]; 
-		ZKSObject *o = [a makeSobjectWithParent:parentId];
-		NSArray *sr = [sforce create:[NSArray arrayWithObject:o]];
-		ZKSaveResult *r = [sr objectAtIndex:0];
-		if (![r success])
-			NSLog(@"%@ %@", [r statusCode], [r message]);
+		if (![a shouldUpload]) continue;
+		[[app buttonBarController] showProgressOf:progress max:totalAttachments + 1 withText:[NSString stringWithFormat:@"Attachment %d %@", progress, [a name]]]; 
+		ZKSaveResult *sr = [[sforce create:[NSArray arrayWithObject:[a makeSObject]]] objectAtIndex:0];
+		if (![sr success]) {
+			// TODO
+			NSLog(@"%@ %@", [sr statusCode], [sr message]);
+		}
 		progress++;
 	}
 	[[app buttonBarController] hideProgress];
 }
 
-- (void)createActivity:(NSScriptCommand *)cmd {
+-(int)countOfAttachmentsToUpload {
+	Attachment *a;
+	int c = 0;
+	NSEnumerator *e = [attachments objectEnumerator];
+	while ( a = [e nextObject]) 
+		if ([a shouldUpload]) c++;
+	return c;
+}
+
+-(void)setAttachmentsParentId:(NSString *)parentId onlyIfNil:(BOOL)onlyIfNil {
+	Attachment *a;
+	NSEnumerator *e = [attachments objectEnumerator];
+	while (a = [e nextObject]) {
+		if ((!onlyIfNil) || ([a parentId] == nil))
+			[a setParentId:parentId];
+	}
+}
+
+-(void)clearAttachmentUpload {
+	Attachment *a;
+	NSEnumerator *e = [attachments objectEnumerator];
+	while (a = [e nextObject])
+		[a setShouldUpload:NO];
+}
+
+-(void)createActivity:(NSScriptCommand *)cmd {
 	AppDelegate *app = (AppDelegate *)[NSApp delegate];
+	BOOL addAttachments = [[NSUserDefaults standardUserDefaults] boolForKey:@"addAttachmentsToActivities"];
+	if (!addAttachments)
+		[self clearAttachmentUpload];
 	NSString *activityId = [app createActivity:self];
+	int num = [self countOfAttachmentsToUpload];
 	if (activityId != nil) {
 		[self setSalesforceId:activityId];
+		[self saveAttachmentsUsingClient:[app sforce] numTotal:num];
 		[self growl:EmailAdded];
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"showNewEmail"])
 			[self openInSalesforce:activityId sobject:@"Task" sforce:[app sforce]];
@@ -136,14 +167,17 @@ typedef enum GrowlNotification {
 	[cse setFieldValue:fromName field:@"SuppliedName"];
 	[cse setFieldValue:fromAddr field:@"SuppliedEmail"];
 	[cse setFieldValue:@"Email" field:@"Origin"];
-	if (addAttachments && [attachments count] > 0)
-		[[app buttonBarController] showProgressOf:0 max:1 + [attachments count] withText:[NSString stringWithFormat:@"Creating new %@", [caseDesc label]]];
-		
+	int numAttatchments = addAttachments ? [self countOfAttachmentsToUpload] : 0;
+	if (numAttatchments > 0)
+		[[app buttonBarController] showProgressOf:0 max:1 + numAttatchments withText:[NSString stringWithFormat:@"Creating new %@", [caseDesc label]]];
+
 	ZKSaveResult *sr = [[sforce create:[NSArray arrayWithObject:[cse sobject]]] objectAtIndex:0];
 	if ([sr success]) {
 		[self setSalesforceId:[sr id]];
-		if (addAttachments)
-			[self saveAttachmentsWithParent:[sr id] sforce:sforce];
+		if (addAttachments) {
+			[self setAttachmentsParentId:[sr id] onlyIfNil:NO];
+			[self saveAttachmentsUsingClient:sforce numTotal:numAttatchments];
+		}
 		[self growl:CaseCreated];
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"showNewCase"])
 			[self openInSalesforce:salesforceId sobject:@"Case" sforce:sforce];
@@ -323,4 +357,5 @@ typedef enum GrowlNotification {
 	date = [aValue retain];
 	[oldDate release];
 }
+
 @end

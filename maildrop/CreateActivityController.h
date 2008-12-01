@@ -25,6 +25,7 @@
 @class ZKSforceClient;
 @class Email;
 @class ZKSObject;
+@class WhoWhat;
 
 @interface CreateActivityController : NSObject
 {
@@ -46,6 +47,9 @@
 	NSArray					*whoSearchResults;
 	WhatSearchDataSource	*whatResultsTableSource;
 
+	WhoWhat					*selectedWho;
+	WhoWhat					*selectedWhat;
+	
 	NSString 				*whoSearchText;
 	NSString				*whatSearchText;
 	Email					*email;
@@ -85,6 +89,7 @@
 - (Email *)email;
 - (void)setEmail:(Email *)aValue;
 - (NSArray *)whatObjectTypeDescribes;
+- (NSArray *)selectedWhoWhats;
 
 - (BOOL)createContactAllowed;
 - (void)setCreateContactAllowed:(BOOL)newCreateContactAllowed;

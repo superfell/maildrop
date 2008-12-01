@@ -38,6 +38,7 @@
 	[defaults setObject:[NSNumber numberWithBool:YES] forKey:@"showNewCase"];
 	[defaults setObject:[NSNumber numberWithBool:YES] forKey:@"showNewEmail"];
 	[defaults setObject:[NSNumber numberWithBool:YES] forKey:@"addAttachmentsToCases"];
+	[defaults setObject:[NSNumber numberWithBool:YES] forKey:@"addAttachmentsToActivities"];
 	[defaults setObject:@"Subject" forKey:@"additionalField_Case"];
 	[[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }
