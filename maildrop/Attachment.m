@@ -35,6 +35,7 @@
 }
 
 - (void)dealloc {
+	[[NSFileManager defaultManager] removeFileAtPath:[[file absoluteURL] path] handler:nil];
 	[salesforceId release];
 	[parentId release];
 	[parentWhoWhat release];
@@ -76,7 +77,6 @@
 }
 
 -(void)setParentWhoWhat:(WhoWhat *)ww {
-	NSLog(@"setParentWhoWhat: %@", ww);
 	[parentWhoWhat autorelease];
 	parentWhoWhat = [ww retain];
 }

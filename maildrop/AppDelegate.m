@@ -76,7 +76,13 @@
 }
 
 - (void)removeObjectFromEmailsAtIndex:(unsigned int)index {
+	// there's a retain count because any attachments in the email retained their container
+	// which is the email, so this doesn't actually free the email.
+	// To Work around it, we explicity release the attachments of the email here to break
+	// the cycle.
+	Email *e = [emails objectAtIndex:index];
 	[emails removeObjectAtIndex:index];
+	[e setAttachments:nil];
 }
 
 - (NSArray *)attachments {

@@ -109,7 +109,7 @@
 			<property name="salesforce id" code="sfID" description="Salesforce Id" type="text" access="r">
 				<cocoa key="salesforceId"/>
 			</property>
-			<property name="file" code="fiLE" description="The file that contains the actual attachment data." type="file">
+			<property name="file" code="atFL" description="The file that contains the actual attachment data." type="file">
 				<cocoa key="file"/>
 			</property>
 		</class>
