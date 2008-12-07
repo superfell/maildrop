@@ -1,0 +1,82 @@
+<!-- This Apple Help template put together by Andy Matuschak
+	http://www.andymatuschak.org
+	andy@andymatuschak.org
+	Version 1.0
+	
+	Adapted from the Safari help book--thanks, Apple!
+	Adapted more directly from Pixen's help book.
+	Licensed under MIT. -->
+	
+<!-- This page differs from the basicPageTemplate in that it gives step-by-step
+	instructions on how to complete a given task. These are great for the users,
+	especially if the steps are presented in a bite-sized fashion. Try to use
+	these more than the basic template. -->
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/sgml/loosedtd.html">
+<html>
+	<head>
+		<title>Login to Salesforce.com</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="keywords" content="Login, Token, Username, Password, Server">
+		<meta name="description" content="Learn how to login to Salesforce.com from Maildrop">
+		<link media="all" rel="stylesheet" href="../css/topicPage.css" />
+	</head>
+	<body>
+		<div id="banner">
+			<div id="machelp">
+				<a name="Login"></a>
+				<!-- Specify a category in the anchor above; then you can
+					link to listings of every topic in a given category. -->
+				<a class="bread" href="help:anchor='access' bookID=Maildrop Help">Maildrop Help</a>
+				<!-- The above links back to the index page -->
+			</div>
+			<div id="index">
+				<a class="leftborder" href="../index.html">Index</a>
+			</div>
+		</div>
+		<div id="mainbox">
+			<div id="caticon">
+				<img class="icon" src="../gfx/icon.png" alt="Maildrop Icon" />
+			</div>
+			<div id="pagetitle">
+				<h1>Login to Salesforce.com</h1>
+			</div>
+			<div summary="Logging in to your Salesforce.com account" id="taskbox">
+				<p>The first time you add a email to Salesforce, or if you pick Login from the Maildrop menu, you'll be promoted to login to your Salesforce.com account</p>
+				<p><img src="../gfx/login.png" alt="the login window" class="taskimg"/></p>
+				<p>Enter your usename and password into the boxes, If your Salesforce.com administrator hasn't set any trusted IP ranges, then you may need to enter
+				your API Security token as well. If you don't know your API Security Token, login to the regular web application, goto Setup -> My Personal Setup -> Reset My Security Token
+				from that page you can reset your token and have a new one emailed to you. Enter your token after your password, e.g. if your password is fred and your security token is abc123
+				you'd enter fredabc123 in the password field. For more information see the "Identity Confirmation" topic in the Salesforce.com help.</p>
+				<br>
+				<p>For the vast majority of users, you can leave the server on the default of https://www.salesforce.com. If you wish to use Maildrop with a Sandbox account,
+				then pick https://test.salesforce.com from the server drop down.</p>
+				<br>
+				<p><b>Warning:</b> Do not add https://login.salesforce.com as a server, this is only used for interactive browser logins, and is not used by the API.</p>
+				<br>
+				<p>If you want to use Maildrop with other Salesforce.com environments, such as pre-release, then you can click the + button to add a new server.</p>
+				<br><br>
+				<h2>Common Login Errors</h2>
+				<p><b>INVALID_LOGIN: Invalid username, password, security token; or user locked out.</b><br>
+				<ul>
+					<li>Did you enter the right username? for Sandbox logins remember to change the server to https://test.salesforce.com, and remember by default the sandbox name gets added to your username.
+					<Li>Have you tried to login a number of times and they all failed? perhaps you've locked out your account (contact your Salesforce.com administrator).
+					<li>Did you pick the right Server? for the vast majority of users, the default server of https://www.salesforce.com is the correct choice.
+					<li>Did you change your security token? perhaps the security token you're trying to use is no longer the valid one.
+				</ul>
+				</p>
+				<p><b>LOGIN_MUST_USE_SECURITY_TOKEN: Invalid username, password, security token; or user locked out....</b><br>
+					To login from this IP Address, you need to supply your API Security Token, as well as your password.
+					When accessing Salesforce--either via a desktop client or the API--from outside of your company’s trusted networks, you must add a security token to your password to log in. 
+					To receive a new security token, log in to Salesforce at http://www.salesforce.com and click Setup -> My Personal Information -> Reset Security Token.
+				</p>
+			</div>
+			
+				<h2 class="seealso">See also</h2>
+				<p class="seealso">
+					<a href="mail.activity.html">Mail - Add an Email</a><br>
+					<a href="entourage.activity.html">Entourage - Add an Email</a><br>
+				</p>
+			</div>
+		</body>
+		</html>
