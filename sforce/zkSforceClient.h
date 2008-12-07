@@ -38,6 +38,7 @@
 	ZKUserInfo	*userInfo;
 	BOOL		cacheDescribes;
 	NSMutableDictionary	*describes;
+	NSArray				*cachedTypes;
 }
 
 // configuration

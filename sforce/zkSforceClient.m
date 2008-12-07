@@ -58,6 +58,7 @@ static const int SAVE_BATCH_SIZE = 25;
 	[sessionExpiresAt release];
 	[userInfo release];
 	[describes release];
+	[cachedTypes release];
 	[super dealloc];
 }
 
@@ -95,8 +96,10 @@ static const int SAVE_BATCH_SIZE = 25;
 }
 
 - (void)flushCachedDescribes {
-	[describes release];
+	[describes autorelease];
+	[cachedTypes autorelease];
 	describes = nil;
+	cachedTypes = nil;
 	if (cacheDescribes)
 		describes = [[NSMutableDictionary alloc] init];
 }
@@ -126,6 +129,7 @@ static const int SAVE_BATCH_SIZE = 25;
 	[sessionId release];
 	[endpointUrl release];
 	endpointUrl = [authEndpointUrl copy];
+	[self flushCachedDescribes];
 
 	ZKEnvelope *env = [[ZKPartnerEnvelope alloc] initWithSessionHeader:nil clientId:clientId];
 	[env startElement:@"login"];
@@ -186,7 +190,9 @@ static const int SAVE_BATCH_SIZE = 25;
 - (NSArray *)describeGlobal {
 	if(!sessionId) return NULL;
 	[self checkSession];
-	
+	if (cachedTypes != nil)
+		return [[cachedTypes retain] autorelease];
+		
 	ZKEnvelope * env = [[ZKPartnerEnvelope alloc] initWithSessionHeader:sessionId clientId:clientId];
 	[env startElement:@"describeGlobal"];
 	[env endElement:@"describeGlobal"];
@@ -201,6 +207,9 @@ static const int SAVE_BATCH_SIZE = 25;
 		[types addObject:[rr stringValue]];
 	}
 	[env release];
+	if (cacheDescribes && cachedTypes == nil)
+		cachedTypes = [types retain];
+		
 	return types;
 }
 
