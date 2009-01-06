@@ -158,10 +158,20 @@ static const float WINDOW_HEIGHT_PROGRESS = 140.0f;
 -(void)executeAppleScript:(NSString *)resourceName {
 	NSString *folder = usingEntourage ? ENTOURAGE_SCRIPTS_FOLDER : MAIL_SCRIPTS_FOLDER;
 	NSString *scriptFile = [[NSBundle mainBundle] pathForResource:resourceName ofType:@"scpt" inDirectory:folder];
+	NSLog(@"scriptFile is %@", scriptFile);
+
 	NSDictionary *err = nil;
 	NSAppleScript *script = [[[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:scriptFile] error:&err] autorelease];
-	[script executeAndReturnError:&err];
-	
+	// force recompile to fix stupid 10.4 problems
+	NSAppleScript *s2 = [[[NSAppleScript alloc] initWithSource:[script source]] autorelease];
+	if (![s2 compileAndReturnError:&err]) {
+		NSLog(@"error recompiling apple script (%@) : %@", scriptFile, err);
+	} else {
+		script = s2;
+	}
+	if ([script executeAndReturnError:&err] == nil) {
+		NSLog(@"script error during executuion (%@) %@", scriptFile, err);
+	}
 }
 
 -(IBAction)addEmail:(id)sender {
