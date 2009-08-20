@@ -52,9 +52,20 @@
 	return isupdate ? [f updateable] : [f createable];
 }
 
+-(NSString *)cleanValue:(NSString *)s {
+	if (s == nil) return nil;
+	NSMutableString *c = [NSMutableString stringWithString:s];
+	for (int i = 0; i < [c length]; i++) {
+		unichar x = [c characterAtIndex:i];
+		if (x < 32 && (x != 9) && (x != 0x0A) && (x != 0x0D))
+			[c replaceCharactersInRange:NSMakeRange(i,1) withString:@" "];
+	}
+	return c;
+}
+
 - (BOOL)setFieldValue:(NSString *)val field:(NSString *)field {
 	if ([self hasAccess:field]) {
-		[sobject setFieldValue:val field:field];
+		[sobject setFieldValue:[self cleanValue:val] field:field];
 		return YES;
 	}
 	return NO;
