@@ -594,4 +594,14 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	[oldEmail release];
 }
 
+static const float MIN_PANE_SIZE = 70.0f;
+
+- (CGFloat)splitView:(NSSplitView *)sender constrainMinCoordinate:(CGFloat)proposedMin ofSubviewAt:(NSInteger)offset {
+	return proposedMin + (offset == 1 ? MIN_PANE_SIZE : MIN_PANE_SIZE *2);
+}
+
+- (CGFloat)splitView:(NSSplitView *)sender constrainMaxCoordinate:(CGFloat)proposedMax ofSubviewAt:(NSInteger)offset {
+	return proposedMax - (offset == 1 ? MIN_PANE_SIZE : MIN_PANE_SIZE *2);
+}
+
 @end
