@@ -17,7 +17,11 @@
 			<dict>
 				<key>addNewServer</key>
 				<string>id</string>
+				<key>cancelChangePassword</key>
+				<string>id</string>
 				<key>cancelLogin</key>
+				<string>id</string>
+				<key>changePassword</key>
 				<string>id</string>
 				<key>closeAddNewServer</key>
 				<string>id</string>
@@ -43,6 +47,8 @@
 				<key>loginProgress</key>
 				<string>NSProgressIndicator</string>
 				<key>newUrlWindow</key>
+				<string>NSWindow</string>
+				<key>passwordExpiredWindow</key>
 				<string>NSWindow</string>
 				<key>target</key>
 				<string>id</string>

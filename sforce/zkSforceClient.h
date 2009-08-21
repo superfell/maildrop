@@ -26,6 +26,7 @@
 @class ZKUserInfo;
 @class ZKDescribeSObject;
 @class ZKQueryResult;
+@class ZKLoginResult;
 
 @interface ZKSforceClient : ZKBaseClient <NSCopying> {
 	NSString	*authEndpointUrl;
@@ -46,7 +47,7 @@
 - (void)setLoginProtocolAndHost:(NSString *)protocolAndHost andVersion:(int)version;
 
 // all map directly to Sforce API calls
-- (void)login:(NSString *)username password:(NSString *)password;
+- (ZKLoginResult *)login:(NSString *)username password:(NSString *)password;
 - (NSArray *)describeGlobal;
 - (ZKDescribeSObject *)describeSObject:(NSString *)sobjectName;
 - (NSArray *)search:(NSString *)sosl;
@@ -58,6 +59,7 @@
 - (NSArray *)update:(NSArray *)objects;
 - (NSArray *)delete:(NSArray *)ids;
 - (NSString *)serverTimestamp;
+- (void)setPassword:(NSString *)newPassword forUserId:(NSString *)userId;
 
 // status info
 - (BOOL)loggedIn;

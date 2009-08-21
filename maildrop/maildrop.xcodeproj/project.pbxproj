@@ -29,6 +29,7 @@
 		F44421E00B5351A0002AB629 /* maildropGrowl.scpt in Resources */ = {isa = PBXBuildFile; fileRef = F44421DF0B5351A0002AB629 /* maildropGrowl.scpt */; };
 		F4451E370EDBAE9700ABBC35 /* Attachment.m in Sources */ = {isa = PBXBuildFile; fileRef = F4451E360EDBAE9700ABBC35 /* Attachment.m */; };
 		F4451EF20EDBC9DA00ABBC35 /* AsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F4451EF10EDBC9DA00ABBC35 /* AsItem.m */; };
+		F44BF839103D0E5300B114E3 /* zkLoginResult.m in Sources */ = {isa = PBXBuildFile; fileRef = F44BF837103D0E5300B114E3 /* zkLoginResult.m */; };
 		F450990D0B51A969007D82E9 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F450990C0B51A969007D82E9 /* Sparkle.framework */; };
 		F45099260B51A993007D82E9 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F450990C0B51A969007D82E9 /* Sparkle.framework */; };
 		F459943A0B54A50D00EE154D /* SObjectPermsWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F45994380B54A50D00EE154D /* SObjectPermsWrapper.m */; };
@@ -121,6 +122,8 @@
 		F4451E360EDBAE9700ABBC35 /* Attachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attachment.m; sourceTree = "<group>"; };
 		F4451EF00EDBC9DA00ABBC35 /* AsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsItem.h; sourceTree = "<group>"; };
 		F4451EF10EDBC9DA00ABBC35 /* AsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsItem.m; sourceTree = "<group>"; };
+		F44BF837103D0E5300B114E3 /* zkLoginResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = zkLoginResult.m; path = ../sforce/zkLoginResult.m; sourceTree = SOURCE_ROOT; };
+		F44BF838103D0E5300B114E3 /* zkLoginResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zkLoginResult.h; path = ../sforce/zkLoginResult.h; sourceTree = SOURCE_ROOT; };
 		F450990C0B51A969007D82E9 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		F45994370B54A50C00EE154D /* SObjectPermsWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SObjectPermsWrapper.h; sourceTree = "<group>"; };
 		F45994380B54A50D00EE154D /* SObjectPermsWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SObjectPermsWrapper.m; sourceTree = "<group>"; };
@@ -323,6 +326,8 @@
 				F4329C3C0B3DA4A9003AB463 /* zkUserInfo.m */,
 				F4329C3D0B3DA4A9003AB463 /* zkXmlDeserializer.h */,
 				F4329C3E0B3DA4A9003AB463 /* zkXmlDeserializer.m */,
+				F44BF837103D0E5300B114E3 /* zkLoginResult.m */,
+				F44BF838103D0E5300B114E3 /* zkLoginResult.h */,
 			);
 			name = sforce;
 			sourceTree = "<group>";
@@ -478,6 +483,7 @@
 				F4451EF20EDBC9DA00ABBC35 /* AsItem.m in Sources */,
 				F4921CFC0EDFA52E00E95E03 /* NSData-Base64Extensions.m in Sources */,
 				F4BF64B40EE1F3D600F52263 /* WhoWhat.m in Sources */,
+				F44BF839103D0E5300B114E3 /* zkLoginResult.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

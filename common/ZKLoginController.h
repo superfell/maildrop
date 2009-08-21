@@ -26,6 +26,7 @@
 @class Credential;
 @class ZKSforceClient;
 @class ZKSoapException;
+@class ZKLoginResult;
 
 @interface ZKLoginController : NSObject {
 	NSString 		*username;
@@ -45,6 +46,7 @@
 	IBOutlet NSButton 	*addButton;
 	IBOutlet NSButton	*delButton;
 	IBOutlet NSWindow	*newUrlWindow;
+	IBOutlet NSWindow	*passwordExpiredWindow;
 	IBOutlet NSProgressIndicator *loginProgress;
 }
 
@@ -58,6 +60,9 @@
 - (IBAction)closeAddNewServer:(id)sender;
 - (IBAction)addNewServer:(id)sender;
 - (IBAction)deleteServer:(id)sender;
+
+- (IBAction)cancelChangePassword:(id)sender;
+- (IBAction)changePassword:(id)sender;
 
 - (NSString *)username;
 - (void)setUsername:(NSString *)aUsername;
@@ -74,7 +79,7 @@
 - (NSString *)clientId;
 - (void)setClientId:(NSString *)aClientId;
 - (void)setClientIdFromInfoPlist;
-- (ZKSforceClient *)performLogin:(ZKSoapException **)error;
+- (ZKSforceClient *)performLogin:(ZKSoapException **)error loginResult:(ZKLoginResult **)result;
 
 -(IBAction)showLoginHelp:(id)sender;
 -(BOOL)hasLoginHelp;

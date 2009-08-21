@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2008 Simon Fell
+// Copyright (c) 2006-2009 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -23,6 +23,7 @@
 #import "credential.h"
 #import "zkSforceClient.h"
 #import "zkSoapException.h"
+#import "zkLoginResult.h"
 
 @implementation ZKLoginController
 
@@ -121,13 +122,18 @@ static NSString *test = @"https://test.salesforce.com";
 	return ([server caseInsensitiveCompare:prod] != NSOrderedSame) && ([server caseInsensitiveCompare:test] != NSOrderedSame);
 }
 
-- (IBAction)showAddNewServer:(id)sender {
-	[self setNewUrl:@"https://"];
+// this will show a new window, handling the fact that the original login window may of been a stand alone window, or already be a sheet.
+- (void)showNewWindow:(NSWindow *)newWindowToShow {
 	if (modalWindow != nil) {
 		[NSApp endSheet:window];
-		[window orderOut:sender];
+		[window orderOut:self];
 	}
-	[NSApp beginSheet:newUrlWindow modalForWindow:modalWindow == nil ? window : modalWindow modalDelegate:self didEndSelector:@selector(restoreLoginWindow:returnCode:contextInfo:) contextInfo:nil];	
+	[NSApp beginSheet:newWindowToShow modalForWindow:modalWindow == nil ? window : modalWindow modalDelegate:self didEndSelector:@selector(restoreLoginWindow:returnCode:contextInfo:) contextInfo:nil];	
+}
+
+- (IBAction)showAddNewServer:(id)sender {
+	[self setNewUrl:@"https://"];
+	[self showNewWindow:newUrlWindow];
 }
 
 - (IBAction)closeAddNewServer:(id)sender {
@@ -239,14 +245,15 @@ static NSString *test = @"https://test.salesforce.com";
 				contextInfo:nil];
 }
 
-- (ZKSforceClient *)performLogin:(ZKSoapException **)error {
+- (ZKSforceClient *)performLogin:(ZKSoapException **)error loginResult:(ZKLoginResult **)loginResult {
 	[sforce release];
 	sforce = [[ZKSforceClient alloc] init];
 	[sforce setLoginProtocolAndHost:server];	
+	*loginResult = nil;
 	if ([clientId length] > 0)
 		[sforce setClientId:clientId];
 	@try {
-		[sforce login:username password:password];
+		*loginResult = [sforce login:username password:password];
 		[[NSUserDefaults standardUserDefaults] setObject:server forKey:@"server"];
 		[[NSUserDefaults standardUserDefaults] setObject:username forKey:login_lastUsernameKey];
 	}
@@ -283,18 +290,44 @@ static NSString *test = @"https://test.salesforce.com";
 		contextInfo:nil];	
 }
 
+
+- (void)promptPasswordExpired {
+	[self showNewWindow:passwordExpiredWindow];
+}
+
+- (IBAction)cancelChangePassword:(id)sender {
+	[self setStatusText:@""];
+	[NSApp endSheet:passwordExpiredWindow];	
+	[passwordExpiredWindow orderOut:sender];
+}
+
+- (IBAction)changePassword:(id)sender {
+	@try {
+		[sforce setPassword:[self password] forUserId:[[sforce currentUserInfo] userId]];
+		[self cancelChangePassword:sender];
+	} 
+	@catch (ZKSoapException *ex) {
+		[self setStatusText:[ex reason]];
+	}
+}
+
 - (IBAction)login:(id)sender {
 	[self setStatusText:nil];
 	[loginProgress setHidden:NO];
 	[loginProgress display];
 	@try {
 		ZKSoapException *ex = nil;
-		[self performLogin:&ex];
+		ZKLoginResult *lr = nil;
+		[self performLogin:&ex loginResult:&lr];
 		if (ex != nil) {
 			[self setStatusText:[ex reason]];
 			[self showException:ex];
 			return;
 		} 
+		if ([lr passwordExpired]) {
+			[self promptPasswordExpired];
+			return;
+		}
 		if (selectedCredential == nil || (![[[selectedCredential username] lowercaseString] isEqualToString:[username lowercaseString]])) {
 			[self promptAndAddToKeychain];
 			return;
