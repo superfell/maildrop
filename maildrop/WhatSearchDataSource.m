@@ -83,7 +83,7 @@
 	ZKSObject *r = [results objectAtIndex:rowIdx];
 	NSString *ident = [tc identifier];
 	if ([ident isEqualToString:@"type"]) {
-		return [[sforce describeSObject:[r type]] label];
+		return [[sforce describeGlobalFor:[r type]] label];
 	} else if ([ident isEqualToString:@"name"]) {
 		return [self nameValueForRow:r];
 	} else if ([ident isEqualToString:@"id"]) {

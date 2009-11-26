@@ -190,6 +190,8 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	@try {
 		NSArray *res = [sforce search:sosl];
 		[self setWhoSearchResults:res];
+		if ([res count] == 1)
+			[whoSearchController setSelectionIndex:0];
 	}
 	@catch (ZKSoapException *ex) {
 		NSAlert * a = [NSAlert alertWithMessageText:@"Search Failed" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[ex reason]];
@@ -235,6 +237,8 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	@try {
 		NSArray *res = [sforce search:sosl];
 		[self setWhatSearchResultsData:res];
+		if ([res count] == 1)
+			[whatSearchResults selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
 	}
 	@catch (ZKSoapException *ex) {
 		NSAlert * a = [NSAlert alertWithMessageText:@"Search Failed" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[ex reason]];
