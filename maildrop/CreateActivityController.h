@@ -40,7 +40,6 @@
 	
 	ZKSforceClient			*sforce;
 	NSArray					*whatObjectTypes;
-	NSArray					*availableEntities;
 	NSString				*closedTaskStatus;
 	NSArray					*leadStatus;
 	NSString				*defaultLeadStatus;

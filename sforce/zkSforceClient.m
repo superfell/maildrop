@@ -29,6 +29,7 @@
 #import "zkUserInfo.h"
 #import "zkDescribeSObject.h"
 #import "zkLoginResult.h"
+#import "zkDescribeGlobalSObject.h"
 
 static const int MAX_SESSION_AGE = 25 * 60; // 25 minutes
 static const int SAVE_BATCH_SIZE = 25;
@@ -107,7 +108,7 @@ static const int SAVE_BATCH_SIZE = 25;
 }
 
 - (void)setLoginProtocolAndHost:(NSString *)protocolAndHost {
-	[self setLoginProtocolAndHost:protocolAndHost andVersion:15];
+	[self setLoginProtocolAndHost:protocolAndHost andVersion:17];
 }
 
 - (void)setLoginProtocolAndHost:(NSString *)protocolAndHost andVersion:(int)version {
@@ -213,16 +214,26 @@ static const int SAVE_BATCH_SIZE = 25;
 	NSError * err = NULL;
 	NSXMLNode * rr = [self sendRequest:[env end]];
 	NSMutableArray *types = [NSMutableArray array]; 
-	NSArray * results = [rr nodesForXPath:@"result/types" error:&err];
+	NSArray * results = [rr nodesForXPath:@"result/sobjects" error:&err];
 	NSEnumerator * e = [results objectEnumerator];
 	while (rr = [e nextObject]) {
-		[types addObject:[rr stringValue]];
+		ZKDescribeGlobalSObject * d = [[ZKDescribeGlobalSObject alloc] initWithXmlElement:(NSXMLElement*)rr];
+		[types addObject:d];
+		[d release];
 	}
 	[env release];
 	if (cacheDescribes && cachedTypes == nil)
 		cachedTypes = [types retain];
 		
 	return types;
+}
+
+- (ZKDescribeGlobalSObject *)describeGlobalFor:(NSString *)sobjectName {
+	for (ZKDescribeGlobalSObject *d in [self describeGlobal]) {
+		if ([[d name] caseInsensitiveCompare:sobjectName] == NSOrderedSame)
+			return [[d retain] autorelease];
+	}
+	return nil;
 }
 
 - (ZKDescribeSObject *)describeSObject:(NSString *)sobjectName {

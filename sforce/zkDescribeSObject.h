@@ -22,6 +22,7 @@
 #import <Cocoa/Cocoa.h>
 #import "zkXmlDeserializer.h"
 #import "zkDescribeField.h"
+#import "zkDescribeGlobalSObject.h"
 
 /*
 <element name="activateable"   		type="xsd:boolean"/>
@@ -49,30 +50,13 @@
 <element name="urlNew"         		type="xsd:string" nillable="true"/>
  */
  
-@interface ZKDescribeSObject : ZKXmlDeserializer {
+@interface ZKDescribeSObject : ZKDescribeGlobalSObject {
 	NSArray			*fields;
 	NSDictionary	*fieldsByName;
 	NSArray			*childRelationships;
 	NSArray 		*recordTypeInfos;
 }
 
--(BOOL)activateable;
--(BOOL)createable;
--(BOOL)custom;
--(BOOL)deletable;
--(BOOL)layoutable;
--(BOOL)mergeable;
--(BOOL)queryable;
--(BOOL)replicateable;
--(BOOL)retrieveable;
--(BOOL)searchable;
--(BOOL)triggerable;
--(BOOL)undeleteable;
--(BOOL)updateable;
--(NSString *)keyPrefix;
--(NSString *)label;
--(NSString *)labelPlural;
--(NSString *)name;
 -(NSString *)urlDetail;
 -(NSString *)urlEdit;
 -(NSString *)urlNew;

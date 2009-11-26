@@ -24,6 +24,7 @@
 #import "zkBaseClient.h"
 
 @class ZKUserInfo;
+@class ZKDescribeGlobalSObject;
 @class ZKDescribeSObject;
 @class ZKQueryResult;
 @class ZKLoginResult;
@@ -49,6 +50,8 @@
 // all map directly to Sforce API calls
 - (ZKLoginResult *)login:(NSString *)username password:(NSString *)password;
 - (NSArray *)describeGlobal;
+// does a describeGlobal, and returns this object if its in the list, or nil if it doesn't
+- (ZKDescribeGlobalSObject *)describeGlobalFor:(NSString *)sobjectName;	
 - (ZKDescribeSObject *)describeSObject:(NSString *)sobjectName;
 - (NSArray *)search:(NSString *)sosl;
 - (ZKQueryResult *)query:(NSString *)soql;

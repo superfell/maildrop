@@ -22,6 +22,7 @@
 #import "Email.h"
 #import "ZKSforceClient.h"
 #import "ZKSObject.h"
+#import "zkDescribeGlobalSObject.h"
 #import "SObjectPermsWrapper.h"
 #import "AppDelegate.h"
 #import "Attachment.h"
@@ -74,11 +75,10 @@ typedef enum GrowlNotification {
 
 -(BOOL)checkSObjectType:(NSString *)sobjectType hasAccess:(ZKSforceClient *)sforce {
 	if (sforce == nil) return NO;
-	NSArray *types = [sforce describeGlobal];
-	BOOL acc = [types containsObject:sobjectType];
-	BOOL creatable = acc && [[sforce describeSObject:sobjectType] createable];
-	if (creatable) return YES;
-	NSString *endUserType = acc ? [[sforce describeSObject:sobjectType] labelPlural] : [NSString stringWithFormat:@"%@s", sobjectType];
+	ZKDescribeGlobalSObject *desc = [sforce describeGlobalFor:sobjectType];
+	if ([desc createable]) return YES;
+			
+	NSString *endUserType = desc != nil ? [desc labelPlural] : [NSString stringWithFormat:@"%@s", sobjectType];
 	NSAlert * a = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"No Access to create %@", endUserType] defaultButton:@"OK" alternateButton:nil otherButton:nil 
 						informativeTextWithFormat:@"Your login does not have the create %@ access, please contact your Salesforce.com administrator", endUserType];
 	[a runModal];
@@ -155,8 +155,7 @@ typedef enum GrowlNotification {
 	// look for a matching contact
 	ZKDescribeSObject *caseDesc = [sforce describeSObject:@"Case"];
 	SObjectPermsWrapper *cse = [SObjectPermsWrapper withDescribe:caseDesc forUpdate:NO];
-	NSArray *types = [sforce describeGlobal];
-	if ([types containsObject:@"Contact"] && [[caseDesc fieldWithName:@"ContactId"] createable]) {
+	if (([sforce describeGlobalFor:@"Contact"] != nil) && [[caseDesc fieldWithName:@"ContactId"] createable]) {
 		ZKQueryResult *qr = [sforce query:[NSString stringWithFormat:@"select id from contact where email='%@'", [self escapeForSoql:fromAddr]]];
 		if ([qr size] == 1)
 			[cse setFieldValue:[[[qr records] objectAtIndex:0] fieldValue:@"Id"] field:@"ContactId"];

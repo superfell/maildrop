@@ -22,6 +22,7 @@
 #import "CreateActivityController.h"
 #import "Email.h"
 #import "ZKSforce.h"
+#import "zkDescribeGlobalSObject.h"
 #import "ZKDescribeSObject_Additions.h"
 #import "SObjectPermsWrapper.h"
 #import "WhoWhat.h"
@@ -55,7 +56,6 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	[whatSearchText release];
 	[whoSearchResults release];
 	[whatResultsTableSource release];
-	[availableEntities release];
 	[super dealloc];
 }
 
@@ -68,9 +68,7 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 }
 
 - (BOOL)hasEntity:(NSString *)entity {
-	if (availableEntities == nil)
-		availableEntities = [[sforce describeGlobal] retain];
-	return [availableEntities containsObject:entity];
+	return [sforce describeGlobalFor:entity] != nil;
 }
 
 - (ZKSObject *)selectedWho {
@@ -549,8 +547,6 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	whatObjectTypes = nil;
 	[closedTaskStatus release];
 	closedTaskStatus = nil;
-	[availableEntities release];
-	availableEntities = nil;
 	[leadStatus release];
 	leadStatus = nil;
 	[defaultLeadStatus release];
