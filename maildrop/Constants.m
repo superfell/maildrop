@@ -1,4 +1,4 @@
-// Copyright (c) 2008 Simon Fell
+// Copyright (c) 2008-2009 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -26,3 +26,10 @@ NSString *ADD_EMAIL_SCRIPT_NAME			= @"Add Email to Salesforce.com";
 NSString *ADD_CASE_SCRIPT_NAME			= @"Create Case In Salesforce.com";
 NSString *MAIL_SCRIPTS_FOLDER			= @"mail scripts";
 NSString *ENTOURAGE_SCRIPTS_FOLDER		= @"entourage scripts";
+
+
+NSString *ADD_EMAIL_TO_DESC_PREF		= @"addEmailToTaskDescription";
+NSString *SHOW_NEW_CASE_PREF			= @"showNewCase";
+NSString *SHOW_NEW_EMAIL_PREF			= @"showNewEmail";
+NSString *ATTACHMENTS_ON_CASES_PREF		= @"addAttachmentsToCases";
+NSString *ATTACHMENTS_ON_EMAIL_PREF		= @"addAttachmentsToActivities";

@@ -26,33 +26,24 @@
 
 @interface Email : AsItem {
 	NSString 	*fromAddr, *toAddr, *body;
-	NSString	*fromName;
+	NSString	*fromName, *toName;
 	NSString	*subject;
 	NSString	*salesforceId;
 	NSDate		*date;
+	BOOL		isASentEmail;
 	NSMutableArray	*attachments;
 }
 
-- (NSString *)fromAddr;
-- (void)setFromAddr:(NSString *)aFrom;
+@property (copy) NSString *fromAddr;
+@property (copy) NSString *fromName;
+@property (copy) NSString *toAddr;
+@property (copy) NSString *toName;
+@property (copy) NSString *subject;
+@property (copy) NSString *body;
+@property (copy) NSDate   *date;
+@property BOOL	isASentEmail;
 
-- (NSString *)fromName;
-- (void)setFromName:(NSString *)aFromName;
-
-- (NSString *)toAddr;
-- (void)setToAddr:(NSString *)aTo;
-
-- (NSString *)subject;
-- (void)setSubject:(NSString *)aSubject;
-
-- (NSString *)body;
-- (void)setBody:(NSString *)aBody;
-
-- (NSDate *)date;
-- (void)setDate:(NSDate *)newDate;
-
-- (NSString *)salesforceId;
-- (void)setSalesforceId:(NSString *)aSalesforceId;
+@property (copy) NSString *salesforceId;
 
 - (NSArray *)attachments;
 - (void)setAttachments:(NSArray *)atts;
@@ -62,5 +53,9 @@
 
 - (void)createActivity:(NSScriptCommand *)cmd;
 - (void)createCase:(NSScriptCommand *)cmd;
+
+// returns the name/email of interest, i.e. the sender in an inbound email, and the recipient in a outbound email.
+- (NSString *)addrOfInterest;
+- (NSString *)nameOfInterest;
 
 @end

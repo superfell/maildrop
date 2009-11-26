@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2008 Simon Fell
+// Copyright (c) 2006-2009 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -27,6 +27,7 @@
 #import "AppDelegate.h"
 #import "Attachment.h"
 #import "ButtonBarController.h"
+#import "Constants.h"
 #import <Carbon/Carbon.h>
 
 typedef enum GrowlNotification {
@@ -40,6 +41,8 @@ typedef enum GrowlNotification {
 
 @implementation Email
 
+@synthesize fromName, fromAddr, toName, toAddr, subject, body, date, isASentEmail, salesforceId;
+
 - (id)init {
 	self = [super init];
 	attachments = [[NSMutableArray alloc] init];
@@ -51,11 +54,20 @@ typedef enum GrowlNotification {
 	[fromAddr release];
 	[fromName release];
 	[toAddr release];
+	[toName release];
 	[subject release];
 	[body release];
 	[date release];
 	[salesforceId release];
 	[super dealloc];
+}
+
+- (NSString *)addrOfInterest {
+	return isASentEmail ? toAddr : fromAddr;
+}
+
+- (NSString *)nameOfInterest {
+	return isASentEmail ? toName : fromName;
 }
 
 - (NSString *)escapeForSoql:(NSString *)src {
@@ -132,7 +144,7 @@ typedef enum GrowlNotification {
 
 -(void)createActivity:(NSScriptCommand *)cmd {
 	AppDelegate *app = (AppDelegate *)[NSApp delegate];
-	BOOL addAttachments = [[NSUserDefaults standardUserDefaults] boolForKey:@"addAttachmentsToActivities"];
+	BOOL addAttachments = [[NSUserDefaults standardUserDefaults] boolForKey:ATTACHMENTS_ON_EMAIL_PREF];
 	if (!addAttachments)
 		[self clearAttachmentUpload];
 	NSString *activityId = [app createActivity:self];
@@ -141,7 +153,7 @@ typedef enum GrowlNotification {
 		[self setSalesforceId:activityId];
 		[self saveAttachmentsUsingClient:[app sforce] numTotal:num];
 		[self growl:EmailAdded];
-		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"showNewEmail"])
+		if ([[NSUserDefaults standardUserDefaults] boolForKey:SHOW_NEW_EMAIL_PREF])
 			[self openInSalesforce:activityId sobject:@"Task" sforce:[app sforce]];
 	}
 }
@@ -151,20 +163,20 @@ typedef enum GrowlNotification {
 	ZKSforceClient *sforce = [app sforce];
 	if (sforce == nil) return;
 	if (![self checkSObjectType:@"Case" hasAccess:sforce]) return;
-	BOOL addAttachments = [[NSUserDefaults standardUserDefaults] boolForKey:@"addAttachmentsToCases"];
+	BOOL addAttachments = [[NSUserDefaults standardUserDefaults] boolForKey:ATTACHMENTS_ON_CASES_PREF];
 	// look for a matching contact
 	ZKDescribeSObject *caseDesc = [sforce describeSObject:@"Case"];
 	SObjectPermsWrapper *cse = [SObjectPermsWrapper withDescribe:caseDesc forUpdate:NO];
 	if (([sforce describeGlobalFor:@"Contact"] != nil) && [[caseDesc fieldWithName:@"ContactId"] createable]) {
-		ZKQueryResult *qr = [sforce query:[NSString stringWithFormat:@"select id from contact where email='%@'", [self escapeForSoql:fromAddr]]];
+		ZKQueryResult *qr = [sforce query:[NSString stringWithFormat:@"select id from contact where email='%@'", [self escapeForSoql:[self addrOfInterest]]]];
 		if ([qr size] == 1)
 			[cse setFieldValue:[[[qr records] objectAtIndex:0] fieldValue:@"Id"] field:@"ContactId"];
 	}
 	// populate rest of case data
 	[cse setFieldValue:subject 	field:@"Subject"];
 	[cse setFieldValue:body    	field:@"Description"];
-	[cse setFieldValue:fromName field:@"SuppliedName"];
-	[cse setFieldValue:fromAddr field:@"SuppliedEmail"];
+	[cse setFieldValue:[self nameOfInterest] field:@"SuppliedName"];
+	[cse setFieldValue:[self addrOfInterest] field:@"SuppliedEmail"];
 	[cse setFieldValue:@"Email" field:@"Origin"];
 	int numAttatchments = addAttachments ? [self countOfAttachmentsToUpload] : 0;
 	if (numAttatchments > 0)
@@ -178,7 +190,7 @@ typedef enum GrowlNotification {
 			[self saveAttachmentsUsingClient:sforce numTotal:numAttatchments];
 		}
 		[self growl:CaseCreated];
-		if ([[NSUserDefaults standardUserDefaults] boolForKey:@"showNewCase"])
+		if ([[NSUserDefaults standardUserDefaults] boolForKey:SHOW_NEW_CASE_PREF])
 			[self openInSalesforce:salesforceId sobject:@"Case" sforce:sforce];
 	} else {
 		NSAlert * a = [NSAlert alertWithMessageText:[sr message] defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[sr statusCode]];
@@ -285,76 +297,6 @@ typedef enum GrowlNotification {
  
 - (void)removeObjectFromAttachmentsAtIndex:(unsigned int)index {
 	[attachments removeObjectAtIndex:index];
-}
-
-- (NSString *)salesforceId {
-	return salesforceId;
-}
-
-- (void)setSalesforceId:(NSString *)aSalesforceId {
-	aSalesforceId = [aSalesforceId copy];
-	[salesforceId release];
-	salesforceId = aSalesforceId;
-}
-
-- (NSString *)subject {
-	return subject;
-}
-
-- (void)setSubject:(NSString *)aSubject {
-	aSubject = [aSubject copy];
-	[subject release];
-	subject = aSubject;
-}
-
-- (NSString *)body {
-	return body;
-}
-
-- (void)setBody:(NSString *)aBody {
-	aBody = [aBody copy];
-	[body release];
-	body = aBody;
-}
-
-- (NSString *)toAddr {
-	return toAddr;
-}
-
-- (void)setToAddr:(NSString *)aTo {
-	aTo = [aTo copy];
-	[toAddr release];
-	toAddr = aTo;
-}
-
-- (NSString *)fromName {
-	return fromName;
-}
-
-- (void)setFromName:(NSString *)aFromName {
-	aFromName = [aFromName copy];
-	[fromName release];
-	fromName = aFromName;
-}
-
-- (NSString *)fromAddr {
-	return fromAddr;
-}
-
-- (void)setFromAddr:(NSString *)aFrom {
-	aFrom = [aFrom copy];
-	[fromAddr release];
-	fromAddr = aFrom;
-}
-
-- (NSDate *)date {
-	return date;
-}
-
-- (void)setDate:(NSDate *)aValue {
-	NSDate *oldDate = date;
-	date = [aValue retain];
-	[oldDate release];
 }
 
 @end

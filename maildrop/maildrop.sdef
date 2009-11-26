@@ -88,6 +88,12 @@
 			<property name="date received" code="DATE" description="Date/time that the email was recieved" type="date">
 				<cocoa key="date"/>
 			</property>
+			<property name="to name" code="toNM" description="The name of the person the email was to" type="text">
+				<cocoa key="toName"/>
+			</property>
+			<property name="outgoing" code="seNT" description="Is this email in the sent messages folder" type="boolean">
+				<cocoa key="isASentEmail"/>
+			</property>
 			<responds-to name="create activity">
 				<cocoa method="createActivity:"/>
 			</responds-to>

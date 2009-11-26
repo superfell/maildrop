@@ -23,6 +23,7 @@
 #import "Email.h"
 #import "LoginController.h"
 #import "CreateActivityController.h"
+#import "Constants.h"
 
 @implementation AppDelegate
 
@@ -35,10 +36,11 @@
 	[defaults setObject:defaultServers forKey:@"servers"];
 	[defaults setObject:prod forKey:@"server"];
 	[defaults setObject:[NSNumber numberWithBool:YES] forKey:@"SUCheckAtStartup"];
-	[defaults setObject:[NSNumber numberWithBool:YES] forKey:@"showNewCase"];
-	[defaults setObject:[NSNumber numberWithBool:YES] forKey:@"showNewEmail"];
-	[defaults setObject:[NSNumber numberWithBool:YES] forKey:@"addAttachmentsToCases"];
-	[defaults setObject:[NSNumber numberWithBool:YES] forKey:@"addAttachmentsToActivities"];
+	[defaults setObject:[NSNumber numberWithBool:YES] forKey:SHOW_NEW_CASE_PREF];
+	[defaults setObject:[NSNumber numberWithBool:YES] forKey:SHOW_NEW_EMAIL_PREF];
+	[defaults setObject:[NSNumber numberWithBool:YES] forKey:ATTACHMENTS_ON_CASES_PREF];
+	[defaults setObject:[NSNumber numberWithBool:YES] forKey:ATTACHMENTS_ON_EMAIL_PREF];
+	[defaults setObject:[NSNumber numberWithBool:YES] forKey:ADD_EMAIL_TO_DESC_PREF];
 	[defaults setObject:@"Subject" forKey:@"additionalField_Case"];
 	[[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }

@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2008 Simon Fell
+// Copyright (c) 2006-2009 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -27,6 +27,7 @@
 #import "SObjectPermsWrapper.h"
 #import "WhoWhat.h"
 #import "Attachment.h"
+#import "Constants.h"
 
 static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 
@@ -124,10 +125,17 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	}
 }
 
+- (NSString *)buildDescriptionFromEmail:(Email *)e {
+	if (![[NSUserDefaults standardUserDefaults] boolForKey:ADD_EMAIL_TO_DESC_PREF])
+		return [e body];
+	// otherwise add to/from to the description
+	return [NSString stringWithFormat:@"From: %@\r\nTo: %@\r\n\r\n%@", [e fromAddr], [e toAddr], [e body]];
+}
+
 - (IBAction)create:(id)sender {
 	SObjectPermsWrapper *task = [SObjectPermsWrapper withDescribe:[sforce describeSObject:@"Task"] forUpdate:NO];
 	[task setFieldValue:[NSString stringWithFormat:@"Email: %@", [email subject]] field:@"Subject"];
-	[task setFieldValue:[email body] field:@"Description"];
+	[task setFieldValue:[self buildDescriptionFromEmail:email] field:@"Description"];
 	[task setFieldValue:[self closedTaskStatus] field:@"Status"];
 	[task setFieldValue:@"Email" field:@"Type"];
 	NSDate *date = [email date];
@@ -345,7 +353,7 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 }
 
 - (void)setCurrentPropertiesFromEmail {
-	NSString *name = [email fromName];
+	NSString *name = [email nameOfInterest];
 	NSRange rng = [name rangeOfString:@" "];
 	if (rng.location == NSNotFound) {
 		[self setContactFirstName:nil];
@@ -354,7 +362,7 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 		[self setContactFirstName:[name substringToIndex:rng.location]];
 		[self setContactLastName:[name substringFromIndex:rng.location + rng.length]];
 	}
-	[self setContactEmail:[email fromAddr]];
+	[self setContactEmail:[email addrOfInterest]];
 	[self setContactCompany:@""];
 	if ([self createLeadAllowed])
 		[self setContactLeadStatus:[self defaultLeadStatus]];
@@ -569,7 +577,7 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	[self resetState];
 	[self setSforce:sf];
 	[self setEmail:theEmail];
-	[self setWhoSearchText:[email fromAddr]];
+	[self setWhoSearchText:[email addrOfInterest]];
 	[NSApp activateIgnoringOtherApps:YES];
 	NSTimer *t = [NSTimer timerWithTimeInterval:0.01 target:self selector:@selector(searchWho:) userInfo:nil repeats:NO];
 	[[NSRunLoop currentRunLoop] addTimer:t forMode:NSModalPanelRunLoopMode];
