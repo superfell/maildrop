@@ -532,7 +532,7 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 
 - (NSString *)closedTaskStatus {
 	if (closedTaskStatus != nil) return closedTaskStatus;
-	ZKQueryResult *qr = [sforce query:@"select MasterLabel from TaskStatus where IsClosed=true"];
+	ZKQueryResult *qr = [sforce query:@"select MasterLabel from TaskStatus where IsClosed=true order by sortOrder desc limit 1"];
 	if ([qr size] > 0) {
 		ZKSObject *ts = [[qr records] objectAtIndex:0];
 		closedTaskStatus = [[ts fieldValue:@"MasterLabel"] copy];
