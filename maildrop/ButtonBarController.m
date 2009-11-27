@@ -84,7 +84,7 @@ static const float WINDOW_HEIGHT_PROGRESS = 140.0f;
 	[self setUseEntourage:!usingEntourage];
 }
 
--(IBAction)showHelp:(id)sender {	
+-(IBAction)showButtonBarHelp:(id)sender {	
 	[[NSHelpManager sharedHelpManager] openHelpAnchor:@"ButtonBar" inBook:@"Maildrop Help"];
 }
 

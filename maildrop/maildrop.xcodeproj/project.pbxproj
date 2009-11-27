@@ -44,13 +44,13 @@
 		F49210690B44CED100C5C9AB /* WhatSearchDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F49210680B44CED100C5C9AB /* WhatSearchDataSource.m */; };
 		F49210760B44D0D500C5C9AB /* ZKDescribeSObject_additions.m in Sources */ = {isa = PBXBuildFile; fileRef = F49210750B44D0D500C5C9AB /* ZKDescribeSObject_additions.m */; };
 		F4921CFC0EDFA52E00E95E03 /* NSData-Base64Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F4921CFB0EDFA52E00E95E03 /* NSData-Base64Extensions.m */; };
-		F49D970E0B498F21005BF9E0 /* Maildrop help in Resources */ = {isa = PBXBuildFile; fileRef = F49D96F60B498F21005BF9E0 /* Maildrop help */; };
 		F4BEB52210BE4071004295EC /* zkDescribeGlobalSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BEB52110BE4071004295EC /* zkDescribeGlobalSObject.m */; };
 		F4BF64B40EE1F3D600F52263 /* WhoWhat.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BF64B30EE1F3D600F52263 /* WhoWhat.m */; };
 		F4DBCAF70B3DC0C700D94639 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DBCAF50B3DC0C700D94639 /* LoginController.m */; };
 		F4DBCB0D0B3DC4F000D94639 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DBCB0C0B3DC4F000D94639 /* Security.framework */; };
 		F4DBCB390B3E259400D94639 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = F4DBCB380B3E259400D94639 /* Credits.html */; };
 		F4DBCB600B3E3A2600D94639 /* maildrop.icns in Resources */ = {isa = PBXBuildFile; fileRef = F4DBCB5F0B3E3A2600D94639 /* maildrop.icns */; };
+		F4E52B6310BF50FB0091DBC1 /* Maildrop.help in Resources */ = {isa = PBXBuildFile; fileRef = F4E52B2110BF50FB0091DBC1 /* Maildrop.help */; };
 		F4E83C370B8EAE4700217FDB /* credential.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E83C330B8EAE4600217FDB /* credential.m */; };
 		F4E83C390B8EAE4700217FDB /* ZKLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E83C350B8EAE4600217FDB /* ZKLoginController.m */; };
 		F4E83C3D0B8EAE5E00217FDB /* Login.nib in Resources */ = {isa = PBXBuildFile; fileRef = F4E83C3A0B8EAE5E00217FDB /* Login.nib */; };
@@ -144,7 +144,6 @@
 		F49210750B44D0D500C5C9AB /* ZKDescribeSObject_additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKDescribeSObject_additions.m; sourceTree = "<group>"; };
 		F4921CFA0EDFA52E00E95E03 /* NSData-Base64Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData-Base64Extensions.h"; sourceTree = "<group>"; };
 		F4921CFB0EDFA52E00E95E03 /* NSData-Base64Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData-Base64Extensions.m"; sourceTree = "<group>"; };
-		F49D96F70B498F21005BF9E0 /* English */ = {isa = PBXFileReference; lastKnownFileType = folder; name = English; path = "English.lproj/Maildrop help"; sourceTree = "<group>"; };
 		F4BEB52010BE4071004295EC /* zkDescribeGlobalSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zkDescribeGlobalSObject.h; path = ../sforce/zkDescribeGlobalSObject.h; sourceTree = SOURCE_ROOT; };
 		F4BEB52110BE4071004295EC /* zkDescribeGlobalSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = zkDescribeGlobalSObject.m; path = ../sforce/zkDescribeGlobalSObject.m; sourceTree = SOURCE_ROOT; };
 		F4BF64B20EE1F3D600F52263 /* WhoWhat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoWhat.h; sourceTree = "<group>"; };
@@ -154,6 +153,7 @@
 		F4DBCB0C0B3DC4F000D94639 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
 		F4DBCB380B3E259400D94639 /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		F4DBCB5F0B3E3A2600D94639 /* maildrop.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = maildrop.icns; sourceTree = "<group>"; };
+		F4E52B2110BF50FB0091DBC1 /* Maildrop.help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Maildrop.help; sourceTree = "<group>"; };
 		F4E83C320B8EAE4600217FDB /* credential.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = credential.h; path = ../common/credential.h; sourceTree = SOURCE_ROOT; };
 		F4E83C330B8EAE4600217FDB /* credential.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = credential.m; path = ../common/credential.m; sourceTree = SOURCE_ROOT; };
 		F4E83C340B8EAE4600217FDB /* ZKLoginController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ZKLoginController.h; path = ../common/ZKLoginController.h; sourceTree = SOURCE_ROOT; };
@@ -264,6 +264,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F4E52B2110BF50FB0091DBC1 /* Maildrop.help */,
 				F46C83D90EC77A1200944C77 /* maildrop32.png */,
 				F46C83C20EC683BE00944C77 /* entourage.png */,
 				F46C83C30EC683BE00944C77 /* mail_icon.png */,
@@ -275,7 +276,6 @@
 				F44421DF0B5351A0002AB629 /* maildropGrowl.scpt */,
 				F47BD7040B4E3F3D00E15CEE /* entourage scripts */,
 				F4F87D180B4E24F2006F6B63 /* mail scripts */,
-				F49D96F60B498F21005BF9E0 /* Maildrop help */,
 				F4DBCB5F0B3E3A2600D94639 /* maildrop.icns */,
 				F41B855F0B3CFE6400971C0B /* maildrop.sdef */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -435,7 +435,6 @@
 				F41B85600B3CFE6400971C0B /* maildrop.sdef in Resources */,
 				F4DBCB390B3E259400D94639 /* Credits.html in Resources */,
 				F4DBCB600B3E3A2600D94639 /* maildrop.icns in Resources */,
-				F49D970E0B498F21005BF9E0 /* Maildrop help in Resources */,
 				F4F87D1C0B4E24F2006F6B63 /* mail scripts in Resources */,
 				F47BD7080B4E3F3D00E15CEE /* entourage scripts in Resources */,
 				F4E83C3D0B8EAE5E00217FDB /* Login.nib in Resources */,
@@ -446,6 +445,7 @@
 				F46C83C40EC683BE00944C77 /* entourage.png in Resources */,
 				F46C83C50EC683BE00944C77 /* mail_icon.png in Resources */,
 				F46C83DA0EC77A1200944C77 /* maildrop32.png in Resources */,
+				F4E52B6310BF50FB0091DBC1 /* Maildrop.help in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,14 +510,6 @@
 				29B97319FDCFA39411CA2CEA /* English */,
 			);
 			name = MainMenu.nib;
-			sourceTree = "<group>";
-		};
-		F49D96F60B498F21005BF9E0 /* Maildrop help */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F49D96F70B498F21005BF9E0 /* English */,
-			);
-			name = "Maildrop help";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -594,6 +586,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPYING_PRESERVES_HFS_DATA = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
