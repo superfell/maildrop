@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en-US</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.pocketsoap.maildrop.help</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>MaildropHelp</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>2.0</string>
+	<key>CFBundleSignature</key>
+	<string>hbwr</string>
+	<key>CFBundleVersion</key>
+	<string>2.2</string>
+	<key>HPDBookAccessPath</key>
+	<string>index.html</string>
+	<key>HPDBookIconPath</key>
+	<string>shrd/icon.png</string>
+	<key>HPDBookIndexPath</key>
+	<string>Maildrop.help.helpindex</string>
+	<key>HPDBookKBProduct</key>
+	<string>maildrop</string>
+	<key>HPDBookTitle</key>
+	<string>Maildrop Help</string>
+	<key>HPDBookType</key>
+	<string>3</string>
+</dict>
+</plist>
