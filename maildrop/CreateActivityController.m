@@ -156,6 +156,17 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 		return;
 	}  
 	[task setFieldValue:[[self selectedWhat] id] field:@"WhatId"];
+	// check description length
+	NSString *desc = [[task sobject] fieldValue:@"Description"];
+	int descMax = [[[sforce describeSObject:@"Task"] fieldWithName:@"Description"] length];
+	if ([desc length] > descMax) {
+		NSAlert *a = [NSAlert alertWithMessageText:@"Email is too long" defaultButton:@"Truncate" alternateButton:@"Cancel" otherButton:nil
+			informativeTextWithFormat:@"Email body is %d characters long, which is longer than max allowed of %d by Salesforce.com, do you want to truncate the email body, or cancel creating it?", [desc length], descMax];
+		if (NSAlertDefaultReturn == [a runModal])
+			[task setFieldValue:[desc substringToIndex:descMax] field:@"Description"];
+		else
+			return;	// cancel creation.
+	}
 	ZKSaveResult *sr = [[sforce create:[NSArray arrayWithObject:[task sobject]]] objectAtIndex:0];
 	if ([sr success]) {
 		taskId = [[sr id] copy];
