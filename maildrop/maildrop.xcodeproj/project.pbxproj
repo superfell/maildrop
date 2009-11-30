@@ -50,7 +50,6 @@
 		F4DBCB0D0B3DC4F000D94639 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DBCB0C0B3DC4F000D94639 /* Security.framework */; };
 		F4DBCB390B3E259400D94639 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = F4DBCB380B3E259400D94639 /* Credits.html */; };
 		F4DBCB600B3E3A2600D94639 /* maildrop.icns in Resources */ = {isa = PBXBuildFile; fileRef = F4DBCB5F0B3E3A2600D94639 /* maildrop.icns */; };
-		F4E52B6310BF50FB0091DBC1 /* Maildrop.help in Resources */ = {isa = PBXBuildFile; fileRef = F4E52B2110BF50FB0091DBC1 /* Maildrop.help */; };
 		F4E83C370B8EAE4700217FDB /* credential.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E83C330B8EAE4600217FDB /* credential.m */; };
 		F4E83C390B8EAE4700217FDB /* ZKLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E83C350B8EAE4600217FDB /* ZKLoginController.m */; };
 		F4E83C3D0B8EAE5E00217FDB /* Login.nib in Resources */ = {isa = PBXBuildFile; fileRef = F4E83C3A0B8EAE5E00217FDB /* Login.nib */; };
@@ -153,7 +152,6 @@
 		F4DBCB0C0B3DC4F000D94639 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
 		F4DBCB380B3E259400D94639 /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		F4DBCB5F0B3E3A2600D94639 /* maildrop.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = maildrop.icns; sourceTree = "<group>"; };
-		F4E52B2110BF50FB0091DBC1 /* Maildrop.help */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Maildrop.help; sourceTree = "<group>"; };
 		F4E83C320B8EAE4600217FDB /* credential.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = credential.h; path = ../common/credential.h; sourceTree = SOURCE_ROOT; };
 		F4E83C330B8EAE4600217FDB /* credential.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = credential.m; path = ../common/credential.m; sourceTree = SOURCE_ROOT; };
 		F4E83C340B8EAE4600217FDB /* ZKLoginController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ZKLoginController.h; path = ../common/ZKLoginController.h; sourceTree = SOURCE_ROOT; };
@@ -264,7 +262,6 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				F4E52B2110BF50FB0091DBC1 /* Maildrop.help */,
 				F46C83D90EC77A1200944C77 /* maildrop32.png */,
 				F46C83C20EC683BE00944C77 /* entourage.png */,
 				F46C83C30EC683BE00944C77 /* mail_icon.png */,
@@ -445,7 +442,6 @@
 				F46C83C40EC683BE00944C77 /* entourage.png in Resources */,
 				F46C83C50EC683BE00944C77 /* mail_icon.png in Resources */,
 				F46C83DA0EC77A1200944C77 /* maildrop32.png in Resources */,
-				F4E52B6310BF50FB0091DBC1 /* Maildrop.help in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
