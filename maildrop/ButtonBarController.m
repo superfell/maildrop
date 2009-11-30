@@ -84,10 +84,6 @@ static const float WINDOW_HEIGHT_PROGRESS = 140.0f;
 	[self setUseEntourage:!usingEntourage];
 }
 
--(IBAction)showButtonBarHelp:(id)sender {	
-	[[NSHelpManager sharedHelpManager] openHelpAnchor:@"ButtonBar" inBook:@"Maildrop Help"];
-}
-
 // default the mail/entourage selection based on the currently running processes.
 -(void)checkProcesses {
 	ProcessSerialNumber psn = { kNoProcess, kNoProcess };

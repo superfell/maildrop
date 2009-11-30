@@ -58,5 +58,6 @@
 - (IBAction)showPreferencesHelp:(id)sender;
 - (IBAction)logout:(id)sender;
 - (IBAction)showButtonBar:(id)sender;
-
+- (IBAction)showButtonBarHelp:(id)sender;
+- (IBAction)showHelp:(id)sender;
 @end

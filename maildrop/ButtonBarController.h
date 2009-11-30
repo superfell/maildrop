@@ -43,7 +43,6 @@
 -(IBAction)addEmail:(id)sender;
 -(IBAction)createCase:(id)sender;
 -(IBAction)toggleClient:(id)sender;
--(IBAction)showButtonBarHelp:(id)sender;
 
 -(void)showProgressOf:(int)value max:(int)maxValue withText:(NSString *)progressLabel;
 -(void)hideProgress;

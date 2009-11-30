@@ -142,16 +142,31 @@
 	[buttonBarController showWindow:sender];
 }
 
+-(void)showHelpPage:(NSString *)page {
+	NSURL *baseUrl = [NSURL URLWithString:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"ZkHelpBaseUrl"]];
+	if (page != nil)
+		baseUrl = [NSURL URLWithString:page relativeToURL:baseUrl];
+	[[NSWorkspace sharedWorkspace] openURL:baseUrl];
+}
+
+-(IBAction)showHelp:(id)sender {
+	[self showHelpPage:nil];
+}
+
 -(IBAction)showLoginHelp:(id)sender {
-	[[NSHelpManager sharedHelpManager] openHelpAnchor:@"Login" inBook:@"Maildrop Help"];
+	[self showHelpPage:@"pages/login.html"];
 }
 
 - (IBAction)showActivityHelp:(id)sender {
-	[[NSHelpManager sharedHelpManager] openHelpAnchor:@"Activity" inBook:@"Maildrop Help"];
+	[self showHelpPage:@"pages/activity.html"];
 }
 
 - (IBAction)showPreferencesHelp:(id)sender {
-	[[NSHelpManager sharedHelpManager] openHelpAnchor:@"Preferences" inBook:@"Maildrop Help"];
+	[self showHelpPage:@"pages/preferences.html"];
+}
+
+-(IBAction)showButtonBarHelp:(id)sender {	
+	[self showHelpPage:@"pages/buttonbar.html"];
 }
 
 @end

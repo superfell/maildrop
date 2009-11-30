@@ -29,7 +29,6 @@
 	BOOL				done;
 }
 
-- (IBAction)showHelp:(id)sender;
 - (int)installProgress;
 - (void)setInstallProgress:(int)newInstallProgress;
 - (BOOL)installDone;

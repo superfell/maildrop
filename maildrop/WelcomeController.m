@@ -120,10 +120,6 @@
 	}
 }
 
-- (IBAction)showHelp:(id)sender {
-	[[NSHelpManager sharedHelpManager] openHelpAnchor:@"access" inBook:@"Maildrop Help"];
-}
-
 - (int)installProgress {
 	return progress;
 }

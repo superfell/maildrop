@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ZkHelpBaseUrl</key>
+	<string>http://www.pocketsoap.com/osx/maildrop/help/</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>10.5.0</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
@@ -28,10 +32,6 @@
 	<string>YES</string>
 	<key>OSAScriptingDefinition</key>
 	<string>maildrop.sdef</string>
-	<key>CFBundleHelpBookFolder</key>
-	<string>Maildrop.help</string>
-	<key>CFBundleHelpBookName</key>
-	<string>com.pocketsoap.maildrop.help</string>
 	<key>SUFeedURL</key>
 	<string>http://www.pocketsoap.com/osx/maildrop/maildrop.xml</string>
 	<key>SUCheckAtStartup</key>
