@@ -22,25 +22,28 @@
 
 #import "zkQueryResult.h"
 #import "zkSObject.h"
+#import "zkParser.h"
 
 @implementation ZKQueryResult
 
-- (id)initFromXmlNode:(NSXMLNode *)node {
+- (id)initFromXmlNode:(zkElement *)node {
 	self = [super init];
 	int i = 0;
-	NSError * err = NULL;
-	size = [[[[node nodesForXPath:@"size" error:&err] objectAtIndex:0] stringValue] intValue];
-	NSString * strDone = [[[node nodesForXPath:@"done" error:&err] objectAtIndex:0] stringValue]; 
+	size = [[[node childElement:@"size"] stringValue] intValue];
+	NSString * strDone = [[node childElement:@"done"] stringValue]; 
 	done = [strDone isEqualToString:@"true"];
 	if (done == NO)
-		queryLocator = [[[[node nodesForXPath:@"queryLocator" error:&err] objectAtIndex:0] stringValue] copy];
+		queryLocator = [[[node childElement:@"queryLocator"] stringValue] copy];
 		
-	NSArray * nodes = [node nodesForXPath:@"records" error:&err];
+	NSArray * nodes = [node childElements:@"records"];
 	NSMutableArray * recArray = [NSMutableArray arrayWithCapacity:[nodes count]];
 	ZKSObject * o;
 	for (i = 0; i < [nodes count]; i++)
 	{
-		NSXMLNode * n = [nodes objectAtIndex:i];
+		zkElement * n = [nodes objectAtIndex:i];
+		NSString *xsiNil = [n attributeValue:@"nil" ns:NS_URI_XSI];
+		if (xsiNil != nil && [xsiNil isEqualToString:@"true"]) 
+			continue;
 		o = [[ZKSObject alloc] initFromXmlNode:n];
 		[recArray addObject:o];
 		[o release];
@@ -82,21 +85,6 @@
 
 - (NSArray *)records {
 	return records;
-}
-
-- (int)numberOfRowsInTableView:(NSTableView *)v {
-	return [records count];
-}
-
-- (id)tableView:(NSTableView *)view objectValueForTableColumn:(NSTableColumn *)tc row:(int)rowIdx {
-	NSArray *path = [[tc identifier] componentsSeparatedByString:@"."];
-	id val = [records objectAtIndex:rowIdx];
-	NSString *step;
-	NSEnumerator *e = [path objectEnumerator];
-	while (step = [e nextObject]) {
-		val = [val fieldValue:step];
-	} 
-	return val;
 }
 
 @end

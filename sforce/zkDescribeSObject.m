@@ -24,6 +24,7 @@
 #import "zkDescribeField.h"
 #import "zkChildRelationship.h"
 #import "zkRecordTypeInfo.h"
+#import "zkParser.h"
 
 @implementation ZKDescribeSObject
 
@@ -48,13 +49,11 @@
 
 -(NSArray *)fields {
 	if (fields == nil) {
-		NSArray * fn = [node elementsForName:@"fields"];
+		NSArray * fn = [node childElements:@"fields"];
 		NSMutableDictionary *byName = [NSMutableDictionary dictionary];
 		NSMutableArray * fs = [NSMutableArray arrayWithCapacity:[fn count]];
-		NSXMLNode * fieldNode;
-		NSEnumerator *e = [fn objectEnumerator];
-		while (fieldNode = [e nextObject]) {
-			ZKDescribeField * df = [[ZKDescribeField alloc] initWithXmlElement:(NSXMLElement*)fieldNode];
+		for (zkElement *fieldNode in fn) {
+			ZKDescribeField * df = [[ZKDescribeField alloc] initWithXmlElement:fieldNode];
 			[df setSobject:self];
 			[fs addObject:df];
 			[byName setObject:df forKey:[[df name] lowercaseString]];
@@ -74,12 +73,10 @@
 
 -(NSArray *)childRelationships {
 	if (childRelationships == nil) {
-		NSArray *crn = [node elementsForName:@"childRelationships"];
+		NSArray *crn = [node childElements:@"childRelationships"];
 		NSMutableArray *crs = [NSMutableArray arrayWithCapacity:[crn count]];
-		NSXMLNode * crNode;
-		NSEnumerator *e = [crn objectEnumerator];
-		while (crNode = [e nextObject]) {
-			ZKChildRelationship * cr = [[ZKChildRelationship alloc] initWithXmlElement:(NSXMLElement*)crNode];
+		for (zkElement *crNode in crn) {
+			ZKChildRelationship * cr = [[ZKChildRelationship alloc] initWithXmlElement:crNode];
 			[crs addObject:cr];
 			[cr release];
 		}
@@ -94,12 +91,10 @@
 
 -(NSArray *)recordTypeInfos {
 	if (recordTypeInfos == nil) {
-		NSArray *rti = [node elementsForName:@"recordTypeInfos"];
+		NSArray *rti = [node childElements:@"recordTypeInfos"];
 		NSMutableArray *res = [NSMutableArray arrayWithCapacity:[rti count]];
-		NSXMLNode *rnode;
-		NSEnumerator *e = [rti objectEnumerator];
-		while (rnode = [e nextObject]) {
-			ZKRecordTypeInfo *r = [[ZKRecordTypeInfo alloc] initWithXmlElement:(NSXMLElement*)rnode];
+		for (zkElement *rnode in rti) {
+			ZKRecordTypeInfo *r = [[ZKRecordTypeInfo alloc] initWithXmlElement:rnode];
 			[res addObject:r];
 			[r release];
 		}

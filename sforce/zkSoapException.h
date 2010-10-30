@@ -19,8 +19,6 @@
 // THE SOFTWARE.
 //
 
-#import <Cocoa/Cocoa.h>
-
 
 @interface ZKSoapException : NSException {
 	NSString * faultCode;

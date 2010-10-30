@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2008 Simon Fell
+// Copyright (c) 2006-2010 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -20,10 +20,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "../sforce/ZKSObject.h"
-#import "../sforce/ZKDescribeSObject.h"
+#import "ZKSObject.h"
+#import "ZKDescribeSObject.h"
+#import "zkSforceClient.h"
 
 @class ZKSforceClient;
+@class ZKDescribeGlobalSObject;
 
 @interface ZKSObject (KVCHelper) 
 -(id)valueForUndefinedKey:(NSString *)key;
@@ -42,4 +44,9 @@
 
 @interface ZKDescribeField (BindingHelpers)
 -(NSString *)labelAndName;				// foo bar (foobar__c)
+@end
+
+@interface ZKSforceClient (Describe)
+// looks in the global describe results for the specified entities metadata.
+-(ZKDescribeGlobalSObject *)describeGlobalFor:(NSString *)entity;
 @end

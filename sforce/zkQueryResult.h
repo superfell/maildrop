@@ -19,7 +19,7 @@
 // THE SOFTWARE.
 //
 
-#import <Cocoa/Cocoa.h>
+@class zkElement;
 
 @interface ZKQueryResult : NSObject <NSCopying> {
 	int size;
@@ -28,7 +28,7 @@
 	NSArray * records;
 }
 
-- (id)initFromXmlNode:(NSXMLNode *)node;
+- (id)initFromXmlNode:(zkElement *)node;
 - (id)initWithRecords:(NSArray *)records size:(int)s done:(BOOL)d queryLocator:(NSString *)ql;
 
 - (int)size;
@@ -36,7 +36,4 @@
 - (NSString *)queryLocator;
 - (NSArray *)records;
 
-// make it compaitble with the data source for a table
-- (int)numberOfRowsInTableView:(NSTableView *)v;
-- (id)tableView:(NSTableView *)view objectValueForTableColumn:(NSTableColumn *)tc row:(int)rowIdx;
 @end

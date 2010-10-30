@@ -20,13 +20,13 @@
 //
 
 
-#import <Cocoa/Cocoa.h>
-
+@class zkElement;
 
 @interface ZKBaseClient : NSObject {
 	NSString	*endpointUrl;
 }
 
-- (NSXMLNode *)sendRequest:(NSString *)payload;
+- (zkElement *)sendRequest:(NSString *)payload;
+- (zkElement *)sendRequest:(NSString *)payload returnRoot:(BOOL)root;
 
 @end

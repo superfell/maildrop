@@ -21,15 +21,22 @@
 
 #import "zkBaseClient.h"
 #import "zkSoapException.h"
+#import "zkParser.h"
 
 @implementation ZKBaseClient
+
+static NSString *SOAP_NS = @"http://schemas.xmlsoap.org/soap/envelope/";
 
 - (void)dealloc {
 	[endpointUrl release];
 	[super dealloc];
 }
 
-- (NSXMLNode *)sendRequest:(NSString *)payload {
+- (zkElement *)sendRequest:(NSString *)payload {
+	return [self sendRequest:payload returnRoot:NO];
+}
+
+- (zkElement *)sendRequest:(NSString *)payload returnRoot:(BOOL)returnRoot {
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:endpointUrl]];
 	[request setHTTPMethod:@"POST"];
 	[request addValue:@"text/xml; charset=UTF-8" forHTTPHeaderField:@"content-type"];	
@@ -43,18 +50,24 @@
 	// todo, support request compression
 	// todo, support response compression
 	NSData *respPayload = [NSURLConnection sendSynchronousRequest:request returningResponse:&resp error:&err];
-	NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithData:respPayload options:NSXMLNodeOptionsNone error:&err] autorelease];
-	if (err != NULL) {
+	//NSLog(@"response \r\n%@", [NSString stringWithCString:[respPayload bytes] length:[respPayload length]]);
+	zkElement *root = [zkParser parseData:respPayload];
+	if (root == nil)	
 		@throw [NSException exceptionWithName:@"Xml error" reason:@"Unable to parse XML returned by server" userInfo:nil];
-	}
+	if (![[root name] isEqualToString:@"Envelope"])
+		@throw [NSException exceptionWithName:@"Xml error" reason:[NSString stringWithFormat:@"response XML not valid SOAP, root element should be Envelope, but was %@", [root name]] userInfo:nil];
+	if (![[root namespace] isEqualToString:SOAP_NS])
+		@throw [NSException exceptionWithName:@"Xml error" reason:[NSString stringWithFormat:@"response XML not valid SOAP, root namespace should be %@ but was %@", SOAP_NS, [root namespace]] userInfo:nil];
+	zkElement *body = [root childElement:@"Body" ns:SOAP_NS];
 	if (500 == [resp statusCode]) {
-		NSXMLNode * nFaultCode = [[doc nodesForXPath:@"/soapenv:Envelope/soapenv:Body/soapenv:Fault/faultcode" error:&err] objectAtIndex:0];
-		NSXMLNode * nFaultMsg  = [[doc nodesForXPath:@"/soapenv:Envelope/soapenv:Body/soapenv:Fault/faultstring" error:&err] objectAtIndex:0];
-		ZKSoapException *exception = [ZKSoapException exceptionWithFaultCode:[nFaultCode stringValue] faultString:[nFaultMsg stringValue]];
-		@throw exception;				
-	}	
-	NSXMLNode *body = [[doc nodesForXPath:@"/soapenv:Envelope/soapenv:Body" error:&err] objectAtIndex:0];
-	return [[body children] objectAtIndex:0];
+		zkElement *fault = [body childElement:@"Fault" ns:SOAP_NS];
+		if (fault == nil)
+			@throw [NSException exceptionWithName:@"Xml error" reason:@"Fault status code returned, but unable to find soap:Fault element" userInfo:nil];
+		NSString *fc = [[fault childElement:@"faultcode"] stringValue];
+		NSString *fm = [[fault childElement:@"faultstring"] stringValue];
+		@throw [ZKSoapException exceptionWithFaultCode:fc faultString:fm];
+	}
+	return returnRoot ? root : [[body childElements] objectAtIndex:0];
 }
 
 @end

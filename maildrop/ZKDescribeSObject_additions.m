@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2008 Simon Fell
+// Copyright (c) 2006-2010 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -84,6 +84,18 @@
 
 -(NSString *)labelAndName {
 	return [NSString stringWithFormat:@"%@ (%@)", [self label], [self name]];
+}
+
+@end
+
+@implementation ZKSforceClient (Describe)
+
+-(ZKDescribeGlobalSObject *)describeGlobalFor:(NSString *)entity {
+	for (ZKDescribeGlobalSObject *d in [self describeGlobal]) {
+		if ([entity caseInsensitiveCompare:[d name]] == NSOrderedSame)
+			return [[d retain] autorelease];
+	}
+	return nil;
 }
 
 @end

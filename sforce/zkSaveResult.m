@@ -21,6 +21,7 @@
 
 
 #import "zkSaveResult.h"
+#import "zkParser.h"
 
 @implementation ZKSaveResult
 
@@ -34,12 +35,12 @@
 
 - (NSString *)statusCode {
 	if ([self success]) return nil;
-	return [self string:@"statusCode" fromXmlElement:[[node elementsForName:@"errors"] objectAtIndex:0]];
+	return [self string:@"statusCode" fromXmlElement:[node childElement:@"errors"]];
 }
 
 - (NSString *)message {
 	if ([self success]) return nil;
-	return [self string:@"message" fromXmlElement:[[node elementsForName:@"errors"] objectAtIndex:0]];
+	return [self string:@"message" fromXmlElement:[node childElement:@"errors"]];
 }
 
 - (NSString *)description {

@@ -1,4 +1,4 @@
-// Copyright (c) 2006 Simon Fell
+// Copyright (c) 2006-2010 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -19,30 +19,36 @@
 // THE SOFTWARE.
 //
 
-#import <Cocoa/Cocoa.h>
 #import "zkQueryResult.h"
+
+@class zkElement;
+
+NSString * NS_URI_XSI;
 
 @interface ZKSObject : NSObject {
 	NSString 			*Id;
 	NSString 			*type;
 	NSMutableSet 		*fieldsToNull;
 	NSMutableDictionary *fields;
+	NSMutableArray		*fieldOrder;	// field names in the order they were added
 }
 
 + (id) withType:(NSString *)type;
 + (id) withTypeAndId:(NSString *)type sfId:(NSString *)sfId;
-+ (id) fromXmlNode:(NSXMLNode *)node;
++ (id) fromXmlNode:(zkElement *)node;
 
-- (id) initFromXmlNode:(NSXMLNode *)node;
+- (id) initFromXmlNode:(zkElement *)node;
 - (id) initWithType:(NSString *)type;
 
 // setters
 - (void)setId:(NSString *)theId;
+- (void)setType:(NSString *)type;
+
 // setting a fieldValue to nil will automatically put it in the fieldsToNull collection
 // setting a fieldValue to non nil will automatically remove it from the fieldsToNull collection
-- (void)setFieldValue:(NSString *)value field:(NSString *)field;
-- (void)setFieldDateTimeValue:(NSCalendarDate *)value field:(NSString *)field;
-- (void)setFieldDateValue:(NSCalendarDate *)value field:(NSString *)field;
+- (void)setFieldValue:(NSObject *)value field:(NSString *)field;
+- (void)setFieldDateTimeValue:(NSDate *)value field:(NSString *)field;
+- (void)setFieldDateValue:(NSDate *)value field:(NSString *)field;
 - (void)setFieldToNull:(NSString *)field;
 
 // basic getters
@@ -55,9 +61,12 @@
 
 // typed getters
 - (BOOL)boolValue:(NSString *)field;
-- (NSCalendarDate *)dateTimeValue:(NSString *)field;
-- (NSCalendarDate *)dateValue:(NSString *)field;
+- (NSDate *)dateTimeValue:(NSString *)field;
+- (NSDate *)dateValue:(NSString *)field;
 - (int)intValue:(NSString *)field;
 - (double)doubleValue:(NSString *)field;
 - (ZKQueryResult *)queryResultValue:(NSString *)field;
+
+// others
+- (NSArray *)orderedFieldNames;
 @end

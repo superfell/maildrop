@@ -1,4 +1,4 @@
-// Copyright (c) 2006 Simon Fell
+// Copyright (c) 2008-2010 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -19,15 +19,26 @@
 // THE SOFTWARE.
 //
 
+#include <libxml/parser.h>
 
-#import "zkXmlDeserializer.h"
 
-@interface ZKSaveResult : ZKXmlDeserializer {
+@interface zkElement : NSObject <NSCopying> {
+	xmlDocPtr	doc;
+	xmlNodePtr	node;
+	zkElement	*parent;
 }
+- (NSString *)name;
+- (NSString *)namespace;
+- (NSString *)stringValue;
+- (zkElement *)childElement:(NSString *)name;
+- (zkElement *)childElement:(NSString *)name ns:(NSString *)namespace;
+- (NSArray *)childElements:(NSString *)name;
+- (NSArray *)childElements:(NSString *)name ns:(NSString *)namespace;
+- (NSArray *)childElements;
+- (NSString *)attributeValue:(NSString *)name ns:(NSString *)namespace;
+@end;
 
-- (NSString *)id;
-- (BOOL)success;
-- (NSString *)statusCode;
-- (NSString *)message;
-
+@interface zkParser : NSObject {
+}
++(zkElement *)parseData:(NSData *)data;
 @end

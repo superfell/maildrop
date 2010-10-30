@@ -1,4 +1,4 @@
-// Copyright (c) 2006 Simon Fell
+// Copyright (c) 2006-2010 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -19,15 +19,21 @@
 // THE SOFTWARE.
 //
 
+#import "zkQueryResult_NSTableView.h"
+#import "ZKSObject.h"
 
-#import "zkXmlDeserializer.h"
+@implementation ZKQueryResult (NSTableViewAdditions)
 
-@interface ZKSaveResult : ZKXmlDeserializer {
+- (int)numberOfRowsInTableView:(NSTableView *)v {
+	return [records count];
 }
 
-- (NSString *)id;
-- (BOOL)success;
-- (NSString *)statusCode;
-- (NSString *)message;
+- (id)tableView:(NSTableView *)view objectValueForTableColumn:(NSTableColumn *)tc row:(int)rowIdx {
+	NSArray *path = [[tc identifier] componentsSeparatedByString:@"."];
+	id val = [records objectAtIndex:rowIdx];
+	for (NSString *step in path) 
+		val = [(ZKSObject *)val fieldValue:step];	 
+	return val;
+}
 
 @end

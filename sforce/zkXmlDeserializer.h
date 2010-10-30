@@ -20,13 +20,13 @@
 //
 
 
-#import <Cocoa/Cocoa.h>
+@class zkElement;
 
 @interface ZKXmlDeserializer : NSObject {
-	NSXMLElement *node;
+	zkElement *node;
 	NSMutableDictionary *values;
 }
-- (id)initWithXmlElement:(NSXMLElement *)e;
+- (id)initWithXmlElement:(zkElement *)e;
 
 - (NSString *)string:(NSString *)elem;
 - (BOOL)boolean:(NSString *)elem;
@@ -34,7 +34,7 @@
 - (double)double:(NSString *)elem;
 - (NSArray *)strings:(NSString *)elem;
 
-- (NSString *)string:(NSString *)elemName fromXmlElement:(NSXMLElement*)xmlElement;
+- (NSString *)string:(NSString *)elemName fromXmlElement:(zkElement*)xmlElement;
 - (NSArray *)complexTypeArrayFromElements:(NSString *)elemName cls:(Class)type;
 
 @end

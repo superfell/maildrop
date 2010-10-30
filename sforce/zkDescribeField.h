@@ -20,7 +20,6 @@
 //
 
 
-#import <Cocoa/Cocoa.h>
 #import "zkXmlDeserializer.h"
 
 /*
@@ -50,6 +49,7 @@
 <element name="precision"          type="xsd:int"/>
 <element name="referenceTo"        type="xsd:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
 <element name="relationshipName"   type="xsd:string" minOccurs="0"/>
+<element name="relationshipOrder"  type="xsd:int" minOccurs="0"/>
 <element name="restrictedPicklist" type="xsd:boolean"/>
 <element name="scale"              type="xsd:int"/>
 <element name="soapType"           type="tns:soapType"/>
@@ -57,6 +57,8 @@
 <element name="type"               type="tns:fieldType"/>
 <element name="unique"             type="xsd:boolean"/>
 <element name="updateable"         type="xsd:boolean"/>
+<element name="writeRequiresMasterRead" type="xsd:boolean" minOccurs="0"/>
+
 */
 
 @class ZKDescribeSObject;
@@ -104,5 +106,12 @@
 - (BOOL)unique;
 // Api v11.1
 - (BOOL)idLookup;
+// Api v13.0
+- (int)relationshipOrder;			// for CJO's, is this the first or 2nd FK to the parent ?
+- (BOOL)writeRequiresMasterRead;	// writing to this requires at least read access to the parent object (e.g. on CJO's)
+// Api v14.0
+- (NSString *)inlineHelpText;
+// Api v18.0
+- (BOOL)groupable;
 
 @end

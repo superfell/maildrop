@@ -1,4 +1,4 @@
-// Copyright (c) 2006 Simon Fell
+// Copyright (c) 2006-2010 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -20,7 +20,6 @@
 //
 
 
-#import <Cocoa/Cocoa.h>
 #import "zkXmlDeserializer.h"
 
 @interface ZKUserInfo : ZKXmlDeserializer  {
@@ -45,4 +44,8 @@
 -(NSString *)profileId;
 -(NSString *)roleId;
 -(NSString *)userName;
+-(NSString *)userType;
+// v20.0
+-(BOOL)disallowHtmlAttachments;
+-(BOOL)hasPersonAccounts;
 @end

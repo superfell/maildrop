@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 44;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -44,6 +44,9 @@
 		F49210690B44CED100C5C9AB /* WhatSearchDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F49210680B44CED100C5C9AB /* WhatSearchDataSource.m */; };
 		F49210760B44D0D500C5C9AB /* ZKDescribeSObject_additions.m in Sources */ = {isa = PBXBuildFile; fileRef = F49210750B44D0D500C5C9AB /* ZKDescribeSObject_additions.m */; };
 		F4921CFC0EDFA52E00E95E03 /* NSData-Base64Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F4921CFB0EDFA52E00E95E03 /* NSData-Base64Extensions.m */; };
+		F4A0E526127C99D80038B1CE /* zkParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0E523127C99D80038B1CE /* zkParser.m */; };
+		F4A0E527127C99D80038B1CE /* zkQueryResult_NSTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0E525127C99D80038B1CE /* zkQueryResult_NSTableView.m */; };
+		F4A0E541127C9AF60038B1CE /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A0E540127C9AF60038B1CE /* libxml2.2.dylib */; };
 		F4BEB52210BE4071004295EC /* zkDescribeGlobalSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BEB52110BE4071004295EC /* zkDescribeGlobalSObject.m */; };
 		F4BF64B40EE1F3D600F52263 /* WhoWhat.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BF64B30EE1F3D600F52263 /* WhoWhat.m */; };
 		F4DBCAF70B3DC0C700D94639 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DBCAF50B3DC0C700D94639 /* LoginController.m */; };
@@ -143,6 +146,11 @@
 		F49210750B44D0D500C5C9AB /* ZKDescribeSObject_additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKDescribeSObject_additions.m; sourceTree = "<group>"; };
 		F4921CFA0EDFA52E00E95E03 /* NSData-Base64Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData-Base64Extensions.h"; sourceTree = "<group>"; };
 		F4921CFB0EDFA52E00E95E03 /* NSData-Base64Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData-Base64Extensions.m"; sourceTree = "<group>"; };
+		F4A0E522127C99D80038B1CE /* zkParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zkParser.h; path = ../sforce/zkParser.h; sourceTree = SOURCE_ROOT; };
+		F4A0E523127C99D80038B1CE /* zkParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = zkParser.m; path = ../sforce/zkParser.m; sourceTree = SOURCE_ROOT; };
+		F4A0E524127C99D80038B1CE /* zkQueryResult_NSTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zkQueryResult_NSTableView.h; path = ../sforce/zkQueryResult_NSTableView.h; sourceTree = SOURCE_ROOT; };
+		F4A0E525127C99D80038B1CE /* zkQueryResult_NSTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = zkQueryResult_NSTableView.m; path = ../sforce/zkQueryResult_NSTableView.m; sourceTree = SOURCE_ROOT; };
+		F4A0E540127C9AF60038B1CE /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		F4BEB52010BE4071004295EC /* zkDescribeGlobalSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zkDescribeGlobalSObject.h; path = ../sforce/zkDescribeGlobalSObject.h; sourceTree = SOURCE_ROOT; };
 		F4BEB52110BE4071004295EC /* zkDescribeGlobalSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = zkDescribeGlobalSObject.m; path = ../sforce/zkDescribeGlobalSObject.m; sourceTree = SOURCE_ROOT; };
 		F4BF64B20EE1F3D600F52263 /* WhoWhat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoWhat.h; sourceTree = "<group>"; };
@@ -180,6 +188,7 @@
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				F4DBCB0D0B3DC4F000D94639 /* Security.framework in Frameworks */,
 				F450990D0B51A969007D82E9 /* Sparkle.framework in Frameworks */,
+				F4A0E541127C9AF60038B1CE /* libxml2.2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,6 +223,7 @@
 				F450990C0B51A969007D82E9 /* Sparkle.framework */,
 				F4DBCB0C0B3DC4F000D94639 /* Security.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				F4A0E540127C9AF60038B1CE /* libxml2.2.dylib */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -315,6 +325,8 @@
 				F4329C2F0B3DA4A9003AB463 /* zkEnvelope.m */,
 				F4329C300B3DA4A9003AB463 /* zkQueryResult.h */,
 				F4329C310B3DA4A9003AB463 /* zkQueryResult.m */,
+				F4A0E524127C99D80038B1CE /* zkQueryResult_NSTableView.h */,
+				F4A0E525127C99D80038B1CE /* zkQueryResult_NSTableView.m */,
 				F4329C320B3DA4A9003AB463 /* zkSaveResult.h */,
 				F4329C330B3DA4A9003AB463 /* zkSaveResult.m */,
 				F4329C340B3DA4A9003AB463 /* zkSforce.h */,
@@ -326,10 +338,12 @@
 				F4329C3A0B3DA4A9003AB463 /* zkSObject.m */,
 				F4329C3B0B3DA4A9003AB463 /* zkUserInfo.h */,
 				F4329C3C0B3DA4A9003AB463 /* zkUserInfo.m */,
-				F4329C3D0B3DA4A9003AB463 /* zkXmlDeserializer.h */,
-				F4329C3E0B3DA4A9003AB463 /* zkXmlDeserializer.m */,
 				F44BF837103D0E5300B114E3 /* zkLoginResult.m */,
 				F44BF838103D0E5300B114E3 /* zkLoginResult.h */,
+				F4329C3D0B3DA4A9003AB463 /* zkXmlDeserializer.h */,
+				F4329C3E0B3DA4A9003AB463 /* zkXmlDeserializer.m */,
+				F4A0E522127C99D80038B1CE /* zkParser.h */,
+				F4A0E523127C99D80038B1CE /* zkParser.m */,
 			);
 			name = sforce;
 			sourceTree = "<group>";
@@ -410,7 +424,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "maildrop" */;
-			compatibilityVersion = "Xcode 3.0";
+			compatibilityVersion = "Xcode 3.2";
 			hasScannedForEncodings = 1;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* maildrop */;
 			projectDirPath = "";
@@ -486,6 +500,8 @@
 				F4BF64B40EE1F3D600F52263 /* WhoWhat.m in Sources */,
 				F44BF839103D0E5300B114E3 /* zkLoginResult.m in Sources */,
 				F4BEB52210BE4071004295EC /* zkDescribeGlobalSObject.m in Sources */,
+				F4A0E526127C99D80038B1CE /* zkParser.m in Sources */,
+				F4A0E527127C99D80038B1CE /* zkQueryResult_NSTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -571,10 +587,12 @@
 				COPYING_PRESERVES_HFS_DATA = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PREFIX_HEADER = maildrop_Prefix.pch;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				PREBINDING = NO;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SDKROOT = macosx10.5;
 			};
 			name = Debug;
 		};
@@ -584,10 +602,12 @@
 				COPYING_PRESERVES_HFS_DATA = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PREFIX_HEADER = maildrop_Prefix.pch;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				PREBINDING = NO;
-				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				SDKROOT = macosx10.5;
 			};
 			name = Release;
 		};

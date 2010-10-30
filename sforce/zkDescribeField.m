@@ -22,6 +22,7 @@
 
 #import "zkDescribeField.h"
 #import "zkPicklistEntry.h"
+#import "zkParser.h"
 
 @implementation ZKDescribeField
 
@@ -31,23 +32,27 @@
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-	NSXMLElement *n = [[node copyWithZone:zone] autorelease];
+	zkElement *n = [[node copyWithZone:zone] autorelease];
 	ZKDescribeField *rhs = [[ZKDescribeField alloc] initWithXmlElement:n];
 	[rhs setSobject:sobject];
 	return rhs;
 }
-- (NSXMLElement *)node {
+
+- (zkElement *)node {
 	return node;
 }
+
 - (BOOL)isEqual:(id)anObject {
 	if (![anObject isKindOfClass:[ZKDescribeField class]]) return NO;
 	return [node isEqual:[anObject node]];
 }
+
 - (void)setSobject:(ZKDescribeSObject *)s {
 	// note we explicitly don't retain this to stop a retain cycle between us and the parent sobject.
 	// as it has a reatined reference on us, it can't go away before we do.
 	sobject = s;
 }
+
 - (ZKDescribeSObject *)sobject {
 	return sobject;
 }
@@ -107,18 +112,8 @@
 	return [self boolean:@"nillable"];
 }
 - (NSArray *)picklistValues {
-	if (picklistValues == nil) {
-		NSArray *plv = [node elementsForName:@"picklistValues"];
-		NSMutableArray *res = [NSMutableArray arrayWithCapacity:[plv count]];
-		NSXMLNode * plNode;
-		NSEnumerator *e = [plv objectEnumerator];
-		while (plNode = [e nextObject]) {
-			ZKPicklistEntry *ple = [[ZKPicklistEntry alloc] initWithXmlElement:(NSXMLElement*)plNode];
-			[res addObject:ple];
-			[ple release];
-		}
-		picklistValues = [res retain];
-	}
+	if (picklistValues == nil) 
+		picklistValues = [[self complexTypeArrayFromElements:@"picklistValues" cls:[ZKPicklistEntry class]] retain];
 	return picklistValues;
 }
 - (int)precision {
@@ -169,4 +164,17 @@
 - (BOOL)idLookup {
 	return [self boolean:@"idLookup"];
 }
+- (int)relationshipOrder {
+	return [self integer:@"relationshipOrder"];
+}
+- (BOOL)writeRequiresMasterRead {
+	return [self boolean:@"writeRequiresMasterRead"];
+}
+- (NSString *)inlineHelpText {
+	return [self string:@"inlineHelpText"];
+}
+- (BOOL)groupable {
+	return [self boolean:@"groupable"];
+}
+
 @end

@@ -20,7 +20,6 @@
 //
 
 
-#import <Cocoa/Cocoa.h>
 #import "zkXmlDeserializer.h"
 
 //<complexType name="PicklistEntry">

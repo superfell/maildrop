@@ -20,10 +20,11 @@
 //
 
 #import "zkXmlDeserializer.h"
+#import "zkParser.h"
 
 @implementation ZKXmlDeserializer
 
--(id)initWithXmlElement:(NSXMLElement *)e {
+-(id)initWithXmlElement:(zkElement *)e {
 	self = [super init];
 	node = [e retain];
 	values = [[NSMutableDictionary alloc] init];
@@ -59,31 +60,25 @@
 - (NSArray *)strings:(NSString *)elem {
 	NSArray *cached = [values objectForKey:elem];
 	if (cached != nil) return cached;
-	NSArray *nodes = [node elementsForName:elem];
+	NSArray *nodes = [node childElements:elem];
 	NSMutableArray *s = [NSMutableArray arrayWithCapacity:[nodes count]];
-	NSXMLNode *n;
-	NSEnumerator *e = [nodes objectEnumerator];
-	while (n = [e nextObject]) {
-		[s addObject:[n stringValue]];
-	}
+	for (zkElement *e in nodes) 
+		[s addObject:[e stringValue]];
+	
 	[values setObject:s forKey:elem];
 	return s;
 }
 
-- (NSString *)string:(NSString *)elemName fromXmlElement:(NSXMLElement*)xmlElement {
-	NSArray * nodes = [xmlElement elementsForName:elemName];
-	if ([nodes count] == 0) return nil;
-	return [[nodes objectAtIndex:0] stringValue];
+- (NSString *)string:(NSString *)elemName fromXmlElement:(zkElement*)xmlElement {
+	return [[xmlElement childElement:elemName] stringValue];
 }
 
 - (NSArray *)complexTypeArrayFromElements:(NSString *)elemName cls:(Class)type {
 	NSArray *cached = [values objectForKey:elemName];
 	if (cached == nil) {
-		NSArray *elements = [node elementsForName:elemName];
+		NSArray *elements = [node childElements:elemName];
 		NSMutableArray *results = [NSMutableArray arrayWithCapacity:[elements count]];
-		NSXMLElement * childNode;
-		NSEnumerator *e = [elements objectEnumerator];
-		while (childNode = [e nextObject]) {
+		for(zkElement *childNode in elements) {
 			NSObject *child = [[type alloc] initWithXmlElement:childNode];
 			[results addObject:child];
 			[child release];

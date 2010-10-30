@@ -20,7 +20,6 @@
 //
 
 
-#import <Cocoa/Cocoa.h>
 #import "zkSObject.h"
 
 @interface ZKEnvelope : NSObject {

@@ -19,7 +19,6 @@
 // THE SOFTWARE.
 //
 
-#import <Cocoa/Cocoa.h>
 #import "zkXmlDeserializer.h"
 
 //			<complexType name="ChildRelationship">
