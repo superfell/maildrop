@@ -48,7 +48,6 @@
 		F4A0E527127C99D80038B1CE /* zkQueryResult_NSTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0E525127C99D80038B1CE /* zkQueryResult_NSTableView.m */; };
 		F4A0E541127C9AF60038B1CE /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A0E540127C9AF60038B1CE /* libxml2.2.dylib */; };
 		F4BEB52210BE4071004295EC /* zkDescribeGlobalSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BEB52110BE4071004295EC /* zkDescribeGlobalSObject.m */; };
-		F4BF64B40EE1F3D600F52263 /* WhoWhat.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BF64B30EE1F3D600F52263 /* WhoWhat.m */; };
 		F4DBCAF70B3DC0C700D94639 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DBCAF50B3DC0C700D94639 /* LoginController.m */; };
 		F4DBCB0D0B3DC4F000D94639 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DBCB0C0B3DC4F000D94639 /* Security.framework */; };
 		F4DBCB390B3E259400D94639 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = F4DBCB380B3E259400D94639 /* Credits.html */; };
@@ -153,8 +152,6 @@
 		F4A0E540127C9AF60038B1CE /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		F4BEB52010BE4071004295EC /* zkDescribeGlobalSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zkDescribeGlobalSObject.h; path = ../sforce/zkDescribeGlobalSObject.h; sourceTree = SOURCE_ROOT; };
 		F4BEB52110BE4071004295EC /* zkDescribeGlobalSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = zkDescribeGlobalSObject.m; path = ../sforce/zkDescribeGlobalSObject.m; sourceTree = SOURCE_ROOT; };
-		F4BF64B20EE1F3D600F52263 /* WhoWhat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoWhat.h; sourceTree = "<group>"; };
-		F4BF64B30EE1F3D600F52263 /* WhoWhat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhoWhat.m; sourceTree = "<group>"; };
 		F4DBCAF50B3DC0C700D94639 /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
 		F4DBCAF60B3DC0C700D94639 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
 		F4DBCB0C0B3DC4F000D94639 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
@@ -379,8 +376,6 @@
 				F41532EB0B4227FE00E36D7B /* CreateActivityController.m */,
 				F49210670B44CED100C5C9AB /* WhatSearchDataSource.h */,
 				F49210680B44CED100C5C9AB /* WhatSearchDataSource.m */,
-				F4BF64B20EE1F3D600F52263 /* WhoWhat.h */,
-				F4BF64B30EE1F3D600F52263 /* WhoWhat.m */,
 			);
 			name = addEmail;
 			sourceTree = "<group>";
@@ -497,7 +492,6 @@
 				F4451E370EDBAE9700ABBC35 /* Attachment.m in Sources */,
 				F4451EF20EDBC9DA00ABBC35 /* AsItem.m in Sources */,
 				F4921CFC0EDFA52E00E95E03 /* NSData-Base64Extensions.m in Sources */,
-				F4BF64B40EE1F3D600F52263 /* WhoWhat.m in Sources */,
 				F44BF839103D0E5300B114E3 /* zkLoginResult.m in Sources */,
 				F4BEB52210BE4071004295EC /* zkDescribeGlobalSObject.m in Sources */,
 				F4A0E526127C99D80038B1CE /* zkParser.m in Sources */,

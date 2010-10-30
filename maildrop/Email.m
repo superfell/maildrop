@@ -101,10 +101,8 @@ typedef enum GrowlNotification {
 	if ([attachments count] == 0) return;
 	if (![self checkSObjectType:@"Attachment" hasAccess:sforce]) return;
 	AppDelegate *app = (AppDelegate *)[NSApp delegate];
-	Attachment *a;
-	NSEnumerator *e = [attachments objectEnumerator];
 	int progress = 1;
-	while (a = [e nextObject]) {
+	for (Attachment *a in attachments) {
 		if (![a shouldUpload]) continue;
 		[[app buttonBarController] showProgressOf:progress max:totalAttachments + 1 withText:[NSString stringWithFormat:@"Attachment %d %@", progress, [a name]]]; 
 		ZKSaveResult *sr = [[sforce create:[NSArray arrayWithObject:[a makeSObject]]] objectAtIndex:0];
@@ -118,27 +116,18 @@ typedef enum GrowlNotification {
 }
 
 -(int)countOfAttachmentsToUpload {
-	Attachment *a;
 	int c = 0;
-	NSEnumerator *e = [attachments objectEnumerator];
-	while ( a = [e nextObject]) 
+	for (Attachment *a in attachments) 
 		if ([a shouldUpload]) c++;
 	return c;
 }
 
--(void)setAttachmentsParentId:(NSString *)parentId onlyIfNil:(BOOL)onlyIfNil {
-	Attachment *a;
-	NSEnumerator *e = [attachments objectEnumerator];
-	while (a = [e nextObject]) {
-		if ((!onlyIfNil) || ([a parentId] == nil))
-			[a setParentId:parentId];
-	}
+-(void)setAttachmentsParentId:(NSString *)parentId {
+	[attachments makeObjectsPerformSelector:@selector(setParentId:) withObject:parentId];
 }
 
 -(void)clearAttachmentUpload {
-	Attachment *a;
-	NSEnumerator *e = [attachments objectEnumerator];
-	while (a = [e nextObject])
+	for (Attachment *a in attachments)
 		[a setShouldUpload:NO];
 }
 
@@ -151,6 +140,7 @@ typedef enum GrowlNotification {
 	int num = [self countOfAttachmentsToUpload];
 	if (activityId != nil) {
 		[self setSalesforceId:activityId];
+		[self setAttachmentsParentId:activityId];
 		[self saveAttachmentsUsingClient:[app sforce] numTotal:num];
 		[self growl:EmailAdded];
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:SHOW_NEW_EMAIL_PREF])
@@ -186,7 +176,7 @@ typedef enum GrowlNotification {
 	if ([sr success]) {
 		[self setSalesforceId:[sr id]];
 		if (addAttachments) {
-			[self setAttachmentsParentId:[sr id] onlyIfNil:NO];
+			[self setAttachmentsParentId:[sr id]];
 			[self saveAttachmentsUsingClient:sforce numTotal:numAttatchments];
 		}
 		[self growl:CaseCreated];

@@ -1,4 +1,4 @@
-// Copyright (c) 2008 Simon Fell
+// Copyright (c) 2008,2010 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -24,31 +24,22 @@
 
 @class Email;
 @class ZKSObject;
-@class WhoWhat;
 
 @interface Attachment : AsItem {
 	NSString	*name, *mimeType, *salesforceId, *parentId;
 	NSURL		*file;
 	BOOL		shouldUpload;
-	WhoWhat		*parentWhoWhat;	// can set a parentWhoWhat instead of a parentId, makes some UI binding easier.
 }
 
--(void)setName:(NSString *)newName;
--(void)setMimeType:(NSString *)mimeType;
--(void)setFile:(NSURL *)file;
--(void)setParentId:(NSString *)parentId;
--(void)setParentWhoWhat:(WhoWhat *)parentWW;
+@property (retain) NSString *name;
+@property (retain) NSString *mimeType;
+@property (retain) NSURL *file;
+@property (retain) NSString *parentId;
+@property (assign) BOOL shouldUpload;
 
--(NSString *)name;
--(NSString *)mimeType;
 -(NSString *)salesforceId;
--(NSString *)parentId;
--(NSURL *)file;
 -(NSString *)formattedSize;
--(WhoWhat *)parentWhoWhat;
 
 -(ZKSObject *)makeSObject;
--(BOOL)shouldUpload;
--(void)setShouldUpload:(BOOL)s;
 
 @end

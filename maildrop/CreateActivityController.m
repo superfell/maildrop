@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2009 Simon Fell
+// Copyright (c) 2006-2010 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -25,7 +25,6 @@
 #import "zkDescribeGlobalSObject.h"
 #import "ZKDescribeSObject_Additions.h"
 #import "SObjectPermsWrapper.h"
-#import "WhoWhat.h"
 #import "Attachment.h"
 #import "Constants.h"
 
@@ -87,39 +86,6 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	int sel = [whatSearchResults selectedRow];
 	if (sel < 0) return nil;
 	return [[whatResultsTableSource results] objectAtIndex:sel];
-}
-
--(void)updateWhoWhat:(WhoWhat **)whoWhat from:(ZKSObject *)o {
-	if (o == nil) {
-		[*whoWhat release];
-		*whoWhat = nil;
-	} else {
-		if (*whoWhat == nil) 
-			*whoWhat = [[WhoWhat alloc] initWithClient:sforce];
-		[*whoWhat setSobject:o];
-	}
-}
-
--(NSArray *)selectedWhoWhats {
-	[self updateWhoWhat:&selectedWho from:[self selectedWho]];
-	[self updateWhoWhat:&selectedWhat from:[self selectedWhat]];
-	NSMutableArray *s = [NSMutableArray arrayWithCapacity:2];
-	if (selectedWho != nil)  [s addObject:selectedWho];
-	if (selectedWhat != nil) [s addObject:selectedWhat];
-	return s;
-}
-
-// there was a selection change in one of the results tables, notifiy that this changes the selectedWhoWhats property
--(void)tableViewSelectionDidChange:(NSNotification *)aNotification {
-	[self willChangeValueForKey:@"selectedWhoWhats"];
-	[self selectedWhoWhats];
-	[self didChangeValueForKey:@"selectedWhoWhats"];
-	Attachment *a;
-	NSEnumerator *e = [[email attachments] objectEnumerator];
-	while (a = [e nextObject]) {
-		if ([a parentWhoWhat] == nil)
-			[a setParentWhoWhat:selectedWho != nil ? selectedWho : selectedWhat];
-	}
 }
 
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo {
@@ -493,12 +459,6 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	leadStatus = nil;
 	[defaultLeadStatus release];
 	defaultLeadStatus = nil;
-	[selectedWho release];
-	selectedWho = nil;
-	[selectedWhat release];
-	selectedWhat = nil;
-	[self willChangeValueForKey:@"selectedWhoWhats"];
-	[self didChangeValueForKey:@"selectedWhoWhats"];
 	[self setCreateContactAllowed:[self isCreateableObjectType:@"Contact"]];
 	[self setCreateLeadAllowed:[self isCreateableObjectType:@"Lead"]];	
 }

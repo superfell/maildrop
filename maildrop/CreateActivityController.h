@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2008 Simon Fell
+// Copyright (c) 2006-2010 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -25,7 +25,6 @@
 @class ZKSforceClient;
 @class Email;
 @class ZKSObject;
-@class WhoWhat;
 
 @interface CreateActivityController : NSObject
 {
@@ -46,9 +45,6 @@
 	NSArray					*whoSearchResults;
 	WhatSearchDataSource	*whatResultsTableSource;
 
-	WhoWhat					*selectedWho;
-	WhoWhat					*selectedWhat;
-	
 	NSString 				*whoSearchText;
 	NSString				*whatSearchText;
 	Email					*email;
@@ -81,7 +77,6 @@
 @property (retain) Email *email;
 
 - (NSArray *)whatObjectTypeDescribes;
-- (NSArray *)selectedWhoWhats;
 
 @property (assign) BOOL createContactAllowed;
 @property (assign) BOOL createLeadAllowed;
