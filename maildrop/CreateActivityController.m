@@ -37,6 +37,11 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 
 @implementation CreateActivityController
 
+@synthesize whoSearchText, whatSearchText;
+@synthesize contactFirstName, contactLastName;
+@synthesize contactEmail, contactCompany, contactLeadStatus;
+@synthesize createContactAllowed, createLeadAllowed;
+@synthesize email;
 
 + (void)initialize {
 	NSArray *keys = [NSArray arrayWithObjects:@"email", nil];
@@ -269,98 +274,12 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	return whoSearchResults;
 }
 
-- (NSString *)whoSearchText {
-	return whoSearchText;
-}
-
-- (void)setWhoSearchText:(NSString *)aWhoSearchText {
-	aWhoSearchText = [aWhoSearchText copy];
-	[whoSearchText release];
-	whoSearchText = aWhoSearchText;
-}
-
-- (NSString *)whatSearchText {
-	return whatSearchText;
-}
-
-- (void)setWhatSearchText:(NSString *)aWhatSearchText {
-	aWhatSearchText = [aWhatSearchText copy];
-	[whatSearchText release];
-	whatSearchText = aWhatSearchText;
-}
-
-- (NSString *)contactFirstName {
-	return contactFirstName;
-}
-
-- (void)setContactFirstName:(NSString *)aContactFirstName {
-	aContactFirstName = [aContactFirstName copy];
-	[contactFirstName release];
-	contactFirstName = aContactFirstName;
-}
-
-- (NSString *)contactLastName {
-	return contactLastName;
-}
-
-- (void)setContactLastName:(NSString *)aContactLastName {
-	aContactLastName = [aContactLastName copy];
-	[contactLastName release];
-	contactLastName = aContactLastName;
-}
-
-- (NSString *)contactEmail {
-	return contactEmail;
-}
-
-- (void)setContactEmail:(NSString *)aContactEmail {
-	aContactEmail = [aContactEmail copy];
-	[contactEmail release];
-	contactEmail = aContactEmail;
-}
-
-- (NSString *)contactCompany {
-	return contactCompany;
-}
-
-- (void)setContactCompany:(NSString *)aContactCompany {
-	aContactCompany = [aContactCompany copy];
-	[contactCompany release];
-	contactCompany = aContactCompany;
-}
-
-- (NSString *)contactLeadStatus {
-	return contactLeadStatus;
-}
-
-- (void)setContactLeadStatus:(NSString *)aContactLeadStatus {
-	aContactLeadStatus = [aContactLeadStatus copy];
-	[contactLeadStatus release];
-	contactLeadStatus = aContactLeadStatus;
-}
-
-- (BOOL)createContactAllowed {
-	return createContactAllowed;
-}
-
-- (void)setCreateContactAllowed:(BOOL)newCreateContactAllowed {
-	createContactAllowed = newCreateContactAllowed;
-}
-
-- (BOOL)createLeadAllowed {
-	return createLeadAllowed;
-}
-
-- (void)setCreateLeadAllowed:(BOOL)newCreateLeadAllowed {
-	createLeadAllowed = newCreateLeadAllowed;
-}
-
 - (NSString *)emailSubject {
-	return [email subject];
+        return [email subject];
 }
 
 - (void)setEmailSubject:(NSString *)aEmailSubject {
-	[email setSubject:aEmailSubject];
+        [email setSubject:aEmailSubject];
 }
 
 - (void)setCurrentPropertiesFromEmail {
@@ -601,16 +520,6 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	NSString *sfId = [taskId autorelease];
 	taskId = nil;
 	return sfId;
-}
-
-- (Email *)email {
-	return email;
-}
-
-- (void)setEmail:(Email *)aValue {
-	Email *oldEmail = email;
-	email = [aValue retain];
-	[oldEmail release];
 }
 
 static const float MIN_PANE_SIZE = 70.0f;

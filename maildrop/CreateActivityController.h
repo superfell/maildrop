@@ -69,31 +69,22 @@
 - (NSArray *)leadStatus;
 - (NSString *)defaultLeadStatus;
 - (NSString *)closedTaskStatus;
-- (NSString *)whoSearchText;
-- (void)setWhoSearchText:(NSString *)aWhoSearchText;
-- (NSString *)whatSearchText;
-- (void)setWhatSearchText:(NSString *)aWhatSearchText;
-- (NSString *)contactFirstName;
-- (void)setContactFirstName:(NSString *)aContactFirstName;
-- (NSString *)contactLastName;
-- (void)setContactLastName:(NSString *)aContactLastName;
-- (NSString *)contactEmail;
-- (void)setContactEmail:(NSString *)aContactEmail;
-- (NSString *)contactCompany;
-- (void)setContactCompany:(NSString *)aContactCompany;
-- (NSString *)contactLeadStatus;
-- (void)setContactLeadStatus:(NSString *)aContactLeadStatus;
-- (NSString *)emailSubject;
-- (void)setEmailSubject:(NSString *)aEmailSubject;
-- (Email *)email;
-- (void)setEmail:(Email *)aValue;
+
+@property (retain) NSString *whatSearchText;
+@property (retain) NSString *whoSearchText;
+@property (retain) NSString *contactFirstName;
+@property (retain) NSString *contactLastName;
+@property (retain) NSString *contactEmail;
+@property (retain) NSString *contactCompany;
+@property (retain) NSString *contactLeadStatus;
+@property (retain) NSString *emailSubject;
+@property (retain) Email *email;
+
 - (NSArray *)whatObjectTypeDescribes;
 - (NSArray *)selectedWhoWhats;
 
-- (BOOL)createContactAllowed;
-- (void)setCreateContactAllowed:(BOOL)newCreateContactAllowed;
-- (BOOL)createLeadAllowed;
-- (void)setCreateLeadAllowed:(BOOL)newCreateLeadAllowed;
+@property (assign) BOOL createContactAllowed;
+@property (assign) BOOL createLeadAllowed;
 
 - (BOOL)canSearchWho;
 

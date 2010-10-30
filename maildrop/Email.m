@@ -28,7 +28,7 @@
 #import "Attachment.h"
 #import "ButtonBarController.h"
 #import "Constants.h"
-#import <Carbon/Carbon.h>
+#import "ZKDescribeSObject_additions.h"
 
 typedef enum GrowlNotification {
 	EmailAdded,
