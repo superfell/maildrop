@@ -22,7 +22,6 @@
 #import <Cocoa/Cocoa.h>
 #import "AsItem.h"
 
-@class Email;
 @class ZKSObject;
 
 @interface Attachment : AsItem {
@@ -35,9 +34,9 @@
 @property (retain) NSString *mimeType;
 @property (retain) NSURL *file;
 @property (retain) NSString *parentId;
+@property (retain) NSString *salesforceId;
 @property (assign) BOOL shouldUpload;
 
--(NSString *)salesforceId;
 -(NSString *)formattedSize;
 
 -(ZKSObject *)makeSObject;

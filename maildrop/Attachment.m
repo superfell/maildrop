@@ -23,11 +23,10 @@
 #import "Email.h"
 #import "zkSObject.h"
 #import "NSData-Base64Extensions.h"
-#import "WhoWhat.h"
 
 @implementation Attachment
 
-@synthesize name, mimeType, file, parentId, shouldUpload;
+@synthesize name, mimeType, file, parentId, shouldUpload, salesforceId;
 
 -(id)init {
 	self = [super init];
@@ -59,10 +58,6 @@
 
 -(NSString *)uniqueId {
 	return uniqueId;
-}
-
--(NSString *)salesforceId {
-	return salesforceId;
 }
 
 -(NSString *)formattedSize {

@@ -109,6 +109,8 @@ typedef enum GrowlNotification {
 		if (![sr success]) {
 			// TODO
 			NSLog(@"%@ %@", [sr statusCode], [sr message]);
+		} else {
+			[a setSalesforceId:[sr id]];
 		}
 		progress++;
 	}
