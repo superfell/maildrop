@@ -47,6 +47,19 @@
 		F4A0E526127C99D80038B1CE /* zkParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0E523127C99D80038B1CE /* zkParser.m */; };
 		F4A0E527127C99D80038B1CE /* zkQueryResult_NSTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0E525127C99D80038B1CE /* zkQueryResult_NSTableView.m */; };
 		F4A0E541127C9AF60038B1CE /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A0E540127C9AF60038B1CE /* libxml2.2.dylib */; };
+		F4A0E698127D10C40038B1CE /* ZKDescribeLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0E689127D10C40038B1CE /* ZKDescribeLayout.m */; };
+		F4A0E699127D10C40038B1CE /* ZKDescribeLayoutButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0E68B127D10C40038B1CE /* ZKDescribeLayoutButton.m */; };
+		F4A0E69A127D10C40038B1CE /* ZKDescribeLayoutButtonSection.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0E68D127D10C40038B1CE /* ZKDescribeLayoutButtonSection.m */; };
+		F4A0E69B127D10C40038B1CE /* ZKDescribeLayoutComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0E68F127D10C40038B1CE /* ZKDescribeLayoutComponent.m */; };
+		F4A0E69C127D10C40038B1CE /* ZKDescribeLayoutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0E691127D10C40038B1CE /* ZKDescribeLayoutItem.m */; };
+		F4A0E69D127D10C40038B1CE /* ZKDescribeLayoutResult.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0E693127D10C40038B1CE /* ZKDescribeLayoutResult.m */; };
+		F4A0E69E127D10C40038B1CE /* ZKDescribeLayoutRow.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0E695127D10C40038B1CE /* ZKDescribeLayoutRow.m */; };
+		F4A0E69F127D10C40038B1CE /* ZKDescribeLayoutSection.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0E697127D10C40038B1CE /* ZKDescribeLayoutSection.m */; };
+		F4A0E6A8127D15C50038B1CE /* ZKRelatedList.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0E6A3127D15C50038B1CE /* ZKRelatedList.m */; };
+		F4A0E6A9127D15C50038B1CE /* ZKRelatedListColumn.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0E6A5127D15C50038B1CE /* ZKRelatedListColumn.m */; };
+		F4A0E6AA127D15C50038B1CE /* ZKRelatedListSort.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0E6A7127D15C50038B1CE /* ZKRelatedListSort.m */; };
+		F4A0E6CF127D16DD0038B1CE /* ZKRecordTypeMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0E6CE127D16DD0038B1CE /* ZKRecordTypeMapping.m */; };
+		F4A0E6D2127D175F0038B1CE /* ZKPicklistForRecordType.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0E6D1127D175F0038B1CE /* ZKPicklistForRecordType.m */; };
 		F4BEB52210BE4071004295EC /* zkDescribeGlobalSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BEB52110BE4071004295EC /* zkDescribeGlobalSObject.m */; };
 		F4DBCAF70B3DC0C700D94639 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DBCAF50B3DC0C700D94639 /* LoginController.m */; };
 		F4DBCB0D0B3DC4F000D94639 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DBCB0C0B3DC4F000D94639 /* Security.framework */; };
@@ -150,6 +163,32 @@
 		F4A0E524127C99D80038B1CE /* zkQueryResult_NSTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zkQueryResult_NSTableView.h; path = ../sforce/zkQueryResult_NSTableView.h; sourceTree = SOURCE_ROOT; };
 		F4A0E525127C99D80038B1CE /* zkQueryResult_NSTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = zkQueryResult_NSTableView.m; path = ../sforce/zkQueryResult_NSTableView.m; sourceTree = SOURCE_ROOT; };
 		F4A0E540127C9AF60038B1CE /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		F4A0E688127D10C40038B1CE /* ZKDescribeLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKDescribeLayout.h; path = ../sforce/ZKDescribeLayout.h; sourceTree = SOURCE_ROOT; };
+		F4A0E689127D10C40038B1CE /* ZKDescribeLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKDescribeLayout.m; path = ../sforce/ZKDescribeLayout.m; sourceTree = SOURCE_ROOT; };
+		F4A0E68A127D10C40038B1CE /* ZKDescribeLayoutButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKDescribeLayoutButton.h; path = ../sforce/ZKDescribeLayoutButton.h; sourceTree = SOURCE_ROOT; };
+		F4A0E68B127D10C40038B1CE /* ZKDescribeLayoutButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKDescribeLayoutButton.m; path = ../sforce/ZKDescribeLayoutButton.m; sourceTree = SOURCE_ROOT; };
+		F4A0E68C127D10C40038B1CE /* ZKDescribeLayoutButtonSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKDescribeLayoutButtonSection.h; path = ../sforce/ZKDescribeLayoutButtonSection.h; sourceTree = SOURCE_ROOT; };
+		F4A0E68D127D10C40038B1CE /* ZKDescribeLayoutButtonSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKDescribeLayoutButtonSection.m; path = ../sforce/ZKDescribeLayoutButtonSection.m; sourceTree = SOURCE_ROOT; };
+		F4A0E68E127D10C40038B1CE /* ZKDescribeLayoutComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKDescribeLayoutComponent.h; path = ../sforce/ZKDescribeLayoutComponent.h; sourceTree = SOURCE_ROOT; };
+		F4A0E68F127D10C40038B1CE /* ZKDescribeLayoutComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKDescribeLayoutComponent.m; path = ../sforce/ZKDescribeLayoutComponent.m; sourceTree = SOURCE_ROOT; };
+		F4A0E690127D10C40038B1CE /* ZKDescribeLayoutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKDescribeLayoutItem.h; path = ../sforce/ZKDescribeLayoutItem.h; sourceTree = SOURCE_ROOT; };
+		F4A0E691127D10C40038B1CE /* ZKDescribeLayoutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKDescribeLayoutItem.m; path = ../sforce/ZKDescribeLayoutItem.m; sourceTree = SOURCE_ROOT; };
+		F4A0E692127D10C40038B1CE /* ZKDescribeLayoutResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKDescribeLayoutResult.h; path = ../sforce/ZKDescribeLayoutResult.h; sourceTree = SOURCE_ROOT; };
+		F4A0E693127D10C40038B1CE /* ZKDescribeLayoutResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKDescribeLayoutResult.m; path = ../sforce/ZKDescribeLayoutResult.m; sourceTree = SOURCE_ROOT; };
+		F4A0E694127D10C40038B1CE /* ZKDescribeLayoutRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKDescribeLayoutRow.h; path = ../sforce/ZKDescribeLayoutRow.h; sourceTree = SOURCE_ROOT; };
+		F4A0E695127D10C40038B1CE /* ZKDescribeLayoutRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKDescribeLayoutRow.m; path = ../sforce/ZKDescribeLayoutRow.m; sourceTree = SOURCE_ROOT; };
+		F4A0E696127D10C40038B1CE /* ZKDescribeLayoutSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKDescribeLayoutSection.h; path = ../sforce/ZKDescribeLayoutSection.h; sourceTree = SOURCE_ROOT; };
+		F4A0E697127D10C40038B1CE /* ZKDescribeLayoutSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKDescribeLayoutSection.m; path = ../sforce/ZKDescribeLayoutSection.m; sourceTree = SOURCE_ROOT; };
+		F4A0E6A2127D15C50038B1CE /* ZKRelatedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKRelatedList.h; path = ../sforce/ZKRelatedList.h; sourceTree = SOURCE_ROOT; };
+		F4A0E6A3127D15C50038B1CE /* ZKRelatedList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKRelatedList.m; path = ../sforce/ZKRelatedList.m; sourceTree = SOURCE_ROOT; };
+		F4A0E6A4127D15C50038B1CE /* ZKRelatedListColumn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKRelatedListColumn.h; path = ../sforce/ZKRelatedListColumn.h; sourceTree = SOURCE_ROOT; };
+		F4A0E6A5127D15C50038B1CE /* ZKRelatedListColumn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKRelatedListColumn.m; path = ../sforce/ZKRelatedListColumn.m; sourceTree = SOURCE_ROOT; };
+		F4A0E6A6127D15C50038B1CE /* ZKRelatedListSort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKRelatedListSort.h; path = ../sforce/ZKRelatedListSort.h; sourceTree = SOURCE_ROOT; };
+		F4A0E6A7127D15C50038B1CE /* ZKRelatedListSort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKRelatedListSort.m; path = ../sforce/ZKRelatedListSort.m; sourceTree = SOURCE_ROOT; };
+		F4A0E6CD127D16DD0038B1CE /* ZKRecordTypeMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKRecordTypeMapping.h; path = ../sforce/ZKRecordTypeMapping.h; sourceTree = SOURCE_ROOT; };
+		F4A0E6CE127D16DD0038B1CE /* ZKRecordTypeMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKRecordTypeMapping.m; path = ../sforce/ZKRecordTypeMapping.m; sourceTree = SOURCE_ROOT; };
+		F4A0E6D0127D175F0038B1CE /* ZKPicklistForRecordType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZKPicklistForRecordType.h; path = ../sforce/ZKPicklistForRecordType.h; sourceTree = SOURCE_ROOT; };
+		F4A0E6D1127D175F0038B1CE /* ZKPicklistForRecordType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZKPicklistForRecordType.m; path = ../sforce/ZKPicklistForRecordType.m; sourceTree = SOURCE_ROOT; };
 		F4BEB52010BE4071004295EC /* zkDescribeGlobalSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zkDescribeGlobalSObject.h; path = ../sforce/zkDescribeGlobalSObject.h; sourceTree = SOURCE_ROOT; };
 		F4BEB52110BE4071004295EC /* zkDescribeGlobalSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = zkDescribeGlobalSObject.m; path = ../sforce/zkDescribeGlobalSObject.m; sourceTree = SOURCE_ROOT; };
 		F4DBCAF50B3DC0C700D94639 /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
@@ -302,6 +341,7 @@
 		F4329C4A0B3DA4AD003AB463 /* sforce */ = {
 			isa = PBXGroup;
 			children = (
+				F4A0E6AB127D15C80038B1CE /* describeLayout */,
 				F4F8F1610C4AF3DA00116C66 /* zkBaseClient.h */,
 				F4F8F1620C4AF3DA00116C66 /* zkBaseClient.m */,
 				F4F8F1630C4AF3DA00116C66 /* ZKPartnerEnvelope.h */,
@@ -343,6 +383,39 @@
 				F4A0E523127C99D80038B1CE /* zkParser.m */,
 			);
 			name = sforce;
+			sourceTree = "<group>";
+		};
+		F4A0E6AB127D15C80038B1CE /* describeLayout */ = {
+			isa = PBXGroup;
+			children = (
+				F4A0E6D0127D175F0038B1CE /* ZKPicklistForRecordType.h */,
+				F4A0E6D1127D175F0038B1CE /* ZKPicklistForRecordType.m */,
+				F4A0E6CD127D16DD0038B1CE /* ZKRecordTypeMapping.h */,
+				F4A0E6CE127D16DD0038B1CE /* ZKRecordTypeMapping.m */,
+				F4A0E6A2127D15C50038B1CE /* ZKRelatedList.h */,
+				F4A0E6A3127D15C50038B1CE /* ZKRelatedList.m */,
+				F4A0E6A4127D15C50038B1CE /* ZKRelatedListColumn.h */,
+				F4A0E6A5127D15C50038B1CE /* ZKRelatedListColumn.m */,
+				F4A0E6A6127D15C50038B1CE /* ZKRelatedListSort.h */,
+				F4A0E6A7127D15C50038B1CE /* ZKRelatedListSort.m */,
+				F4A0E688127D10C40038B1CE /* ZKDescribeLayout.h */,
+				F4A0E689127D10C40038B1CE /* ZKDescribeLayout.m */,
+				F4A0E68A127D10C40038B1CE /* ZKDescribeLayoutButton.h */,
+				F4A0E68B127D10C40038B1CE /* ZKDescribeLayoutButton.m */,
+				F4A0E68C127D10C40038B1CE /* ZKDescribeLayoutButtonSection.h */,
+				F4A0E68D127D10C40038B1CE /* ZKDescribeLayoutButtonSection.m */,
+				F4A0E68E127D10C40038B1CE /* ZKDescribeLayoutComponent.h */,
+				F4A0E68F127D10C40038B1CE /* ZKDescribeLayoutComponent.m */,
+				F4A0E690127D10C40038B1CE /* ZKDescribeLayoutItem.h */,
+				F4A0E691127D10C40038B1CE /* ZKDescribeLayoutItem.m */,
+				F4A0E692127D10C40038B1CE /* ZKDescribeLayoutResult.h */,
+				F4A0E693127D10C40038B1CE /* ZKDescribeLayoutResult.m */,
+				F4A0E694127D10C40038B1CE /* ZKDescribeLayoutRow.h */,
+				F4A0E695127D10C40038B1CE /* ZKDescribeLayoutRow.m */,
+				F4A0E696127D10C40038B1CE /* ZKDescribeLayoutSection.h */,
+				F4A0E697127D10C40038B1CE /* ZKDescribeLayoutSection.m */,
+			);
+			name = describeLayout;
 			sourceTree = "<group>";
 		};
 		F4BF64C40EE1FAC400F52263 /* extensions */ = {
@@ -496,6 +569,19 @@
 				F4BEB52210BE4071004295EC /* zkDescribeGlobalSObject.m in Sources */,
 				F4A0E526127C99D80038B1CE /* zkParser.m in Sources */,
 				F4A0E527127C99D80038B1CE /* zkQueryResult_NSTableView.m in Sources */,
+				F4A0E698127D10C40038B1CE /* ZKDescribeLayout.m in Sources */,
+				F4A0E699127D10C40038B1CE /* ZKDescribeLayoutButton.m in Sources */,
+				F4A0E69A127D10C40038B1CE /* ZKDescribeLayoutButtonSection.m in Sources */,
+				F4A0E69B127D10C40038B1CE /* ZKDescribeLayoutComponent.m in Sources */,
+				F4A0E69C127D10C40038B1CE /* ZKDescribeLayoutItem.m in Sources */,
+				F4A0E69D127D10C40038B1CE /* ZKDescribeLayoutResult.m in Sources */,
+				F4A0E69E127D10C40038B1CE /* ZKDescribeLayoutRow.m in Sources */,
+				F4A0E69F127D10C40038B1CE /* ZKDescribeLayoutSection.m in Sources */,
+				F4A0E6A8127D15C50038B1CE /* ZKRelatedList.m in Sources */,
+				F4A0E6A9127D15C50038B1CE /* ZKRelatedListColumn.m in Sources */,
+				F4A0E6AA127D15C50038B1CE /* ZKRelatedListSort.m in Sources */,
+				F4A0E6CF127D16DD0038B1CE /* ZKRecordTypeMapping.m in Sources */,
+				F4A0E6D2127D175F0038B1CE /* ZKPicklistForRecordType.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

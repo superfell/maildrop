@@ -31,6 +31,7 @@
 #import "zkLoginResult.h"
 #import "zkDescribeGlobalSObject.h"
 #import "zkParser.h"
+#import "ZKDescribeLayoutResult.h"
 
 static const int MAX_SESSION_AGE = 25 * 60; // 25 minutes
 static const int SAVE_BATCH_SIZE = 25;
@@ -257,6 +258,22 @@ static const int SAVE_BATCH_SIZE = 25;
 	[env release];
 	if (cacheDescribes) 
 		[describes setObject:desc forKey:[sobjectName lowercaseString]];
+	return desc;
+}
+
+- (ZKDescribeLayoutResult *)describeLayout:(NSString *)sobjectName recordTypeIds:(NSArray *)recordTypeIds {
+	if (!sessionId) return nil;
+	[self checkSession];
+	ZKEnvelope *env = [[[ZKPartnerEnvelope alloc] initWithSessionHeader:sessionId clientId:clientId] autorelease];
+	[env startElement:@"describeLayout"];
+	[env addElement:@"sObjectType" elemValue:sobjectName];
+	[env addElementArray:@"recordTypeIds" elemValue:recordTypeIds];
+	[env endElement:@"describeLayout"];
+	[env endElement:@"s:Body"];
+
+	zkElement *dr = [self sendRequest:[env end]];
+	zkElement *descResult = [dr childElement:@"result"];
+	ZKDescribeLayoutResult *desc = [[[ZKDescribeLayoutResult alloc] initWithXmlElement:descResult] autorelease];
 	return desc;
 }
 
