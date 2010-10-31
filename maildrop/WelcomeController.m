@@ -89,8 +89,7 @@
 }
 
 -(BOOL)fileManager:(NSFileManager *)manager shouldProceedAfterError:(NSDictionary *)errorInfo {
-    int result;
-    result = NSRunAlertPanel(@"Maildrop", @"File operation error:%@ with file: %@\r\n\r\nPlease fix and select Reinstall Scripts from the help menu", @"OK", nil, nil, 
+    NSRunAlertPanel(@"Maildrop", @"File operation error:%@ with file: %@\r\n\r\nPlease fix and select Reinstall Scripts from the help menu", @"OK", nil, nil, 
             [errorInfo objectForKey:@"Error"], 
             [errorInfo objectForKey:@"Path"]);
     return NO;

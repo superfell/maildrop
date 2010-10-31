@@ -133,7 +133,7 @@
 	SecKeychainAttributeList al = { 0, a };
 	UInt32 length = 0;
 	void *data = 0;
-	NSString *pwd;
+	NSString *pwd = nil;
 	if (noErr == SecKeychainItemCopyContent(keychainItem, NULL, &al, &length, &data)) {
 		pwd = [NSString stringWithCString:data length:length];
 	}

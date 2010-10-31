@@ -148,17 +148,17 @@ static const int SAVE_BATCH_SIZE = 25;
 	[env endElement:@"login"];
 	[env endElement:@"s:Body"];
 	NSString *xml = [env end];
+	[env release];
 	
 	zkElement *resp = [self sendRequest:xml];	
 	zkElement *result = [[resp childElements:@"result"] objectAtIndex:0];
-	ZKLoginResult *lr = [[ZKLoginResult alloc] initWithXmlElement:result];
+	ZKLoginResult *lr = [[[ZKLoginResult alloc] initWithXmlElement:result] autorelease];
 	
 	[endpointUrl release];
 	endpointUrl = [[lr serverUrl] copy];
 	sessionId = [[lr sessionId] copy];
 
 	userInfo = [[lr userInfo] retain];
-	[env release];
 	return lr;
 }
 
@@ -199,7 +199,7 @@ static const int SAVE_BATCH_SIZE = 25;
 	if(!sessionId) return;
 	[self checkSession];
 	
-	ZKEnvelope * env = [[ZKPartnerEnvelope alloc] initWithSessionHeader:sessionId clientId:clientId];
+	ZKEnvelope * env = [[[ZKPartnerEnvelope alloc] initWithSessionHeader:sessionId clientId:clientId] autorelease];
 	[env startElement:@"setPassword"];
 	[env addElement:@"userId" elemValue:userId];
 	[env addElement:@"password" elemValue:newPassword];

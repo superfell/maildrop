@@ -168,6 +168,7 @@ static NSString *test = @"https://test.salesforce.com";
 		[self setServer:new];
 		[self closeAddNewServer:sender];
 	}
+	// Note, Analyze might complain about a leak here, but its just confused because of the newUrl property starting with new. TODO rename it.
 }
 
 - (IBAction)cancelLogin:(id)sender {
