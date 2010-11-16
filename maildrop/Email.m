@@ -147,6 +147,8 @@ typedef enum GrowlNotification {
 		[self growl:EmailAdded];
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:SHOW_NEW_EMAIL_PREF])
 			[self openInSalesforce:activityId sobject:@"Task" sforce:[app sforce]];
+		if (num > 0)
+			[app shouldCheckForAttachmentsRelatedListOnTask];
 	}
 }
 

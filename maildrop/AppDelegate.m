@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2008 Simon Fell
+// Copyright (c) 2006-2010 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -24,6 +24,9 @@
 #import "LoginController.h"
 #import "CreateActivityController.h"
 #import "Constants.h"
+#import "ZKDescribeLayoutResult.h"
+#import "ZKDescribeLayout.h"
+#import "ZKRelatedList.h"
 
 @implementation AppDelegate
 
@@ -41,6 +44,7 @@
 	[defaults setObject:[NSNumber numberWithBool:YES] forKey:ATTACHMENTS_ON_CASES_PREF];
 	[defaults setObject:[NSNumber numberWithBool:YES] forKey:ATTACHMENTS_ON_EMAIL_PREF];
 	[defaults setObject:[NSNumber numberWithBool:YES] forKey:ADD_EMAIL_TO_DESC_PREF];
+	[defaults setObject:[NSNumber numberWithBool:YES] forKey:SHOW_TASK_RELATEDLIST_WARNING_PREF];
 	[defaults setObject:@"Subject" forKey:@"additionalField_Case"];
 	[[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }
@@ -135,7 +139,7 @@
 - (NSString *)createActivity:(Email *)email {
 	ZKSforceClient *sf = [self sforce];
 	if (sf == nil) return nil;
-	return [createAcitivityController createActivity:email sforce:[self sforce]];
+	return [createAcitivityController createActivity:email sforce:sf];
 }
 
 -(IBAction)showButtonBar:(id)sender {
@@ -147,6 +151,28 @@
 	if (page != nil)
 		baseUrl = [NSURL URLWithString:page relativeToURL:baseUrl];
 	[[NSWorkspace sharedWorkspace] openURL:baseUrl];
+}
+
+- (void)checkForAttachmentsRelatedList {
+	ZKDescribeLayoutResult *layoutRes = [[self sforce] describeLayout:@"Task" recordTypeIds:nil];
+	for (ZKDescribeLayout *layout in [layoutRes layouts]) {
+		for (ZKRelatedList *rl in [layout relatedLists]) {
+			if ([[rl sobject] caseInsensitiveCompare:@"attachment"] == NSOrderedSame) return;// found a layout with the Attachments related list.
+		}
+	}
+	NSLog(@"No layout with the attachments related list on it.");
+	layoutRes = [[self sforce] describeLayout:@"Task" recordTypeIds:nil];
+	for(ZKDescribeLayout *layout in [layoutRes layouts]) {
+		NSLog(@"layout %@", [layout Id]);
+		for (ZKRelatedList *rl in [layout relatedLists]) {
+			NSLog(@"\trl %@", [rl name]);
+		}
+	}
+}
+
+- (void)shouldCheckForAttachmentsRelatedListOnTask {
+	if (![[NSUserDefaults standardUserDefaults] boolForKey:SHOW_TASK_RELATEDLIST_WARNING_PREF]) return;
+	[self performSelectorOnMainThread:@selector(checkForAttachmentsRelatedList) withObject:nil waitUntilDone:NO];
 }
 
 -(IBAction)showHelp:(id)sender {
@@ -167,6 +193,10 @@
 
 -(IBAction)showButtonBarHelp:(id)sender {	
 	[self showHelpPage:@"pages/buttonbar.html"];
+}
+
+-(IBAction)showTaskRelatedListHelp:(id)sender {
+	[self showHelpPage:@"pages/taskrelatedlist.html"];
 }
 
 @end

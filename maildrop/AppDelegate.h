@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2008 Simon Fell
+// Copyright (c) 2006-2010 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -60,4 +60,7 @@
 - (IBAction)showButtonBar:(id)sender;
 - (IBAction)showButtonBarHelp:(id)sender;
 - (IBAction)showHelp:(id)sender;
+- (IBAction)showTaskRelatedListHelp:(id)sender;
+
+- (void)shouldCheckForAttachmentsRelatedListOnTask;
 @end
