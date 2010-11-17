@@ -22,6 +22,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class ZKSforceClient;
+@class ClientApp;
 
 @interface ButtonBarController : NSObject {
 	IBOutlet	NSWindow		*window;
@@ -31,8 +32,10 @@
 	
 	IBOutlet	NSProgressIndicator	*progress;
 	IBOutlet	NSTextField			*progressText;
+
+	ClientApp					*selectedClient;
+	NSArray						*clientApps;
 	
-	BOOL						usingEntourage;
 	BOOL						isFrontMostApp;
 	NSTimer						*frontAppTimer;
 }
@@ -42,10 +45,12 @@
 
 -(IBAction)addEmail:(id)sender;
 -(IBAction)createCase:(id)sender;
+
 -(IBAction)toggleClient:(id)sender;
 
 -(void)showProgressOf:(int)value max:(int)maxValue withText:(NSString *)progressLabel;
 -(void)hideProgress;
 
+@property (retain) ClientApp *selectedClient;
 @end
 

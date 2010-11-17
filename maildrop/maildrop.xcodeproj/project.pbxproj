@@ -33,6 +33,7 @@
 		F450990D0B51A969007D82E9 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F450990C0B51A969007D82E9 /* Sparkle.framework */; };
 		F45099260B51A993007D82E9 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F450990C0B51A969007D82E9 /* Sparkle.framework */; };
 		F459943A0B54A50D00EE154D /* SObjectPermsWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F45994380B54A50D00EE154D /* SObjectPermsWrapper.m */; };
+		F45F31E212939A3700BDCF61 /* outlook_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F45F31E112939A3700BDCF61 /* outlook_icon.png */; };
 		F46C83890EC6429800944C77 /* ButtonBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = F46C83880EC6429800944C77 /* ButtonBarController.m */; };
 		F46C838D0EC64E3C00944C77 /* cases32.png in Resources */ = {isa = PBXBuildFile; fileRef = F46C838B0EC64E3C00944C77 /* cases32.png */; };
 		F46C838E0EC64E3C00944C77 /* mail32.png in Resources */ = {isa = PBXBuildFile; fileRef = F46C838C0EC64E3C00944C77 /* mail32.png */; };
@@ -44,6 +45,7 @@
 		F49210690B44CED100C5C9AB /* WhatSearchDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F49210680B44CED100C5C9AB /* WhatSearchDataSource.m */; };
 		F49210760B44D0D500C5C9AB /* ZKDescribeSObject_additions.m in Sources */ = {isa = PBXBuildFile; fileRef = F49210750B44D0D500C5C9AB /* ZKDescribeSObject_additions.m */; };
 		F4921CFC0EDFA52E00E95E03 /* NSData-Base64Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F4921CFB0EDFA52E00E95E03 /* NSData-Base64Extensions.m */; };
+		F49592801292448F00DDD2A7 /* outlook scripts in Resources */ = {isa = PBXBuildFile; fileRef = F495927C1292448F00DDD2A7 /* outlook scripts */; };
 		F4A0E526127C99D80038B1CE /* zkParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0E523127C99D80038B1CE /* zkParser.m */; };
 		F4A0E527127C99D80038B1CE /* zkQueryResult_NSTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4A0E525127C99D80038B1CE /* zkQueryResult_NSTableView.m */; };
 		F4A0E541127C9AF60038B1CE /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A0E540127C9AF60038B1CE /* libxml2.2.dylib */; };
@@ -142,6 +144,7 @@
 		F450990C0B51A969007D82E9 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		F45994370B54A50C00EE154D /* SObjectPermsWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SObjectPermsWrapper.h; sourceTree = "<group>"; };
 		F45994380B54A50D00EE154D /* SObjectPermsWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SObjectPermsWrapper.m; sourceTree = "<group>"; };
+		F45F31E112939A3700BDCF61 /* outlook_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = outlook_icon.png; sourceTree = "<group>"; };
 		F46C83870EC6429800944C77 /* ButtonBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonBarController.h; sourceTree = "<group>"; };
 		F46C83880EC6429800944C77 /* ButtonBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonBarController.m; sourceTree = "<group>"; };
 		F46C838B0EC64E3C00944C77 /* cases32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cases32.png; sourceTree = "<group>"; };
@@ -158,6 +161,7 @@
 		F49210750B44D0D500C5C9AB /* ZKDescribeSObject_additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKDescribeSObject_additions.m; sourceTree = "<group>"; };
 		F4921CFA0EDFA52E00E95E03 /* NSData-Base64Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData-Base64Extensions.h"; sourceTree = "<group>"; };
 		F4921CFB0EDFA52E00E95E03 /* NSData-Base64Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData-Base64Extensions.m"; sourceTree = "<group>"; };
+		F495927C1292448F00DDD2A7 /* outlook scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "outlook scripts"; sourceTree = "<group>"; };
 		F4A0E522127C99D80038B1CE /* zkParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zkParser.h; path = ../sforce/zkParser.h; sourceTree = SOURCE_ROOT; };
 		F4A0E523127C99D80038B1CE /* zkParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = zkParser.m; path = ../sforce/zkParser.m; sourceTree = SOURCE_ROOT; };
 		F4A0E524127C99D80038B1CE /* zkQueryResult_NSTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zkQueryResult_NSTableView.h; path = ../sforce/zkQueryResult_NSTableView.h; sourceTree = SOURCE_ROOT; };
@@ -308,6 +312,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F45F31E112939A3700BDCF61 /* outlook_icon.png */,
 				F46C83D90EC77A1200944C77 /* maildrop32.png */,
 				F46C83C20EC683BE00944C77 /* entourage.png */,
 				F46C83C30EC683BE00944C77 /* mail_icon.png */,
@@ -317,6 +322,7 @@
 				F4E83C3B0B8EAE5E00217FDB /* minus-8.png */,
 				F4E83C3C0B8EAE5E00217FDB /* plus-8.png */,
 				F44421DF0B5351A0002AB629 /* maildropGrowl.scpt */,
+				F495927C1292448F00DDD2A7 /* outlook scripts */,
 				F47BD7040B4E3F3D00E15CEE /* entourage scripts */,
 				F4F87D180B4E24F2006F6B63 /* mail scripts */,
 				F4DBCB5F0B3E3A2600D94639 /* maildrop.icns */,
@@ -524,6 +530,8 @@
 				F46C83C40EC683BE00944C77 /* entourage.png in Resources */,
 				F46C83C50EC683BE00944C77 /* mail_icon.png in Resources */,
 				F46C83DA0EC77A1200944C77 /* maildrop32.png in Resources */,
+				F49592801292448F00DDD2A7 /* outlook scripts in Resources */,
+				F45F31E212939A3700BDCF61 /* outlook_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

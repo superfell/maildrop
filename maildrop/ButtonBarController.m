@@ -25,6 +25,7 @@
 
 NSString *mailBundleId = @"com.apple.mail";
 NSString *enotourageBundleId = @"com.microsoft.Entourage";
+NSString *outlookBundleId = @"com.microsoft.Outlook";
 
 static const float WINDOW_HEIGHT_NORMAL = 105.0f;
 static const float WINDOW_HEIGHT_PROGRESS = 140.0f;
@@ -33,7 +34,55 @@ static const float WINDOW_HEIGHT_PROGRESS = 140.0f;
 -(void)setIsFrontMostApp:(BOOL)fm;
 @end
 
+@interface ClientApp : NSObject {
+	NSImage	 *image;
+	NSString *bundleId;
+	NSString *folderName;
+}
+
++(id)withBundleId:(NSString *)bid imageName:(NSString *)image folderName:(NSString *)fn;
+-(NSImage *)iconImage;
+-(NSString *)bundleId;
+-(NSString *)folderName;
+@end
+
+@implementation ClientApp 
+-(id)initWithBundleId:(NSString *)bid imageName:(NSString *)imageName folderName:(NSString *)fn {
+	self = [super init];
+	bundleId = [bid retain];
+	image = [[NSImage imageNamed:imageName] retain];
+	folderName = [fn retain];
+	return self;
+}
+-(void)dealloc {
+	[bundleId release];
+	[image release];
+	[folderName release];
+	[super dealloc];
+}
++(id)withBundleId:(NSString *)bid imageName:(NSString *)image folderName:(NSString *)fn {
+	return [[[ClientApp alloc] initWithBundleId:bid imageName:image folderName:fn] autorelease];
+}
+-(NSString *)bundleId {
+	return bundleId;
+}
+-(NSImage *)iconImage {
+	return image;
+}
+-(NSString *)folderName {
+	return folderName;
+}
+@end
+
 @implementation ButtonBarController
+
+-(void)awakeFromNib {
+	ClientApp *mail = [ClientApp withBundleId:mailBundleId		 imageName:@"mail_icon"		folderName:MAIL_SCRIPTS_FOLDER];
+	ClientApp *ent  = [ClientApp withBundleId:enotourageBundleId imageName:@"entourage"		folderName:ENTOURAGE_SCRIPTS_FOLDER];
+	ClientApp *olk  = [ClientApp withBundleId:outlookBundleId	 imageName:@"outlook_icon"	folderName:OUTLOOK_SCRIPTS_FOLDER];
+	clientApps = [[NSArray arrayWithObjects:mail, ent, olk, nil] retain];
+	[self setSelectedClient:mail];
+}
 
 -(void)setFrontAppTimer:(NSTimer *)t {
 	if (frontAppTimer == t) return;
@@ -44,6 +93,8 @@ static const float WINDOW_HEIGHT_PROGRESS = 140.0f;
 
 -(void)dealloc {
 	[self setFrontAppTimer:nil];
+	[clientApps release];
+	[selectedClient release];
 	[super dealloc];
 }
 
@@ -74,14 +125,20 @@ static const float WINDOW_HEIGHT_PROGRESS = 140.0f;
 	[progress stopAnimation:self];
 }
 
--(void)setUseEntourage:(BOOL)newState {
-	if (usingEntourage == newState) return;
-	usingEntourage = newState;
-	[toggleButton setImage:[NSImage imageNamed:usingEntourage ? @"entourage" : @"mail_icon"]];
+-(ClientApp *)selectedClient {
+	return selectedClient;
+}
+
+-(void)setSelectedClient:(ClientApp *)app {
+	[selectedClient autorelease];
+	selectedClient = [app retain];
+	[toggleButton setImage:[app iconImage]];
 }
 
 -(IBAction)toggleClient:(id)sender {
-	[self setUseEntourage:!usingEntourage];
+	int curIdx = [clientApps indexOfObject:selectedClient];
+	int newIdx = (curIdx + 1) % [clientApps count];
+	[self setSelectedClient:[clientApps objectAtIndex:newIdx]];
 }
 
 // default the mail/entourage selection based on the currently running processes.
@@ -91,13 +148,11 @@ static const float WINDOW_HEIGHT_PROGRESS = 140.0f;
 		NSDictionary *d = (NSDictionary *)ProcessInformationCopyDictionary(&psn, kProcessDictionaryIncludeAllInformationMask);
 		NSString *bid = [d objectForKey:(NSString*)kCFBundleIdentifierKey];
 		[d autorelease];
-		if ([bid isEqualToString:mailBundleId]) {
-			[self setUseEntourage:NO];
-			return;
-		}
-		if ([bid isEqualToString:enotourageBundleId]) {
-			[self setUseEntourage:YES];
-			return;
+		for (ClientApp *c in clientApps) {
+			if ([bid isEqualToString:[c bundleId]]) {
+				[self setSelectedClient:c];
+				break;
+			}
 		}
 	}
 }
@@ -119,13 +174,13 @@ static const float WINDOW_HEIGHT_PROGRESS = 140.0f;
 		NSDictionary *d = (NSDictionary *)ProcessInformationCopyDictionary(&psn, kProcessDictionaryIncludeAllInformationMask);
 		NSString *bid = [d objectForKey:(NSString *)kCFBundleIdentifierKey];
 		BOOL fm = NO;
-		if ([bid isEqualToString:mailBundleId]) {
-			[self setUseEntourage:NO];
-			fm = YES;
-		} else if ([bid isEqualToString:enotourageBundleId]) {
-			[self setUseEntourage:YES];
-			fm = YES;
-		} else if ([bid isEqualToString:@"com.pocketsoap.maildrop"]) {
+		for (ClientApp *c in clientApps) {
+			 if ([bid isEqualToString:[c bundleId]]) {
+				[self setSelectedClient:c];
+				fm = YES;
+			}
+		}
+		if ([bid isEqualToString:@"com.pocketsoap.maildrop"]) {
 			fm = YES;
 		}
 		[self setIsFrontMostApp:fm];
@@ -143,7 +198,6 @@ static const float WINDOW_HEIGHT_PROGRESS = 140.0f;
 
 -(void)showWindow:(id)sender {
 	[self hideProgress];
-	[self setUseEntourage:NO];
 	[self checkProcesses];
 	isFrontMostApp = YES;
 	[window setLevel:NSFloatingWindowLevel];
@@ -152,8 +206,7 @@ static const float WINDOW_HEIGHT_PROGRESS = 140.0f;
 }
 
 -(void)executeAppleScript:(NSString *)resourceName {
-	NSString *folder = usingEntourage ? ENTOURAGE_SCRIPTS_FOLDER : MAIL_SCRIPTS_FOLDER;
-	NSString *scriptFile = [[NSBundle mainBundle] pathForResource:resourceName ofType:@"scpt" inDirectory:folder];
+	NSString *scriptFile = [[NSBundle mainBundle] pathForResource:resourceName ofType:@"scpt" inDirectory:[selectedClient folderName]];
 	NSLog(@"scriptFile is %@", scriptFile);
 
 	NSDictionary *err = nil;
