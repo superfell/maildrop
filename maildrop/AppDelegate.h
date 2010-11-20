@@ -34,6 +34,7 @@
 	IBOutlet CreateActivityController	*createAcitivityController;
 	IBOutlet WelcomeController			*welcomeController;
 	IBOutlet ButtonBarController		*buttonBarController;
+	IBOutlet NSWindow					*attachmentsWarningWindow;
 	
 	NSMutableArray		*emails;
 	NSMutableArray		*attachments;

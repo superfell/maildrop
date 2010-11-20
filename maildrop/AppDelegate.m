@@ -157,17 +157,13 @@
 	ZKDescribeLayoutResult *layoutRes = [[self sforce] describeLayout:@"Task" recordTypeIds:nil];
 	for (ZKDescribeLayout *layout in [layoutRes layouts]) {
 		for (ZKRelatedList *rl in [layout relatedLists]) {
-			if ([[rl sobject] caseInsensitiveCompare:@"attachment"] == NSOrderedSame) return;// found a layout with the Attachments related list.
+			if ([[rl sobject] caseInsensitiveCompare:@"attachment"] == NSOrderedSame) {
+				return;// found a layout with the Attachments related list.
+			}
 		}
 	}
-	NSLog(@"No layout with the attachments related list on it.");
-	layoutRes = [[self sforce] describeLayout:@"Task" recordTypeIds:nil];
-	for(ZKDescribeLayout *layout in [layoutRes layouts]) {
-		NSLog(@"layout %@", [layout Id]);
-		for (ZKRelatedList *rl in [layout relatedLists]) {
-			NSLog(@"\trl %@", [rl name]);
-		}
-	}
+	[NSApp activateIgnoringOtherApps:YES];
+	[attachmentsWarningWindow makeKeyAndOrderFront:self];
 }
 
 - (void)shouldCheckForAttachmentsRelatedListOnTask {
@@ -196,7 +192,7 @@
 }
 
 -(IBAction)showTaskRelatedListHelp:(id)sender {
-	[self showHelpPage:@"pages/taskrelatedlist.html"];
+	[self showHelpPage:@"pages/attachments.html"];
 }
 
 @end
