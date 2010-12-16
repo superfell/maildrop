@@ -23,10 +23,11 @@
 #import "Email.h"
 #import "zkSObject.h"
 #import "NSData-Base64Extensions.h"
+#import "WhoWhat.h"
 
 @implementation Attachment
 
-@synthesize name, mimeType, file, parentId, shouldUpload, salesforceId;
+@synthesize name, mimeType, file, parentId, shouldUpload, salesforceId, parentWhoWhat;
 
 -(id)init {
 	self = [super init];
@@ -42,18 +43,23 @@
 	[name release];
 	[mimeType release];
 	[file release];
+	[parentWhoWhat release];
 	[super dealloc];
 }
 
 -(ZKSObject *)makeSObject {
 	ZKSObject *a = [[[ZKSObject alloc] initWithType:@"Attachment"] autorelease];
-	[a setFieldValue:parentId field:@"ParentId"];
+	[a setFieldValue:[self parentId] field:@"ParentId"];
 	[a setFieldValue:name field:@"Name"];
 	[a setFieldValue:mimeType field:@"ContentType"];
 	NSData *d = [[NSData alloc] initWithContentsOfURL:file];
 	[a setFieldValue:[d encodeBase64] field:@"Body"];
 	[d release];
 	return a;
+}
+
+-(NSString *)parentId {
+	return parentId != nil ? parentId : [parentWhoWhat salesforceId];
 }
 
 -(NSString *)uniqueId {

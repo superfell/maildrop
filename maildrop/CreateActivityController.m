@@ -27,6 +27,7 @@
 #import "SObjectPermsWrapper.h"
 #import "Attachment.h"
 #import "Constants.h"
+#import "WhoWhat.h"
 
 static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 
@@ -61,6 +62,8 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	[whatSearchText release];
 	[whoSearchResults release];
 	[whatResultsTableSource release];
+	[selectedWho release];
+	[selectedWhat release];
 	[super dealloc];
 }
 
@@ -86,6 +89,37 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	int sel = [whatSearchResults selectedRow];
 	if (sel < 0) return nil;
 	return [[whatResultsTableSource results] objectAtIndex:sel];
+}
+
+-(void)updateWhoWhat:(WhoWhat **)whoWhat from:(ZKSObject *)o {
+	if (o == nil) {
+		[*whoWhat release];
+		*whoWhat = nil;
+	} else {
+		if (*whoWhat == nil) 
+			*whoWhat = [[WhoWhat alloc] initWithClient:sforce];
+		[*whoWhat setSobject:o];
+	}
+}
+
+-(NSArray *)selectedWhoWhats {
+	[self updateWhoWhat:&selectedWho from:[self selectedWho]];
+	[self updateWhoWhat:&selectedWhat from:[self selectedWhat]];
+	NSMutableArray *s = [NSMutableArray arrayWithCapacity:2];
+	if (selectedWho != nil)  [s addObject:selectedWho];
+	if (selectedWhat != nil) [s addObject:selectedWhat];
+	return s;
+}
+
+// there was a selection change in one of the results tables, notifiy that this changes the selectedWhoWhats property
+-(void)tableViewSelectionDidChange:(NSNotification *)aNotification {
+	[self willChangeValueForKey:@"selectedWhoWhats"];
+	[self selectedWhoWhats];
+	[self didChangeValueForKey:@"selectedWhoWhats"];
+	for (Attachment *a in [email attachments]) {
+		if ([a parentWhoWhat] == nil)
+			[a setParentWhoWhat:selectedWho != nil ? selectedWho : selectedWhat];
+	}
 }
 
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo {
@@ -459,6 +493,12 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	leadStatus = nil;
 	[defaultLeadStatus release];
 	defaultLeadStatus = nil;
+	[selectedWho release];
+	selectedWho = nil;
+	[selectedWhat release];
+	selectedWhat = nil;
+	[self willChangeValueForKey:@"selectedWhoWhats"];
+	[self didChangeValueForKey:@"selectedWhoWhats"];
 	[self setCreateContactAllowed:[self isCreateableObjectType:@"Contact"]];
 	[self setCreateLeadAllowed:[self isCreateableObjectType:@"Lead"]];	
 }

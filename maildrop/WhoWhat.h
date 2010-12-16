@@ -20,28 +20,24 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "AsItem.h"
 
 @class ZKSObject;
-@class WhoWhat;
+@class ZKSforceClient;
 
-@interface Attachment : AsItem {
-	NSString	*name, *mimeType, *salesforceId, *parentId;
-	NSURL		*file;
-	BOOL		shouldUpload;
-	WhoWhat		*parentWhoWhat;	// can set a parentWhoWhat instead of a parentId, makes some UI binding easier.
+// this is the set of avaialble choices for the parentId in the attachment table
+
+@interface WhoWhat : NSObject {
+	ZKSObject		*sobject;
+	ZKSforceClient	*client;
 }
 
-@property (retain) NSString *name;
-@property (retain) NSString *mimeType;
-@property (retain) NSURL *file;
-@property (retain) NSString *parentId;
-@property (retain) NSString *salesforceId;
-@property (assign) BOOL shouldUpload;
-@property (retain) WhoWhat *parentWhoWhat;
+-(id)initWithClient:(ZKSforceClient *)c;
 
--(NSString *)formattedSize;
+@property (retain) ZKSObject *sobject;
 
--(ZKSObject *)makeSObject;
+-(NSString *)salesforceId;
+-(NSString *)name;
+-(NSString *)type;
+-(NSString *)displayName;
 
 @end

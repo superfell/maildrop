@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2009 Simon Fell
+// Copyright (c) 2006-2010 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -124,8 +124,11 @@ typedef enum GrowlNotification {
 	return c;
 }
 
--(void)setAttachmentsParentId:(NSString *)parentId {
-	[attachments makeObjectsPerformSelector:@selector(setParentId:) withObject:parentId];
+-(void)setAttachmentsParentId:(NSString *)parentId onlyIfNil:(BOOL)onlyIfNil {
+	for (Attachment *a in attachments) {
+		if ((!onlyIfNil) || ([a parentId] == nil))
+			[a setParentId:parentId];
+	}
 }
 
 -(void)clearAttachmentUpload {
@@ -142,7 +145,6 @@ typedef enum GrowlNotification {
 	int num = [self countOfAttachmentsToUpload];
 	if (activityId != nil) {
 		[self setSalesforceId:activityId];
-		[self setAttachmentsParentId:activityId];
 		[self saveAttachmentsUsingClient:[app sforce] numTotal:num];
 		[self growl:EmailAdded];
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:SHOW_NEW_EMAIL_PREF])
@@ -180,7 +182,7 @@ typedef enum GrowlNotification {
 	if ([sr success]) {
 		[self setSalesforceId:[sr id]];
 		if (addAttachments) {
-			[self setAttachmentsParentId:[sr id]];
+			[self setAttachmentsParentId:[sr id] onlyIfNil:NO];
 			[self saveAttachmentsUsingClient:sforce numTotal:numAttatchments];
 		}
 		[self growl:CaseCreated];

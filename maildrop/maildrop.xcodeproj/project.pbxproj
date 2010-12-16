@@ -42,6 +42,7 @@
 		F46C83C50EC683BE00944C77 /* mail_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F46C83C30EC683BE00944C77 /* mail_icon.png */; };
 		F46C83DA0EC77A1200944C77 /* maildrop32.png in Resources */ = {isa = PBXBuildFile; fileRef = F46C83D90EC77A1200944C77 /* maildrop32.png */; };
 		F47BD7080B4E3F3D00E15CEE /* entourage scripts in Resources */ = {isa = PBXBuildFile; fileRef = F47BD7040B4E3F3D00E15CEE /* entourage scripts */; };
+		F48F5BCA12B9D2D1002B9E3F /* WhoWhat.m in Sources */ = {isa = PBXBuildFile; fileRef = F48F5BC912B9D2D1002B9E3F /* WhoWhat.m */; };
 		F49210690B44CED100C5C9AB /* WhatSearchDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F49210680B44CED100C5C9AB /* WhatSearchDataSource.m */; };
 		F49210760B44D0D500C5C9AB /* ZKDescribeSObject_additions.m in Sources */ = {isa = PBXBuildFile; fileRef = F49210750B44D0D500C5C9AB /* ZKDescribeSObject_additions.m */; };
 		F4921CFC0EDFA52E00E95E03 /* NSData-Base64Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F4921CFB0EDFA52E00E95E03 /* NSData-Base64Extensions.m */; };
@@ -155,6 +156,8 @@
 		F46C83C30EC683BE00944C77 /* mail_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mail_icon.png; sourceTree = "<group>"; };
 		F46C83D90EC77A1200944C77 /* maildrop32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = maildrop32.png; sourceTree = "<group>"; };
 		F47BD7040B4E3F3D00E15CEE /* entourage scripts */ = {isa = PBXFileReference; explicitFileType = folder; path = "entourage scripts"; sourceTree = "<group>"; };
+		F48F5BC812B9D2D1002B9E3F /* WhoWhat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoWhat.h; sourceTree = "<group>"; };
+		F48F5BC912B9D2D1002B9E3F /* WhoWhat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhoWhat.m; sourceTree = "<group>"; };
 		F49210670B44CED100C5C9AB /* WhatSearchDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatSearchDataSource.h; sourceTree = "<group>"; };
 		F49210680B44CED100C5C9AB /* WhatSearchDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhatSearchDataSource.m; sourceTree = "<group>"; };
 		F49210740B44D0D500C5C9AB /* ZKDescribeSObject_additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZKDescribeSObject_additions.h; sourceTree = "<group>"; };
@@ -451,6 +454,8 @@
 		F4BF64C60EE1FAD800F52263 /* addEmail */ = {
 			isa = PBXGroup;
 			children = (
+				F48F5BC812B9D2D1002B9E3F /* WhoWhat.h */,
+				F48F5BC912B9D2D1002B9E3F /* WhoWhat.m */,
 				F41532EA0B4227FE00E36D7B /* CreateActivityController.h */,
 				F41532EB0B4227FE00E36D7B /* CreateActivityController.m */,
 				F49210670B44CED100C5C9AB /* WhatSearchDataSource.h */,
@@ -590,6 +595,7 @@
 				F4A0E6AA127D15C50038B1CE /* ZKRelatedListSort.m in Sources */,
 				F4A0E6CF127D16DD0038B1CE /* ZKRecordTypeMapping.m in Sources */,
 				F4A0E6D2127D175F0038B1CE /* ZKPicklistForRecordType.m in Sources */,
+				F48F5BCA12B9D2D1002B9E3F /* WhoWhat.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
