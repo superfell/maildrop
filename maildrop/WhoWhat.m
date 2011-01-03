@@ -1,4 +1,4 @@
-// Copyright (c) 2008,2010 Simon Fell
+// Copyright (c) 2008,2010,2011 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -24,7 +24,7 @@
 #import "zkDescribeSObject.h"
 #import "ZKDescribeSObject_additions.h"
 
-@implementation WhoWhat
+@implementation SObjectWhoWhat
 
 @synthesize sobject;
 
@@ -72,6 +72,36 @@
 
 -(NSString *)displayName {
 	return [NSString stringWithFormat:@"%@ (%@)", [self name], [self type]];
+}
+
+@end
+
+@implementation PendingTaskWhoWhat
+
+-(void)dealloc {
+	[taskId release];
+	[super dealloc];
+}
+
+-(void)setTaskId:(NSString *)tid {
+	[taskId autorelease];
+	taskId = [tid retain];
+}
+
+-(NSString *)salesforceId {
+	return taskId;
+}
+
+-(NSString *)name {
+	return @"This Activity";
+}
+
+-(NSString *)type {
+	return @"Task";
+}
+
+-(NSString *)displayName {
+	return [self name];
 }
 
 @end

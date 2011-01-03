@@ -1,4 +1,4 @@
-// Copyright (c) 2008,2010 Simon Fell
+// Copyright (c) 2008,2010,2011 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -23,13 +23,13 @@
 #import "AsItem.h"
 
 @class ZKSObject;
-@class WhoWhat;
+@protocol WhoWhat;
 
 @interface Attachment : AsItem {
 	NSString	*name, *mimeType, *salesforceId, *parentId;
 	NSURL		*file;
 	BOOL		shouldUpload;
-	WhoWhat		*parentWhoWhat;	// can set a parentWhoWhat instead of a parentId, makes some UI binding easier.
+	NSObject<WhoWhat>	*parentWhoWhat;	// can set a parentWhoWhat instead of a parentId, makes some UI binding easier.
 }
 
 @property (retain) NSString *name;
@@ -38,7 +38,7 @@
 @property (retain) NSString *parentId;
 @property (retain) NSString *salesforceId;
 @property (assign) BOOL shouldUpload;
-@property (retain) WhoWhat *parentWhoWhat;
+@property (retain) NSObject<WhoWhat> *parentWhoWhat;
 
 -(NSString *)formattedSize;
 

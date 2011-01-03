@@ -1,4 +1,4 @@
-// Copyright (c) 2008,2010 Simon Fell
+// Copyright (c) 2008,2010,2011 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -24,9 +24,16 @@
 @class ZKSObject;
 @class ZKSforceClient;
 
-// this is the set of avaialble choices for the parentId in the attachment table
+// The list of choices for the parent of an attachment is a list of WhoWhat's
+@protocol WhoWhat
+-(NSString *)salesforceId;
+-(NSString *)name;
+-(NSString *)type;
+-(NSString *)displayName;
+@end
 
-@interface WhoWhat : NSObject {
+// This is a WhoWhat backed by an existing SObject, e.g. from a search result.
+@interface SObjectWhoWhat : NSObject<WhoWhat> {
 	ZKSObject		*sobject;
 	ZKSforceClient	*client;
 }
@@ -35,9 +42,12 @@
 
 @property (retain) ZKSObject *sobject;
 
--(NSString *)salesforceId;
--(NSString *)name;
--(NSString *)type;
--(NSString *)displayName;
+@end
 
+// This is a WhoWhat that represents the activity about to be created.
+
+@interface PendingTaskWhoWhat : NSObject<WhoWhat> {
+	NSString *taskId;
+}
+-(void)setTaskId:(NSString *)taskId;
 @end

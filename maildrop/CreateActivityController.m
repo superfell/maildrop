@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2010 Simon Fell
+// Copyright (c) 2006-2011 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -64,6 +64,7 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	[whatResultsTableSource release];
 	[selectedWho release];
 	[selectedWhat release];
+	[pendingTaskWhoWhat release];
 	[super dealloc];
 }
 
@@ -91,13 +92,13 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	return [[whatResultsTableSource results] objectAtIndex:sel];
 }
 
--(void)updateWhoWhat:(WhoWhat **)whoWhat from:(ZKSObject *)o {
+-(void)updateWhoWhat:(SObjectWhoWhat **)whoWhat from:(ZKSObject *)o {
 	if (o == nil) {
 		[*whoWhat release];
 		*whoWhat = nil;
 	} else {
 		if (*whoWhat == nil) 
-			*whoWhat = [[WhoWhat alloc] initWithClient:sforce];
+			*whoWhat = [[SObjectWhoWhat alloc] initWithClient:sforce];
 		[*whoWhat setSobject:o];
 	}
 }
@@ -108,6 +109,7 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	NSMutableArray *s = [NSMutableArray arrayWithCapacity:2];
 	if (selectedWho != nil)  [s addObject:selectedWho];
 	if (selectedWhat != nil) [s addObject:selectedWhat];
+	[s addObject:pendingTaskWhoWhat];
 	return s;
 }
 
@@ -175,6 +177,7 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	ZKSaveResult *sr = [[sforce create:[NSArray arrayWithObject:[task sobject]]] objectAtIndex:0];
 	if ([sr success]) {
 		taskId = [[sr id] copy];
+		[pendingTaskWhoWhat setTaskId:[sr id]];
 		[NSApp stopModal];
 	} else { 
 		NSAlert * a = [NSAlert alertWithMessageText:@"Unable to create email" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[sr message]];
@@ -305,6 +308,8 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	[self setWhatSearchResultsData:nil];
 	[self setWhatSearchText:@""];
 	[self setWhoSearchText:@""];
+	[pendingTaskWhoWhat autorelease];
+	pendingTaskWhoWhat = [[PendingTaskWhoWhat alloc] init];
 }
 
 - (IBAction)showCreateContact:(id)sender {

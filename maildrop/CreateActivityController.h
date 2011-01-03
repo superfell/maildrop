@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2010 Simon Fell
+// Copyright (c) 2006-2011 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -25,7 +25,8 @@
 @class ZKSforceClient;
 @class Email;
 @class ZKSObject;
-@class WhoWhat;
+@class SObjectWhoWhat;
+@class PendingTaskWhoWhat;
 
 @interface CreateActivityController : NSObject
 {
@@ -46,8 +47,9 @@
 	NSArray					*whoSearchResults;
 	WhatSearchDataSource	*whatResultsTableSource;
 
-	WhoWhat					*selectedWho;
-	WhoWhat					*selectedWhat;
+	SObjectWhoWhat			*selectedWho;
+	SObjectWhoWhat			*selectedWhat;
+	PendingTaskWhoWhat		*pendingTaskWhoWhat;
 	
 	NSString 				*whoSearchText;
 	NSString				*whatSearchText;
