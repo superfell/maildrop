@@ -160,11 +160,15 @@ static const float WINDOW_HEIGHT_PROGRESS = 140.0f;
 -(void)setIsFrontMostApp:(BOOL)fm {
 	if (isFrontMostApp == fm) return;
 	isFrontMostApp = fm;
-	if (fm) {
-		[window setLevel:NSFloatingWindowLevel];
+	if ([[NSUserDefaults standardUserDefaults] boolForKey:AUTO_SHOW_HIDE_BUTTONBAR]) {
+		if (fm) {
+			[window setLevel:NSFloatingWindowLevel];
+		} else {
+			[window setLevel:NSNormalWindowLevel];
+			[window orderBack:self];
+		}
 	} else {
-		[window setLevel:NSNormalWindowLevel];
-		[window orderBack:self];
+			[window setLevel:NSNormalWindowLevel];
 	}
 }
 
@@ -200,7 +204,8 @@ static const float WINDOW_HEIGHT_PROGRESS = 140.0f;
 	[self hideProgress];
 	[self checkProcesses];
 	isFrontMostApp = YES;
-	[window setLevel:NSFloatingWindowLevel];
+	NSInteger lvl = [[NSUserDefaults standardUserDefaults] boolForKey:AUTO_SHOW_HIDE_BUTTONBAR] ? NSFloatingWindowLevel : NSNormalWindowLevel;
+	[window setLevel:lvl];
 	[window makeKeyAndOrderFront:self];
 	[self setFrontAppTimer:[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(checkFrontMostApp:) userInfo:nil repeats:YES]];
 }

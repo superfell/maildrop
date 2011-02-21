@@ -1,4 +1,4 @@
-// Copyright (c) 2008-2010 Simon Fell
+// Copyright (c) 2008-2011 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -36,3 +36,5 @@ NSString *ATTACHMENTS_ON_CASES_PREF		= @"addAttachmentsToCases";
 NSString *ATTACHMENTS_ON_EMAIL_PREF		= @"addAttachmentsToActivities";
 
 NSString *SHOW_TASK_RELATEDLIST_WARNING_PREF = @"showTaskRelatedListWarning";
+
+NSString *AUTO_SHOW_HIDE_BUTTONBAR		= @"autoShowHideButtonBar";

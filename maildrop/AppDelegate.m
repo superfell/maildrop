@@ -45,6 +45,7 @@
 	[defaults setObject:[NSNumber numberWithBool:YES] forKey:ATTACHMENTS_ON_EMAIL_PREF];
 	[defaults setObject:[NSNumber numberWithBool:YES] forKey:ADD_EMAIL_TO_DESC_PREF];
 	[defaults setObject:[NSNumber numberWithBool:YES] forKey:SHOW_TASK_RELATEDLIST_WARNING_PREF];
+	[defaults setObject:[NSNumber numberWithBool:YES] forKey:AUTO_SHOW_HIDE_BUTTONBAR];
 	[defaults setObject:@"Subject" forKey:@"additionalField_Case"];
 	[[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }
