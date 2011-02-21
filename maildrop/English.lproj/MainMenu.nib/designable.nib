@@ -11,8 +11,10 @@
 			<string key="NS.object.0">762</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="516"/>
 			<integer value="346"/>
+			<integer value="24"/>
+			<integer value="516"/>
+			<integer value="618"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -2789,7 +2791,7 @@ ZS5jb20KA</string>
 				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
 			</object>
 			<object class="NSWindowTemplate" id="1008992656">
-				<int key="NSWindowStyleMask">3</int>
+				<int key="NSWindowStyleMask">7</int>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{483, 993}, {280, 112}}</string>
 				<int key="NSWTFlags">1677722624</int>
@@ -2798,7 +2800,7 @@ ZS5jb20KA</string>
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<object class="NSView" key="NSWindowView" id="375482190">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSButton" id="53844539">
@@ -2928,6 +2930,7 @@ ZS5jb20KA</string>
 						</object>
 					</array>
 					<string key="NSFrameSize">{280, 112}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1578}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
@@ -4582,22 +4585,6 @@ ZS5jb20KA</string>
 						<reference key="destination" ref="8236134"/>
 					</object>
 					<int key="connectionID">897</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled: loggedIn</string>
-						<reference key="source" ref="8236134"/>
-						<reference key="destination" ref="880638850"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="8236134"/>
-							<reference key="NSDestination" ref="880638850"/>
-							<string key="NSLabel">enabled: loggedIn</string>
-							<string key="NSBinding">enabled</string>
-							<string key="NSKeyPath">loggedIn</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">898</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
@@ -7216,6 +7203,7 @@ ZS5jb20KA</string>
 				<boolean value="YES" key="23.ImportedFromIB2"/>
 				<string key="236.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="236.ImportedFromIB2"/>
+				<string key="24.IBEditorWindowLastContentRect">{{180, 1422}, {194, 103}}</string>
 				<string key="24.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="24.ImportedFromIB2"/>
 				<string key="265.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -7438,9 +7426,9 @@ ZS5jb20KA</string>
 				<boolean value="YES" key="57.ImportedFromIB2"/>
 				<string key="58.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="58.ImportedFromIB2"/>
-				<string key="618.IBEditorWindowLastContentRect">{{0, 1433}, {280, 112}}</string>
+				<string key="618.IBEditorWindowLastContentRect">{{1084, 1292}, {280, 112}}</string>
 				<string key="618.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="618.IBWindowTemplateEditedContentRect">{{0, 1433}, {280, 112}}</string>
+				<string key="618.IBWindowTemplateEditedContentRect">{{1084, 1292}, {280, 112}}</string>
 				<boolean value="YES" key="618.ImportedFromIB2"/>
 				<string key="619.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="619.ImportedFromIB2"/>
