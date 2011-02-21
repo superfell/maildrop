@@ -1,4 +1,4 @@
-// Copyright (c) 2008 Simon Fell
+// Copyright (c) 2008-2011 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -205,6 +205,13 @@ static const float WINDOW_HEIGHT_PROGRESS = 140.0f;
 	[self setFrontAppTimer:[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(checkFrontMostApp:) userInfo:nil repeats:YES]];
 }
 
+-(void)reportScriptError:(NSString *)operation source:(NSString *)source error:(NSDictionary *)err {
+	NSLog(@"error %@ script %@ : %@", operation, source, err);
+	NSAlert *a = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"Error %@ apple script", operation] 
+	defaultButton:@"Close" alternateButton:nil otherButton:nil informativeTextWithFormat:[NSString stringWithFormat:@"script %@\r\nerror %@", source, err]];
+	[a runModal];
+}
+
 -(void)executeAppleScript:(NSString *)resourceName {
 	NSString *scriptFile = [[NSBundle mainBundle] pathForResource:resourceName ofType:@"scpt" inDirectory:[selectedClient folderName]];
 	NSLog(@"scriptFile is %@", scriptFile);
@@ -214,12 +221,12 @@ static const float WINDOW_HEIGHT_PROGRESS = 140.0f;
 	// force recompile to fix stupid 10.4 problems
 	NSAppleScript *s2 = [[[NSAppleScript alloc] initWithSource:[script source]] autorelease];
 	if (![s2 compileAndReturnError:&err]) {
-		NSLog(@"error recompiling apple script (%@) : %@", scriptFile, err);
+		[self reportScriptError:@"recompiling" source:scriptFile error:err];
 	} else {
 		script = s2;
 	}
 	if ([script executeAndReturnError:&err] == nil) {
-		NSLog(@"script error during executuion (%@) %@", scriptFile, err);
+		[self reportScriptError:@"executing" source:scriptFile error:err];
 	}
 }
 
