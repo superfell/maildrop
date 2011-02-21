@@ -89,6 +89,7 @@
 @property (assign) BOOL createLeadAllowed;
 
 - (BOOL)canSearchWho;
+- (NSString *)whoSearchToolTip;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)create:(id)sender;

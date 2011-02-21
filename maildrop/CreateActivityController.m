@@ -31,8 +31,9 @@
 
 static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 
-@interface CreateActivityController (private)
+@interface CreateActivityController ()
 - (void)saveCheckedWhats;
+@property (retain) ZKSforceClient *sforce;
 @end
 
 @implementation CreateActivityController
@@ -42,10 +43,13 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 @synthesize contactEmail, contactCompany, contactLeadStatus;
 @synthesize createContactAllowed, createLeadAllowed;
 @synthesize email;
+@synthesize sforce;
 
 + (void)initialize {
 	NSArray *keys = [NSArray arrayWithObjects:@"email", nil];
     [self setKeys:keys triggerChangeNotificationsForDependentKey:@"emailSubject"];
+	keys = [NSArray arrayWithObjects:@"sforce", nil];
+	[self setKeys:keys triggerChangeNotificationsForDependentKey:@"whoSearchToolTip"];
 }
 
 - (id)init {
@@ -204,6 +208,10 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 
 - (BOOL)canSearchWho {
 	return [self hasEntity:@"Contact"] || [self hasEntity:@"Lead"];
+}
+
+- (NSString *)whoSearchToolTip {
+	return [self canSearchWho] ? @"" : @"No access to Leads or Contacts, cannot search/set related to Who field";
 }
 
 - (IBAction)searchWho:(id)sender {
@@ -456,6 +464,7 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 
 - (NSString *)closedTaskStatus {
 	if (closedTaskStatus != nil) return closedTaskStatus;
+	if (![self hasEntity:@"TaskStatus"]) return nil;
 	ZKQueryResult *qr = [sforce query:@"select MasterLabel from TaskStatus where IsClosed=true order by sortOrder desc limit 1"];
 	if ([qr size] > 0) {
 		ZKSObject *ts = [[qr records] objectAtIndex:0];
@@ -467,6 +476,7 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 - (NSArray *)leadStatus {
 	if (leadStatus != nil) return leadStatus;
 	if (sforce == nil) return nil;
+	if (![self hasEntity:@"LeadStatus"]) return nil;
 	ZKQueryResult *qr = [sforce query:@"select MasterLabel, IsDefault from LeadStatus order by SortOrder"];
 	NSMutableArray *ls = [NSMutableArray arrayWithCapacity:[qr size]];
 	ZKSObject *s;
@@ -488,7 +498,7 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 
 - (void)setSforce:(ZKSforceClient *)sf {
 	if (sf == sforce) return;
-	[sforce release];
+	[sforce autorelease];
 	sforce = [sf retain];
 	[whatObjectTypes release];
 	whatObjectTypes = nil;
@@ -514,9 +524,11 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	[self setEmail:theEmail];
 	[self setWhoSearchText:[email addrOfInterest]];
 	[NSApp activateIgnoringOtherApps:YES];
-	NSTimer *t = [NSTimer timerWithTimeInterval:0.01 target:self selector:@selector(searchWho:) userInfo:nil repeats:NO];
-	[[NSRunLoop currentRunLoop] addTimer:t forMode:NSModalPanelRunLoopMode];
-	t = [NSTimer timerWithTimeInterval:0.02 target:self selector:@selector(initWhats:) userInfo:nil repeats:NO];
+	if ([self canSearchWho]) {
+		NSTimer *t = [NSTimer timerWithTimeInterval:0.01 target:self selector:@selector(searchWho:) userInfo:nil repeats:NO];
+		[[NSRunLoop currentRunLoop] addTimer:t forMode:NSModalPanelRunLoopMode];
+	}
+	NSTimer *t = [NSTimer timerWithTimeInterval:0.01 target:self selector:@selector(initWhats:) userInfo:nil repeats:NO];
 	[[NSRunLoop currentRunLoop] addTimer:t forMode:NSModalPanelRunLoopMode];
 	[NSApp runModalForWindow:window];
 	[window orderOut:self];
