@@ -219,6 +219,14 @@ static const CGFloat WINDOW_HEIGHT_PROGRESS = 35.0f;
 
 -(void)reportScriptError:(NSString *)operation source:(NSString *)source error:(NSDictionary *)err {
 	NSLog(@"error %@ script %@ : %@", operation, source, err);
+	int errNum = [[err objectForKey:NSAppleScriptErrorNumber] intValue];
+	if (errNum == -128) {
+		NSString *brief = [err objectForKey:NSAppleScriptErrorBriefMessage];
+		if (brief != nil && [brief rangeOfString:@"cancel"].location != NSNotFound) {
+			// script canceled by user, no need to show them the error.
+			return;
+		}
+	}
 	NSAlert *a = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"Error %@ apple script", operation] 
 	defaultButton:@"Close" alternateButton:nil otherButton:nil informativeTextWithFormat:[NSString stringWithFormat:@"script %@\r\nerror %@", source, err]];
 	[a runModal];
