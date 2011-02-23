@@ -27,11 +27,11 @@ NSString *mailBundleId = @"com.apple.mail";
 NSString *enotourageBundleId = @"com.microsoft.Entourage";
 NSString *outlookBundleId = @"com.microsoft.Outlook";
 
-static const float WINDOW_HEIGHT_NORMAL = 105.0f;
-static const float WINDOW_HEIGHT_PROGRESS = 140.0f;
+static const CGFloat WINDOW_HEIGHT_PROGRESS = 35.0f;
 
 @interface ButtonBarController ()
 -(void)setIsFrontMostApp:(BOOL)fm;
+-(void)hideProgressWithAnimation:(BOOL)animate;
 @end
 
 @interface ClientApp : NSObject {
@@ -81,6 +81,7 @@ static const float WINDOW_HEIGHT_PROGRESS = 140.0f;
 	ClientApp *ent  = [ClientApp withBundleId:enotourageBundleId imageName:@"entourage"		folderName:ENTOURAGE_SCRIPTS_FOLDER];
 	ClientApp *olk  = [ClientApp withBundleId:outlookBundleId	 imageName:@"outlook_icon"	folderName:OUTLOOK_SCRIPTS_FOLDER];
 	clientApps = [[NSArray arrayWithObjects:mail, ent, olk, nil] retain];
+	isShowingProgress = YES;
 	[self setSelectedClient:mail];
 }
 
@@ -100,11 +101,12 @@ static const float WINDOW_HEIGHT_PROGRESS = 140.0f;
 
 -(void)showProgressOf:(int)value max:(int)maxValue withText:(NSString *)progressLabel {
 	NSRect f = [window frame];
-	if (f.size.height != WINDOW_HEIGHT_PROGRESS) { 
-		f.origin.y -= WINDOW_HEIGHT_PROGRESS - WINDOW_HEIGHT_NORMAL;
-		f.size.height = WINDOW_HEIGHT_PROGRESS;
+	if (!isShowingProgress) {
+		f.origin.y -= WINDOW_HEIGHT_PROGRESS;
+		f.size.height += WINDOW_HEIGHT_PROGRESS;
 		[window setFrame:f display:YES animate:YES];
 		[self setIsFrontMostApp:YES];
+		isShowingProgress = YES;
 	}
 	[progress setUsesThreadedAnimation:YES];
 	[progress startAnimation:self];
@@ -116,11 +118,16 @@ static const float WINDOW_HEIGHT_PROGRESS = 140.0f;
 }
 
 -(void)hideProgress {
+	[self hideProgressWithAnimation:YES];
+}
+
+-(void)hideProgressWithAnimation:(BOOL)animate {
 	NSRect f = [window frame];
-	if (f.size.height != WINDOW_HEIGHT_NORMAL) {
-		f.size.height = WINDOW_HEIGHT_NORMAL;
-		f.origin.y += (WINDOW_HEIGHT_PROGRESS - WINDOW_HEIGHT_NORMAL);
-		[window setFrame:f display:YES animate:YES];
+	if (isShowingProgress) {
+		f.size.height -= WINDOW_HEIGHT_PROGRESS;
+		f.origin.y += WINDOW_HEIGHT_PROGRESS;
+		[window setFrame:f display:YES animate:animate];
+		isShowingProgress = NO;
 	}
 	[progress stopAnimation:self];
 }
@@ -201,7 +208,7 @@ static const float WINDOW_HEIGHT_PROGRESS = 140.0f;
 }
 
 -(void)showWindow:(id)sender {
-	[self hideProgress];
+	[self hideProgressWithAnimation:NO];
 	[self checkProcesses];
 	isFrontMostApp = YES;
 	NSInteger lvl = [[NSUserDefaults standardUserDefaults] boolForKey:AUTO_SHOW_HIDE_BUTTONBAR] ? NSFloatingWindowLevel : NSNormalWindowLevel;

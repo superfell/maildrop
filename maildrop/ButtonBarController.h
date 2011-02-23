@@ -26,13 +26,12 @@
 
 @interface ButtonBarController : NSObject {
 	IBOutlet	NSWindow		*window;
-	IBOutlet	NSButton		*addEmailButton;
-	IBOutlet	NSButton		*createCaseButton;
-	IBOutlet	NSButton		*toggleButton;
+	IBOutlet	NSToolbarItem	*toggleButton;
 	
 	IBOutlet	NSProgressIndicator	*progress;
 	IBOutlet	NSTextField			*progressText;
-
+	BOOL							isShowingProgress;
+	
 	ClientApp					*selectedClient;
 	NSArray						*clientApps;
 	
