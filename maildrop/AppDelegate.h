@@ -20,7 +20,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "../sforce/zkSforce.h"
+#import "zkSforce.h"
 
 @class LoginController;
 @class CreateActivityController;

@@ -20,7 +20,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "../sforce/ZKSForce.h"
+#import "zkSForce.h"
 
 @interface LoginController : NSObject {
 	ZKSforceClient 		*sforce;
