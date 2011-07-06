@@ -41,3 +41,4 @@ NSString *AUTO_SHOW_HIDE_BUTTONBAR		= @"autoShowHideButtonBar";
 
 NSString *LEAD							= @"Lead";
 NSString *CONTACT						= @"Contact";
+NSString *ACCOUNT						= @"Account";

@@ -233,8 +233,11 @@
 	static NSString *WHO_FIELDS_LEAD = @"Company";
 	static NSString *WHO_FIELDS_CONTACT = @"Account.Name";
 
-	BOOL isLead = [type isEqualToString:LEAD];
-	return [NSString stringWithFormat:@"%@,%@", WHO_FIELDS, isLead ? WHO_FIELDS_LEAD : WHO_FIELDS_CONTACT];
+	if ([type isEqualToString:LEAD])
+		return [NSString stringWithFormat:@"%@,%@", WHO_FIELDS, WHO_FIELDS_LEAD];
+	if ([self hasEntity:ACCOUNT])
+		return [NSString stringWithFormat:@"%@,%@", WHO_FIELDS, WHO_FIELDS_CONTACT];
+	return WHO_FIELDS;
 }
 
 - (IBAction)searchWho:(id)sender {
