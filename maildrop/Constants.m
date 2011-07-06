@@ -34,6 +34,7 @@ NSString *SHOW_NEW_CASE_PREF			= @"showNewCase";
 NSString *SHOW_NEW_EMAIL_PREF			= @"showNewEmail";
 NSString *ATTACHMENTS_ON_CASES_PREF		= @"addAttachmentsToCases";
 NSString *ATTACHMENTS_ON_EMAIL_PREF		= @"addAttachmentsToActivities";
+NSString *DEFAULT_TASK_STATUS_PREF		= @"defaultTaskStatus";
 
 NSString *SHOW_TASK_RELATEDLIST_WARNING_PREF = @"showTaskRelatedListWarning";
 

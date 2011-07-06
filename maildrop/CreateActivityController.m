@@ -56,8 +56,8 @@
 @synthesize contactFirstName, contactLastName;
 @synthesize contactEmail, contactCompany, contactLeadStatus;
 @synthesize createContactAllowed, createLeadAllowed;
-@synthesize email;
-@synthesize sforce;
+@synthesize email, closedTaskStatus;
+@synthesize sforce, storeTaskStatusDefault;
 
 + (void)initialize {
 	NSArray *keys = [NSArray arrayWithObjects:@"email", nil];
@@ -83,6 +83,8 @@
 	[selectedWho release];
 	[selectedWhat release];
 	[pendingTaskWhoWhat release];
+	[taskStatus release];
+	[closedTaskStatus release];
 	[super dealloc];
 }
 
@@ -161,7 +163,11 @@
 	SObjectPermsWrapper *task = [SObjectPermsWrapper withDescribe:[sforce describeSObject:@"Task"] forUpdate:NO];
 	[task setFieldValue:[NSString stringWithFormat:@"Email: %@", [email subject]] field:@"Subject"];
 	[task setFieldValue:[self buildDescriptionFromEmail:email] field:@"Description"];
-	[task setFieldValue:[self closedTaskStatus] field:@"Status"];
+	NSString *statusVal = [self closedTaskStatus];
+	if (self.storeTaskStatusDefault)
+		[[NSUserDefaults standardUserDefaults] setObject:statusVal forKey:DEFAULT_TASK_STATUS_PREF];
+		
+	[task setFieldValue:statusVal field:@"Status"];
 	[task setFieldValue:@"Email" field:@"Type"];
 	NSDate *date = [email date];
 	if (date != nil) {
@@ -312,11 +318,11 @@
 }
 
 - (NSString *)emailSubject {
-        return [email subject];
+	return [email subject];
 }
 
 - (void)setEmailSubject:(NSString *)aEmailSubject {
-        [email setSubject:aEmailSubject];
+	[email setSubject:aEmailSubject];
 }
 
 - (void)setCurrentPropertiesFromEmail {
@@ -488,15 +494,30 @@
 	[self didChangeValueForKey:@"whatObjectTypeDescribes"];
 }
 
-- (NSString *)closedTaskStatus {
-	if (closedTaskStatus != nil) return closedTaskStatus;
-	if (![self hasEntity:@"TaskStatus"]) return nil;
-	ZKQueryResult *qr = [sforce query:@"select MasterLabel from TaskStatus where IsClosed=true order by sortOrder desc limit 1"];
-	if ([qr size] > 0) {
-		ZKSObject *ts = [[qr records] objectAtIndex:0];
-		closedTaskStatus = [[ts fieldValue:@"MasterLabel"] copy];
+-(NSArray *)taskStatus {
+	if (taskStatus == nil && [self hasEntity:@"TaskStatus"]) {
+		ZKQueryResult *qr = [sforce query:@"select MasterLabel,IsClosed from TaskStatus order by sortOrder"];
+		taskStatus = [[qr records] retain];
 	}
-	return closedTaskStatus;
+	return taskStatus;
+}
+
+-(NSString *)defaultTaskStatus {
+	NSArray *s = [self taskStatus];
+	NSEnumerator *re = [s reverseObjectEnumerator];
+	ZKSObject *r;
+	NSString *sysDefault = nil;
+	NSString *userDefault = [[NSUserDefaults standardUserDefaults] stringForKey:DEFAULT_TASK_STATUS_PREF];
+	BOOL sawUserDefault = NO;
+	while (r = [re nextObject]) {
+		// default is the last status with a IsClosed=true.
+		if ((sysDefault == nil) && [r boolValue:@"IsClosed"])
+			sysDefault = [r fieldValue:@"MasterLabel"];
+		// double check that the users default still exists.
+		if ((!sawUserDefault) && [[r fieldValue:@"MasterLabel"] isEqualToString:userDefault])
+			sawUserDefault = YES;
+	}
+	return sawUserDefault ? userDefault : sysDefault;
 }
 
 - (NSArray *)leadStatus {
@@ -528,16 +549,18 @@
 	sforce = [sf retain];
 	[whatObjectTypes release];
 	whatObjectTypes = nil;
-	[closedTaskStatus release];
-	closedTaskStatus = nil;
 	[leadStatus release];
 	leadStatus = nil;
+	[taskStatus release];
+	taskStatus = nil;
 	[defaultLeadStatus release];
 	defaultLeadStatus = nil;
 	[selectedWho release];
 	selectedWho = nil;
 	[selectedWhat release];
 	selectedWhat = nil;
+	[self willChangeValueForKey:@"taskStatus"];
+	[self didChangeValueForKey:@"taskStatus"];
 	[self willChangeValueForKey:@"selectedWhoWhats"];
 	[self didChangeValueForKey:@"selectedWhoWhats"];
 	[self setCreateContactAllowed:[self isCreateableObjectType:CONTACT]];
@@ -549,6 +572,8 @@
 	[self setSforce:sf];
 	[self setEmail:theEmail];
 	[self setWhoSearchText:[email addrOfInterest]];
+	[self setClosedTaskStatus:[self defaultTaskStatus]];
+	self.storeTaskStatusDefault = NO;
 	[NSApp activateIgnoringOtherApps:YES];
 	if ([self canSearchWho]) {
 		NSTimer *t = [NSTimer timerWithTimeInterval:0.01 target:self selector:@selector(searchWho:) userInfo:nil repeats:NO];

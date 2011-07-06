@@ -42,6 +42,7 @@
 	ZKSforceClient			*sforce;
 	NSArray					*whatObjectTypes;
 	NSString				*closedTaskStatus;
+	NSArray					*taskStatus;
 	NSArray					*leadStatus;
 	NSString				*defaultLeadStatus;
 	NSArray					*whoSearchResults;
@@ -63,14 +64,15 @@
 	NSString				*contactLeadStatus;
 	BOOL					createContactAllowed;
 	BOOL					createLeadAllowed;
+	BOOL					storeTaskStatusDefault;
 }
 
 - (NSString *)createActivity:(Email *)email sforce:(ZKSforceClient *)sforce;
 - (NSArray *)whatObjectTypes;
 - (NSArray *)whoSearchResults;
 - (NSArray *)leadStatus;
+- (NSArray *)taskStatus;
 - (NSString *)defaultLeadStatus;
-- (NSString *)closedTaskStatus;
 
 @property (retain) NSString *whatSearchText;
 @property (retain) NSString *whoSearchText;
@@ -80,6 +82,8 @@
 @property (retain) NSString *contactCompany;
 @property (retain) NSString *contactLeadStatus;
 @property (retain) NSString *emailSubject;
+@property (retain) NSString *closedTaskStatus;
+@property (assign) BOOL storeTaskStatusDefault;
 @property (retain) Email *email;
 
 - (NSArray *)whatObjectTypeDescribes;
