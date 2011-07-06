@@ -28,12 +28,29 @@
 #import "Attachment.h"
 #import "Constants.h"
 #import "WhoWhat.h"
+#import "zkSObject.h"
 
 static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
+static NSString *WHO_FIELDS_LEAD = @"Company";
+static NSString *WHO_FIELDS_CONTACT = @"Account.Name";
+
+@interface ZKSObject (AccountNameHelper)
+-(NSString *)accountName;
+@end
 
 @interface CreateActivityController ()
 - (void)saveCheckedWhats;
 @property (retain) ZKSforceClient *sforce;
+@end
+
+@implementation ZKSObject (AccountNameHelper)
+
+-(NSString *)accountName {
+	if ([[self type] isEqualToString:@"Lead"])
+		return [self fieldValue:@"Company"];
+	return [[self fieldValue:@"Account"] fieldValue:@"Name"];
+}
+
 @end
 
 @implementation CreateActivityController
@@ -214,14 +231,19 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	return [self canSearchWho] ? @"" : @"No access to Leads or Contacts, cannot search/set related to Who field";
 }
 
+-(NSString *)whoFieldsForType:(NSString *)type {
+	BOOL isLead = [type isEqualToString:@"Lead"];
+	return [NSString stringWithFormat:@"%@,%@", WHO_FIELDS, isLead ? WHO_FIELDS_LEAD : WHO_FIELDS_CONTACT];
+}
+
 - (IBAction)searchWho:(id)sender {
 	BOOL hasContacts = [self hasEntity:@"Contact"];
 	BOOL hasLeads =    [self hasEntity:@"Lead"];
 	NSMutableString *sosl = [NSMutableString stringWithFormat:@"FIND {%@} IN ALL FIELDS RETURNING ", [self escapeSosl:[self whoSearchText]]];
 	if (hasLeads)
-		[sosl appendFormat:@"Lead(%@)", WHO_FIELDS];
+		[sosl appendFormat:@"Lead(%@)", [self whoFieldsForType:@"Lead"]];
 	if (hasContacts)
-		[sosl appendFormat:@"%@Contact(%@)", hasLeads ? @", " : @"", WHO_FIELDS];
+		[sosl appendFormat:@"%@Contact(%@)", hasLeads ? @", " : @"", [self whoFieldsForType:@"Contact"]];
 	@try {
 		NSArray *res = [sforce search:sosl];
 		[self setWhoSearchResults:res];
@@ -360,7 +382,7 @@ static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 		[NSApp endSheet:sheetWindow];
 		[sheetWindow orderOut:self];
 		// query the record back from salesforce.com, pick up the compound name, plus anything else done server side
-		n = [[[sforce query:[NSString stringWithFormat:@"select %@ from %@ where id='%@'", WHO_FIELDS, [n type], [sr id]]] records] objectAtIndex:0];
+		n = [[[sforce query:[NSString stringWithFormat:@"select %@ from %@ where id='%@' LIMIT 1", [self whoFieldsForType:[n type]], [n type], [sr id]]] records] objectAtIndex:0];
 		// add info to list view, 
 		NSMutableArray *newList = [NSMutableArray arrayWithArray:[self whoSearchResults]];
 		[newList insertObject:n atIndex:0];

@@ -2,16 +2,16 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">10J567</string>
+		<string key="IBDocument.SystemVersion">10J869</string>
 		<string key="IBDocument.InterfaceBuilderVersion">762</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">462.00</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaPlugin</string>
 			<string key="NS.object.0">762</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="618"/>
+			<integer value="494"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -612,7 +612,7 @@
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<string key="NSWindowContentMinSize">{280, 200}</string>
 				<object class="NSView" key="NSWindowView" id="1049768971">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSButton" id="936776267">
@@ -871,7 +871,7 @@
 																		</object>
 																		<object class="NSTableColumn" id="45668934">
 																			<string key="NSIdentifier">email</string>
-																			<double key="NSWidth">330.66552734375</double>
+																			<double key="NSWidth">159.66552734375</double>
 																			<double key="NSMinWidth">32.66552734375</double>
 																			<double key="NSMaxWidth">1000</double>
 																			<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -895,6 +895,33 @@
 																			<bool key="NSIsResizeable">YES</bool>
 																			<reference key="NSTableView" ref="832298392"/>
 																		</object>
+																		<object class="NSTableColumn" id="909421781">
+																			<string key="NSIdentifier">account</string>
+																			<double key="NSWidth">162</double>
+																			<double key="NSMinWidth">10</double>
+																			<double key="NSMaxWidth">3.4028234663852886e+38</double>
+																			<object class="NSTableHeaderCell" key="NSHeaderCell">
+																				<int key="NSCellFlags">75628096</int>
+																				<int key="NSCellFlags2">2048</int>
+																				<string key="NSContents">Account</string>
+																				<reference key="NSSupport" ref="26"/>
+																				<reference key="NSBackgroundColor" ref="32211112"/>
+																				<reference key="NSTextColor" ref="992243921"/>
+																			</object>
+																			<object class="NSTextFieldCell" key="NSDataCell" id="458621345">
+																				<int key="NSCellFlags">337772096</int>
+																				<int key="NSCellFlags2">2048</int>
+																				<string key="NSContents">Text Cell</string>
+																				<reference key="NSSupport" ref="707364637"/>
+																				<reference key="NSControlView" ref="832298392"/>
+																				<reference key="NSBackgroundColor" ref="814641892"/>
+																				<reference key="NSTextColor" ref="817144306"/>
+																			</object>
+																			<int key="NSResizingMask">3</int>
+																			<bool key="NSIsResizeable">YES</bool>
+																			<bool key="NSIsEditable">YES</bool>
+																			<reference key="NSTableView" ref="832298392"/>
+																		</object>
 																	</array>
 																	<double key="NSIntercellSpacingWidth">3</double>
 																	<double key="NSIntercellSpacingHeight">2</double>
@@ -912,7 +939,7 @@
 																	<int key="NSTvFlags">-742391808</int>
 																	<reference key="NSDelegate"/>
 																	<reference key="NSDataSource"/>
-																	<string key="NSAutosaveName">whoresults</string>
+																	<string key="NSAutosaveName">whoresults2</string>
 																	<int key="NSColumnAutoresizingStyle">4</int>
 																	<int key="NSDraggingSourceMaskForLocal">15</int>
 																	<int key="NSDraggingSourceMaskForNonLocal">0</int>
@@ -940,12 +967,13 @@
 														<object class="NSScroller" id="324095378">
 															<reference key="NSNextResponder" ref="1008233297"/>
 															<int key="NSvFlags">-2147483392</int>
-															<string key="NSFrame">{{1, -22}, {582, 11}}</string>
+															<string key="NSFrame">{{1, 75}, {593, 11}}</string>
 															<reference key="NSSuperview" ref="1008233297"/>
 															<int key="NSsFlags">257</int>
 															<reference key="NSTarget" ref="1008233297"/>
 															<string key="NSAction">_doScroller:</string>
-															<double key="NSPercent">0.98145025968551636</double>
+															<double key="NSCurValue">1</double>
+															<double key="NSPercent">0.99329983249581244</double>
 														</object>
 														<object class="NSClipView" id="141099776">
 															<reference key="NSNextResponder" ref="1008233297"/>
@@ -1706,6 +1734,7 @@
 									<reference key="NSHScroller" ref="415437516"/>
 									<reference key="NSContentView" ref="331799458"/>
 									<reference key="NSHeaderClipView" ref="349272467"/>
+									<reference key="NSCornerView" ref="304322901"/>
 									<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
 								</object>
 							</array>
@@ -1764,6 +1793,7 @@
 						</object>
 					</array>
 					<string key="NSFrameSize">{667, 771}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1578}}</string>
 				<string key="NSMinSize">{280, 222}</string>
@@ -1792,6 +1822,7 @@
 					<string>Email</string>
 					<string>FirstName</string>
 					<string>LastName</string>
+					<string>accountName</string>
 				</array>
 				<string key="NSObjectClassName">ZKSObject</string>
 				<bool key="NSEditable">YES</bool>
@@ -3067,6 +3098,7 @@ ZS5jb20KA</string>
 							<object class="NSPSMatrix" key="NSDrawMatrix"/>
 							<string key="NSFrame">{{10, 9}, {16, 16}}</string>
 							<reference key="NSSuperview" ref="375482190"/>
+							<reference key="NSWindow"/>
 							<int key="NSpiFlags">20744</int>
 							<double key="NSMaxValue">100</double>
 						</object>
@@ -3075,6 +3107,7 @@ ZS5jb20KA</string>
 							<int key="NSvFlags">258</int>
 							<string key="NSFrame">{{31, 10}, {273, 14}}</string>
 							<reference key="NSSuperview" ref="375482190"/>
+							<reference key="NSWindow"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="784377355">
 								<int key="NSCellFlags">67239488</int>
@@ -3089,6 +3122,7 @@ ZS5jb20KA</string>
 					</array>
 					<string key="NSFrameSize">{321, 35}</string>
 					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {2560, 1578}}</string>
 				<string key="NSMinSize">{200, 77}</string>
@@ -5177,6 +5211,22 @@ ZS5jb20KA</string>
 					</object>
 					<int key="connectionID">2309</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: arrangedObjects.accountName</string>
+						<reference key="source" ref="909421781"/>
+						<reference key="destination" ref="585355669"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="909421781"/>
+							<reference key="NSDestination" ref="585355669"/>
+							<string key="NSLabel">value: arrangedObjects.accountName</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">arrangedObjects.accountName</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">2313</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -6613,6 +6663,7 @@ ZS5jb20KA</string>
 							<reference ref="38260034"/>
 							<reference ref="279992201"/>
 							<reference ref="691591410"/>
+							<reference ref="909421781"/>
 						</array>
 						<reference key="parent" ref="1008233297"/>
 					</object>
@@ -7127,6 +7178,19 @@ ZS5jb20KA</string>
 						<int key="objectID">2304</int>
 						<reference key="object" ref="839692814"/>
 						<reference key="parent" ref="788453659"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2310</int>
+						<reference key="object" ref="909421781"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="458621345"/>
+						</array>
+						<reference key="parent" ref="832298392"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2311</int>
+						<reference key="object" ref="458621345"/>
+						<reference key="parent" ref="909421781"/>
 					</object>
 				</array>
 			</object>
@@ -7661,7 +7725,7 @@ ZS5jb20KA</string>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">2309</int>
+			<int key="maxID">2313</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
