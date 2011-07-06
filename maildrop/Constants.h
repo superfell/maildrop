@@ -38,3 +38,6 @@ extern NSString *ATTACHMENTS_ON_EMAIL_PREF;
 extern NSString *SHOW_TASK_RELATEDLIST_WARNING_PREF;
 
 extern NSString *AUTO_SHOW_HIDE_BUTTONBAR;
+
+extern NSString *LEAD;
+extern NSString *CONTACT;

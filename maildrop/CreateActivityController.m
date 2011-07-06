@@ -29,10 +29,7 @@
 #import "Constants.h"
 #import "WhoWhat.h"
 #import "zkSObject.h"
-
-static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
-static NSString *WHO_FIELDS_LEAD = @"Company";
-static NSString *WHO_FIELDS_CONTACT = @"Account.Name";
+#import "Constants.h"
 
 @interface ZKSObject (AccountNameHelper)
 -(NSString *)accountName;
@@ -46,7 +43,7 @@ static NSString *WHO_FIELDS_CONTACT = @"Account.Name";
 @implementation ZKSObject (AccountNameHelper)
 
 -(NSString *)accountName {
-	if ([[self type] isEqualToString:@"Lead"])
+	if ([[self type] isEqualToString:LEAD])
 		return [self fieldValue:@"Company"];
 	return [[self fieldValue:@"Account"] fieldValue:@"Name"];
 }
@@ -174,7 +171,7 @@ static NSString *WHO_FIELDS_CONTACT = @"Account.Name";
 	ZKSObject *who = [self selectedWho];
 	ZKSObject *what = [self selectedWhat];
 	[task setFieldValue:[who id] field:@"WhoId"];
-	if ([[who type] isEqualToString:@"Lead"] && (what != nil)) {
+	if ([[who type] isEqualToString:LEAD] && (what != nil)) {
 		NSAlert * a = [NSAlert alertWithMessageText:@"Can not create Email"
 								defaultButton:@"Cancel Creation" 
 								alternateButton:@"Create without setting \"Related to What\""
@@ -224,7 +221,7 @@ static NSString *WHO_FIELDS_CONTACT = @"Account.Name";
 }
 
 - (BOOL)canSearchWho {
-	return [self hasEntity:@"Contact"] || [self hasEntity:@"Lead"];
+	return [self hasEntity:CONTACT] || [self hasEntity:LEAD];
 }
 
 - (NSString *)whoSearchToolTip {
@@ -232,18 +229,22 @@ static NSString *WHO_FIELDS_CONTACT = @"Account.Name";
 }
 
 -(NSString *)whoFieldsForType:(NSString *)type {
-	BOOL isLead = [type isEqualToString:@"Lead"];
+	static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
+	static NSString *WHO_FIELDS_LEAD = @"Company";
+	static NSString *WHO_FIELDS_CONTACT = @"Account.Name";
+
+	BOOL isLead = [type isEqualToString:LEAD];
 	return [NSString stringWithFormat:@"%@,%@", WHO_FIELDS, isLead ? WHO_FIELDS_LEAD : WHO_FIELDS_CONTACT];
 }
 
 - (IBAction)searchWho:(id)sender {
-	BOOL hasContacts = [self hasEntity:@"Contact"];
-	BOOL hasLeads =    [self hasEntity:@"Lead"];
+	BOOL hasContacts = [self hasEntity:CONTACT];
+	BOOL hasLeads =    [self hasEntity:LEAD];
 	NSMutableString *sosl = [NSMutableString stringWithFormat:@"FIND {%@} IN ALL FIELDS RETURNING ", [self escapeSosl:[self whoSearchText]]];
 	if (hasLeads)
-		[sosl appendFormat:@"Lead(%@)", [self whoFieldsForType:@"Lead"]];
+		[sosl appendFormat:@"Lead(%@)", [self whoFieldsForType:LEAD]];
 	if (hasContacts)
-		[sosl appendFormat:@"%@Contact(%@)", hasLeads ? @", " : @"", [self whoFieldsForType:@"Contact"]];
+		[sosl appendFormat:@"%@Contact(%@)", hasLeads ? @", " : @"", [self whoFieldsForType:CONTACT]];
 	@try {
 		NSArray *res = [sforce search:sosl];
 		[self setWhoSearchResults:res];
@@ -369,7 +370,7 @@ static NSString *WHO_FIELDS_CONTACT = @"Account.Name";
 }
 
 - (void)createNewSObjectItem:(BOOL)isLead window:(NSWindow *)sheetWindow {
-	ZKSObject *n = [ZKSObject withType:isLead ? @"Lead" : @"Contact"];
+	ZKSObject *n = [ZKSObject withType:isLead ? LEAD : CONTACT];
 	[n setFieldValue:[self makeNotNull:[self contactFirstName]] field:@"FirstName"];
 	[n setFieldValue:[self makeNotNull:[self contactLastName]]  field:@"LastName"];
 	[n setFieldValue:[self makeNotNull:[self contactEmail]]     field:@"Email"];
@@ -536,8 +537,8 @@ static NSString *WHO_FIELDS_CONTACT = @"Account.Name";
 	selectedWhat = nil;
 	[self willChangeValueForKey:@"selectedWhoWhats"];
 	[self didChangeValueForKey:@"selectedWhoWhats"];
-	[self setCreateContactAllowed:[self isCreateableObjectType:@"Contact"]];
-	[self setCreateLeadAllowed:[self isCreateableObjectType:@"Lead"]];	
+	[self setCreateContactAllowed:[self isCreateableObjectType:CONTACT]];
+	[self setCreateLeadAllowed:[self isCreateableObjectType:LEAD]];	
 }
 
 - (NSString *)createActivity:(Email *)theEmail sforce:(ZKSforceClient *)sf {

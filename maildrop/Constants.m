@@ -38,3 +38,6 @@ NSString *ATTACHMENTS_ON_EMAIL_PREF		= @"addAttachmentsToActivities";
 NSString *SHOW_TASK_RELATEDLIST_WARNING_PREF = @"showTaskRelatedListWarning";
 
 NSString *AUTO_SHOW_HIDE_BUTTONBAR		= @"autoShowHideButtonBar";
+
+NSString *LEAD							= @"Lead";
+NSString *CONTACT						= @"Contact";
