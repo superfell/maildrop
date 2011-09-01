@@ -199,7 +199,7 @@
 }
 
 -(IBAction)showButtonBarHelp:(id)sender {	
-	[self showHelpPage:@"pages/buttonbar.html"];
+	[self showHelpPage:nil];
 }
 
 -(IBAction)showTaskRelatedListHelp:(id)sender {
