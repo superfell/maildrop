@@ -58,6 +58,12 @@
 				<cocoa key="isActive"/>
 			</property>
 			<property name="version" code="vers" description="The version of the application." type="text" access="r"/>
+			<property name="useAttachmentsOnActivities" code="ATAC" description="returns true if the user has attachments enabled for activities n the preferences." type="boolean" access="r">
+				<cocoa key="useAttachmentsOnActivities"/>
+			</property>
+			<property name="useAttachmentsOnCase" code="UACS" description="returns true if the user has attachments enabled fro cases in the preferences" type="boolean" access="r">
+				<cocoa key="useAttachmentsOnCases"/>
+			</property>
 		</class>
 		<class name="email" code="maIL" plural="emails">
 			<cocoa class="Email"/>

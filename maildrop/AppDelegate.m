@@ -110,9 +110,19 @@
 	[attachments removeObjectAtIndex:index];
 }
 
+-(NSNumber *)useAttachmentsOnActivities {
+	return [[NSUserDefaults standardUserDefaults] objectForKey:ATTACHMENTS_ON_EMAIL_PREF];
+}
+
+-(NSNumber *)useAttachmentsOnCases {
+	return [[NSUserDefaults standardUserDefaults] objectForKey:ATTACHMENTS_ON_CASES_PREF];
+}
+
 - (BOOL)application:(NSApplication *)sender delegateHandlesKey:(NSString *)key { 
-    if ([key isEqualToString: @"emails"]) return YES;
+    if ([key isEqualToString:@"emails"]) return YES;
 	if ([key isEqualToString:@"attachments"]) return YES; 
+	if ([key isEqualToString:@"useAttachmentsOnActivities"]) return YES;
+	if ([key isEqualToString:@"useAttachmentsOnCases"]) return YES;
     return NO; 
 }
 
