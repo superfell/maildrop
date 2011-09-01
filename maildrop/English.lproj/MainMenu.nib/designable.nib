@@ -2,7 +2,7 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1050</int>
-		<string key="IBDocument.SystemVersion">10K540</string>
+		<string key="IBDocument.SystemVersion">10K549</string>
 		<string key="IBDocument.InterfaceBuilderVersion">762</string>
 		<string key="IBDocument.AppKitVersion">1038.36</string>
 		<string key="IBDocument.HIToolboxVersion">461.00</string>
@@ -12,6 +12,7 @@
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<integer value="618"/>
+			<integer value="2352"/>
 			<integer value="561"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
@@ -2891,7 +2892,7 @@ ZS5jb20KA</string>
 								<reference key="NSControlView" ref="273096029"/>
 								<int key="NSButtonFlags">109199615</int>
 								<int key="NSButtonFlags2">1</int>
-								<object class="NSFont" key="NSAlternateImage">
+								<object class="NSFont" key="NSAlternateImage" id="344484586">
 									<string key="NSName">LucidaGrande</string>
 									<double key="NSSize">13</double>
 									<int key="NSfFlags">16</int>
@@ -3654,6 +3655,149 @@ ZS5jb20KA</string>
 				<bool key="NSSelectsInsertedObjects">YES</bool>
 				<bool key="NSFilterRestrictsInsertion">YES</bool>
 				<bool key="NSClearsFilterPredicateOnInsertion">YES</bool>
+			</object>
+			<object class="NSWindowTemplate" id="405721943">
+				<int key="NSWindowStyleMask">3</int>
+				<int key="NSWindowBacking">2</int>
+				<string key="NSWindowRect">{{1063, 768}, {490, 325}}</string>
+				<int key="NSWTFlags">611844096</int>
+				<string key="NSWindowTitle">Maildrop</string>
+				<string key="NSWindowClass">NSWindow</string>
+				<nil key="NSViewClass"/>
+				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
+				<object class="NSView" key="NSWindowView" id="834289224">
+					<reference key="NSNextResponder"/>
+					<int key="NSvFlags">256</int>
+					<array class="NSMutableArray" key="NSSubviews">
+						<object class="NSTextField" id="540227996">
+							<reference key="NSNextResponder" ref="834289224"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{89, 288}, {384, 17}}</string>
+							<reference key="NSSuperview" ref="834289224"/>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSTextFieldCell" key="NSCell" id="754698369">
+								<int key="NSCellFlags">68288064</int>
+								<int key="NSCellFlags2">272630784</int>
+								<string key="NSContents">Important Information for OSX 10.7 (aka Lion) users</string>
+								<object class="NSFont" key="NSSupport">
+									<string key="NSName">LucidaGrande-Bold</string>
+									<double key="NSSize">13</double>
+									<int key="NSfFlags">16</int>
+								</object>
+								<reference key="NSControlView" ref="540227996"/>
+								<reference key="NSBackgroundColor" ref="415228213"/>
+								<reference key="NSTextColor" ref="817144306"/>
+							</object>
+						</object>
+						<object class="NSImageView" id="992012455">
+							<reference key="NSNextResponder" ref="834289224"/>
+							<int key="NSvFlags">268</int>
+							<set class="NSMutableSet" key="NSDragTypes">
+								<string>Apple PDF pasteboard type</string>
+								<string>Apple PICT pasteboard type</string>
+								<string>Apple PNG pasteboard type</string>
+								<string>NSFilenamesPboardType</string>
+								<string>NeXT Encapsulated PostScript v1.2 pasteboard type</string>
+								<string>NeXT TIFF v4.0 pasteboard type</string>
+							</set>
+							<string key="NSFrame">{{20, 241}, {64, 64}}</string>
+							<reference key="NSSuperview" ref="834289224"/>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSImageCell" key="NSCell" id="829253129">
+								<int key="NSCellFlags">130560</int>
+								<int key="NSCellFlags2">33554432</int>
+								<reference key="NSContents" ref="29109566"/>
+								<int key="NSAlign">0</int>
+								<int key="NSScale">0</int>
+								<int key="NSStyle">0</int>
+								<bool key="NSAnimates">NO</bool>
+							</object>
+							<bool key="NSEditable">YES</bool>
+						</object>
+						<object class="NSTextField" id="425976062">
+							<reference key="NSNextResponder" ref="834289224"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{89, 110}, {384, 170}}</string>
+							<reference key="NSSuperview" ref="834289224"/>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSTextFieldCell" key="NSCell" id="1009885394">
+								<int key="NSCellFlags">67239424</int>
+								<int key="NSCellFlags2">272629760</int>
+								<string key="NSContents">The version of Apple Mail included with OSX 10.7 has bugs related to accessing attachments via applescript, and generates errors. This means Maildrop can not import attachments. It is recommended that you disable attachments in Maildrop preferences to stop this error from appearing, even if you select an email with attachments. When Apple fixes their bug, you will be able to re-enable attachments in the preferences and start importing attachments again.</string>
+								<reference key="NSSupport" ref="344484586"/>
+								<reference key="NSControlView" ref="425976062"/>
+								<reference key="NSBackgroundColor" ref="415228213"/>
+								<reference key="NSTextColor" ref="817144306"/>
+							</object>
+						</object>
+						<object class="NSButton" id="289039094">
+							<reference key="NSNextResponder" ref="834289224"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{90, 21}, {218, 18}}</string>
+							<reference key="NSSuperview" ref="834289224"/>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="214259357">
+								<int key="NSCellFlags">-2080244224</int>
+								<int key="NSCellFlags2">0</int>
+								<string key="NSContents">Don't show this message again</string>
+								<reference key="NSSupport" ref="707364637"/>
+								<reference key="NSControlView" ref="289039094"/>
+								<int key="NSButtonFlags">1211912703</int>
+								<int key="NSButtonFlags2">2</int>
+								<reference key="NSNormalImage" ref="703633919"/>
+								<reference key="NSAlternateImage" ref="1008131944"/>
+								<string key="NSAlternateContents"/>
+								<string key="NSKeyEquivalent"/>
+								<int key="NSPeriodicDelay">200</int>
+								<int key="NSPeriodicInterval">25</int>
+							</object>
+						</object>
+						<object class="NSButton" id="633656336">
+							<reference key="NSNextResponder" ref="834289224"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{364, 19}, {106, 23}}</string>
+							<reference key="NSSuperview" ref="834289224"/>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="440110595">
+								<int key="NSCellFlags">67239424</int>
+								<int key="NSCellFlags2">134217728</int>
+								<string key="NSContents">Close</string>
+								<reference key="NSSupport" ref="707364637"/>
+								<reference key="NSControlView" ref="633656336"/>
+								<int key="NSButtonFlags">-2033434369</int>
+								<int key="NSButtonFlags2">162</int>
+								<string key="NSAlternateContents"/>
+								<string type="base64-UTF8" key="NSKeyEquivalent">DQ</string>
+								<int key="NSPeriodicDelay">400</int>
+								<int key="NSPeriodicInterval">75</int>
+							</object>
+						</object>
+						<object class="NSButton" id="357927454">
+							<reference key="NSNextResponder" ref="834289224"/>
+							<int key="NSvFlags">268</int>
+							<string key="NSFrame">{{92, 80}, {378, 23}}</string>
+							<reference key="NSSuperview" ref="834289224"/>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="1015077662">
+								<int key="NSCellFlags">-2080244224</int>
+								<int key="NSCellFlags2">134217728</int>
+								<string key="NSContents">Disable Attachments</string>
+								<reference key="NSSupport" ref="707364637"/>
+								<reference key="NSControlView" ref="357927454"/>
+								<int key="NSButtonFlags">-2033434369</int>
+								<int key="NSButtonFlags2">162</int>
+								<string key="NSAlternateContents"/>
+								<string key="NSKeyEquivalent"/>
+								<int key="NSPeriodicDelay">400</int>
+								<int key="NSPeriodicInterval">75</int>
+							</object>
+						</object>
+					</array>
+					<string key="NSFrameSize">{490, 325}</string>
+					<reference key="NSSuperview"/>
+				</object>
+				<string key="NSScreenRect">{{0, 0}, {2560, 1578}}</string>
+				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -5434,6 +5578,50 @@ ZS5jb20KA</string>
 						</object>
 					</object>
 					<int key="connectionID">2350</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">lionInfoWindow</string>
+						<reference key="source" ref="801697913"/>
+						<reference key="destination" ref="405721943"/>
+					</object>
+					<int key="connectionID">2353</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: values.showLionMailInfo</string>
+						<reference key="source" ref="289039094"/>
+						<reference key="destination" ref="154247247"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="289039094"/>
+							<reference key="NSDestination" ref="154247247"/>
+							<string key="NSLabel">value: values.showLionMailInfo</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">values.showLionMailInfo</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSNegateBoolean</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">2365</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">disableAttachments:</string>
+						<reference key="source" ref="801697913"/>
+						<reference key="destination" ref="357927454"/>
+					</object>
+					<int key="connectionID">2368</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">orderOut:</string>
+						<reference key="source" ref="405721943"/>
+						<reference key="destination" ref="633656336"/>
+					</object>
+					<int key="connectionID">2369</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -7490,6 +7678,106 @@ ZS5jb20KA</string>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Task Status</string>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2351</int>
+						<reference key="object" ref="405721943"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="834289224"/>
+						</array>
+						<reference key="parent" ref="0"/>
+						<string key="objectName">LionInfoWindow</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2352</int>
+						<reference key="object" ref="834289224"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="992012455"/>
+							<reference ref="540227996"/>
+							<reference ref="289039094"/>
+							<reference ref="633656336"/>
+							<reference ref="425976062"/>
+							<reference ref="357927454"/>
+						</array>
+						<reference key="parent" ref="405721943"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2354</int>
+						<reference key="object" ref="540227996"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="754698369"/>
+						</array>
+						<reference key="parent" ref="834289224"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2355</int>
+						<reference key="object" ref="754698369"/>
+						<reference key="parent" ref="540227996"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2356</int>
+						<reference key="object" ref="992012455"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="829253129"/>
+						</array>
+						<reference key="parent" ref="834289224"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2357</int>
+						<reference key="object" ref="829253129"/>
+						<reference key="parent" ref="992012455"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2358</int>
+						<reference key="object" ref="425976062"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="1009885394"/>
+						</array>
+						<reference key="parent" ref="834289224"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2359</int>
+						<reference key="object" ref="1009885394"/>
+						<reference key="parent" ref="425976062"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2360</int>
+						<reference key="object" ref="289039094"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="214259357"/>
+						</array>
+						<reference key="parent" ref="834289224"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2361</int>
+						<reference key="object" ref="214259357"/>
+						<reference key="parent" ref="289039094"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2362</int>
+						<reference key="object" ref="633656336"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="440110595"/>
+						</array>
+						<reference key="parent" ref="834289224"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2363</int>
+						<reference key="object" ref="440110595"/>
+						<reference key="parent" ref="633656336"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2366</int>
+						<reference key="object" ref="357927454"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="1015077662"/>
+						</array>
+						<reference key="parent" ref="834289224"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">2367</int>
+						<reference key="object" ref="1015077662"/>
+						<reference key="parent" ref="357927454"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -7780,8 +8068,25 @@ ZS5jb20KA</string>
 				<string key="2324.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="2325.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="2338.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="2351.IBEditorWindowLastContentRect">{{1063, 768}, {490, 325}}</string>
+				<string key="2351.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="2351.IBWindowTemplateEditedContentRect">{{1063, 768}, {490, 325}}</string>
+				<boolean value="NO" key="2351.NSWindowTemplate.visibleAtLaunch"/>
+				<string key="2352.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="2354.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="2355.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="2356.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="2357.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="2358.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="2359.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="236.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="236.ImportedFromIB2"/>
+				<string key="2360.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="2361.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="2362.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="2363.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="2366.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="2367.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="24.IBEditorWindowLastContentRect">{{180, 1422}, {194, 103}}</string>
 				<string key="24.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<boolean value="YES" key="24.ImportedFromIB2"/>
@@ -8040,7 +8345,7 @@ ZS5jb20KA</string>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">2350</int>
+			<int key="maxID">2369</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -8048,6 +8353,7 @@ ZS5jb20KA</string>
 					<string key="className">AppDelegate</string>
 					<string key="superclassName">NSObject</string>
 					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="disableAttachments:">id</string>
 						<string key="logout:">id</string>
 						<string key="showActivityHelp:">id</string>
 						<string key="showButtonBar:">id</string>
@@ -8060,6 +8366,7 @@ ZS5jb20KA</string>
 						<string key="attachmentsWarningWindow">NSWindow</string>
 						<string key="buttonBarController">ButtonBarController</string>
 						<string key="createAcitivityController">CreateActivityController</string>
+						<string key="lionInfoWindow">NSWindow</string>
 						<string key="loginController">LoginController</string>
 						<string key="welcomeController">WelcomeController</string>
 					</dictionary>

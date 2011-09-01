@@ -35,6 +35,7 @@
 	IBOutlet WelcomeController			*welcomeController;
 	IBOutlet ButtonBarController		*buttonBarController;
 	IBOutlet NSWindow					*attachmentsWarningWindow;
+	IBOutlet NSWindow					*lionInfoWindow;
 	
 	NSMutableArray		*emails;
 	NSMutableArray		*attachments;
@@ -62,6 +63,8 @@
 - (IBAction)showButtonBarHelp:(id)sender;
 - (IBAction)showHelp:(id)sender;
 - (IBAction)showTaskRelatedListHelp:(id)sender;
+- (IBAction)disableAttachments:(id)sender;
 
 - (void)shouldCheckForAttachmentsRelatedListOnTask;
+
 @end

@@ -46,6 +46,7 @@
 	[defaults setObject:[NSNumber numberWithBool:YES] forKey:ADD_EMAIL_TO_DESC_PREF];
 	[defaults setObject:[NSNumber numberWithBool:YES] forKey:SHOW_TASK_RELATEDLIST_WARNING_PREF];
 	[defaults setObject:[NSNumber numberWithBool:YES] forKey:AUTO_SHOW_HIDE_BUTTONBAR];
+	[defaults setObject:[NSNumber numberWithBool:YES] forKey:SHOW_LION_MAIL_INFO_PREF];
 	[defaults setObject:@"Subject" forKey:@"additionalField_Case"];
 	[[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }
@@ -126,8 +127,30 @@
     return NO; 
 }
 
+-(void)showLionInfo {
+	if (![[NSUserDefaults standardUserDefaults] boolForKey:SHOW_LION_MAIL_INFO_PREF]) 
+		return;
+	
+	SInt32 minorVer;
+	if (Gestalt(gestaltSystemVersionMinor, &minorVer) == noErr) {
+		if ((minorVer == 0x07) && (
+			 [[NSUserDefaults standardUserDefaults] boolForKey:ATTACHMENTS_ON_EMAIL_PREF] ||
+			 [[NSUserDefaults standardUserDefaults] boolForKey:ATTACHMENTS_ON_CASES_PREF] )) {
+			[lionInfoWindow center];
+			[lionInfoWindow makeKeyAndOrderFront:self];
+		}
+	}
+}
+
+- (IBAction)disableAttachments:(id)sender {
+	NSNumber *off = [NSNumber numberWithBool:NO];
+	[[NSUserDefaults standardUserDefaults] setObject:off forKey:ATTACHMENTS_ON_EMAIL_PREF];
+	[[NSUserDefaults standardUserDefaults] setObject:off forKey:ATTACHMENTS_ON_CASES_PREF];
+}
+
 -(void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	[self showButtonBar:self];
+	[self showLionInfo];
 }
 
 - (IBAction)logout:(id)sender {
