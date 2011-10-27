@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2010 Simon Fell
+// Copyright (c) 2006-2011 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -28,6 +28,7 @@
 @class ButtonBarController;
 @class Email;
 @class Attachment;
+@class LionInfoWindowController;
 
 @interface AppDelegate : NSObject {
 	IBOutlet LoginController			*loginController;
@@ -35,7 +36,7 @@
 	IBOutlet WelcomeController			*welcomeController;
 	IBOutlet ButtonBarController		*buttonBarController;
 	IBOutlet NSWindow					*attachmentsWarningWindow;
-	IBOutlet NSWindow					*lionInfoWindow;
+	IBOutlet LionInfoWindowController	*lionInfoWindowController;
 	
 	NSMutableArray		*emails;
 	NSMutableArray		*attachments;
@@ -63,7 +64,6 @@
 - (IBAction)showButtonBarHelp:(id)sender;
 - (IBAction)showHelp:(id)sender;
 - (IBAction)showTaskRelatedListHelp:(id)sender;
-- (IBAction)disableAttachments:(id)sender;
 
 - (void)shouldCheckForAttachmentsRelatedListOnTask;
 

@@ -30,6 +30,8 @@
 		F46C83C50EC683BE00944C77 /* mail_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F46C83C30EC683BE00944C77 /* mail_icon.png */; };
 		F46C83DA0EC77A1200944C77 /* maildrop32.png in Resources */ = {isa = PBXBuildFile; fileRef = F46C83D90EC77A1200944C77 /* maildrop32.png */; };
 		F47BD7080B4E3F3D00E15CEE /* entourage scripts in Resources */ = {isa = PBXBuildFile; fileRef = F47BD7040B4E3F3D00E15CEE /* entourage scripts */; };
+		F47E3521145906450017AD47 /* LionInfoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F47E3520145906450017AD47 /* LionInfoWindowController.m */; };
+		F47E35B1145910420017AD47 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F47E35B0145910420017AD47 /* Localizable.strings */; };
 		F4844D3E1319E7DB00E1F303 /* zkBaseClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F4844CFE1319E7DB00E1F303 /* zkBaseClient.m */; };
 		F4844D3F1319E7DB00E1F303 /* zkChildRelationship.m in Sources */ = {isa = PBXBuildFile; fileRef = F4844D001319E7DB00E1F303 /* zkChildRelationship.m */; };
 		F4844D401319E7DB00E1F303 /* zkDescribeField.m in Sources */ = {isa = PBXBuildFile; fileRef = F4844D021319E7DB00E1F303 /* zkDescribeField.m */; };
@@ -131,6 +133,9 @@
 		F46C83C30EC683BE00944C77 /* mail_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mail_icon.png; sourceTree = "<group>"; };
 		F46C83D90EC77A1200944C77 /* maildrop32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = maildrop32.png; sourceTree = "<group>"; };
 		F47BD7040B4E3F3D00E15CEE /* entourage scripts */ = {isa = PBXFileReference; explicitFileType = folder; path = "entourage scripts"; sourceTree = "<group>"; };
+		F47E351F145906450017AD47 /* LionInfoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LionInfoWindowController.h; sourceTree = "<group>"; };
+		F47E3520145906450017AD47 /* LionInfoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LionInfoWindowController.m; sourceTree = "<group>"; };
+		F47E35AE1459103D0017AD47 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F4844CFD1319E7DB00E1F303 /* zkBaseClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zkBaseClient.h; path = ../zksforce/zkSforce/zkBaseClient.h; sourceTree = SOURCE_ROOT; };
 		F4844CFE1319E7DB00E1F303 /* zkBaseClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = zkBaseClient.m; path = ../zksforce/zkSforce/zkBaseClient.m; sourceTree = SOURCE_ROOT; };
 		F4844CFF1319E7DB00E1F303 /* zkChildRelationship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zkChildRelationship.h; path = ../zksforce/zkSforce/zkChildRelationship.h; sourceTree = SOURCE_ROOT; };
@@ -256,6 +261,8 @@
 				F46C83880EC6429800944C77 /* ButtonBarController.m */,
 				F46C83A80EC6777200944C77 /* Constants.h */,
 				F46C83A90EC6777200944C77 /* Constants.m */,
+				F47E351F145906450017AD47 /* LionInfoWindowController.h */,
+				F47E3520145906450017AD47 /* LionInfoWindowController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -334,6 +341,7 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
 				F4DBCB380B3E259400D94639 /* Credits.html */,
+				F47E35B0145910420017AD47 /* Localizable.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -537,6 +545,7 @@
 				F46C83DA0EC77A1200944C77 /* maildrop32.png in Resources */,
 				F49592801292448F00DDD2A7 /* outlook scripts in Resources */,
 				F45F31E212939A3700BDCF61 /* outlook_icon.png in Resources */,
+				F47E35B1145910420017AD47 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,6 +605,7 @@
 				F4844D5B1319E7DB00E1F303 /* zkSObject.m in Sources */,
 				F4844D5C1319E7DB00E1F303 /* zkUserInfo.m in Sources */,
 				F4844D5D1319E7DB00E1F303 /* zkXmlDeserializer.m in Sources */,
+				F47E3521145906450017AD47 /* LionInfoWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,6 +626,14 @@
 				29B97319FDCFA39411CA2CEA /* English */,
 			);
 			name = MainMenu.nib;
+			sourceTree = "<group>";
+		};
+		F47E35B0145910420017AD47 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F47E35AE1459103D0017AD47 /* English */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

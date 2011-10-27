@@ -1,4 +1,4 @@
-// Copyright (c) 2008-2011 Simon Fell
+// Copyright (c) 2011 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -19,29 +19,22 @@
 // THE SOFTWARE.
 //
 
+
 #import <Cocoa/Cocoa.h>
 
 
-extern NSString *ADD_EMAIL_SCRIPT_NAME;
-extern NSString *ADD_CASE_SCRIPT_NAME;
+@interface LionInfoWindowController : NSObject {
+	IBOutlet NSWindow	*lionInfoWindow;
+	NSString			*infoText;
+	NSString			*buttonLabel;
+	BOOL				buttonShouldEnableAttachments;
+}
 
-extern NSString *MAIL_SCRIPTS_FOLDER;
-extern NSString *ENTOURAGE_SCRIPTS_FOLDER;
-extern NSString *OUTLOOK_SCRIPTS_FOLDER;
+@property (retain) NSString *infoText;
+@property (retain) NSString *buttonLabel;
 
-extern NSString *ADD_EMAIL_TO_DESC_PREF;
-extern NSString *SHOW_NEW_CASE_PREF;
-extern NSString *SHOW_NEW_EMAIL_PREF;
-extern NSString *ATTACHMENTS_ON_CASES_PREF;
-extern NSString *ATTACHMENTS_ON_EMAIL_PREF;
-extern NSString *DEFAULT_TASK_STATUS_PREF;
+-(void)showIfNeeded;
 
-extern NSString *SHOW_TASK_RELATEDLIST_WARNING_PREF;
-extern NSString *SHOW_LION_MAIL_INFO_PREF;
-extern NSString *HAVE_SHOWN_10_72_INFO_WINDOW;
+-(IBAction)updateAttachmentSettings:(id)sender;
 
-extern NSString *AUTO_SHOW_HIDE_BUTTONBAR;
-
-extern NSString *LEAD;
-extern NSString *CONTACT;
-extern NSString *ACCOUNT;
+@end

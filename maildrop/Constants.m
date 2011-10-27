@@ -38,6 +38,7 @@ NSString *DEFAULT_TASK_STATUS_PREF		= @"defaultTaskStatus";
 
 NSString *SHOW_TASK_RELATEDLIST_WARNING_PREF = @"showTaskRelatedListWarning";
 NSString *SHOW_LION_MAIL_INFO_PREF      = @"showLionMailInfo";
+NSString *HAVE_SHOWN_10_72_INFO_WINDOW  = @"@shownLion1072Info";
 
 NSString *AUTO_SHOW_HIDE_BUTTONBAR		= @"autoShowHideButtonBar";
 
