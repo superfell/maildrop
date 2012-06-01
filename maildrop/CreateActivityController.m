@@ -481,17 +481,21 @@
 - (void)initWhats:(id)sender {
 	[self willChangeValueForKey:@"canSearchWho"];
 	[self didChangeValueForKey:@"canSearchWho"];
-	if (whatObjectTypes != nil) return;
-	[self willChangeValueForKey:@"whatObjectTypes"];
-	[whatObjectTypes release];
-	whatObjectTypes = nil;
-	[self didChangeValueForKey:@"whatObjectTypes"];
-	[self willChangeValueForKey:@"leadStatus"];
-	[leadStatus release];
-	leadStatus = nil;
-	[self didChangeValueForKey:@"leadStatus"];
-	[self willChangeValueForKey:@"whatObjectTypeDescribes"];
-	[self didChangeValueForKey:@"whatObjectTypeDescribes"];
+	if (whatObjectTypes == nil) {
+		[self willChangeValueForKey:@"whatObjectTypes"];
+		[whatObjectTypes release];
+		whatObjectTypes = nil;
+		[self didChangeValueForKey:@"whatObjectTypes"];
+		[self willChangeValueForKey:@"leadStatus"];
+		[leadStatus release];
+		leadStatus = nil;
+		[self didChangeValueForKey:@"leadStatus"];
+		[self willChangeValueForKey:@"whatObjectTypeDescribes"];
+		[self didChangeValueForKey:@"whatObjectTypeDescribes"];
+	}
+	self.whatSearchText = email.subject;
+	if (email.subject.length > 0) 
+		[self searchWhat:sender];
 }
 
 -(NSArray *)taskStatus {
