@@ -24,9 +24,6 @@
 #import "Constants.h"
 #import "ClientApp.h"
 
-NSString *mailBundleId = @"com.apple.mail";
-NSString *enotourageBundleId = @"com.microsoft.Entourage";
-NSString *outlookBundleId = @"com.microsoft.Outlook";
 
 static const CGFloat WINDOW_HEIGHT_PROGRESS = 35.0f;
 
@@ -38,12 +35,9 @@ static const CGFloat WINDOW_HEIGHT_PROGRESS = 35.0f;
 @implementation ButtonBarController
 
 -(void)awakeFromNib {
-	ClientApp *mail = [ClientApp withBundleId:mailBundleId		 imageName:@"mail_icon"		folderName:MAIL_SCRIPTS_FOLDER];
-	ClientApp *ent  = [ClientApp withBundleId:enotourageBundleId imageName:@"entourage"		folderName:ENTOURAGE_SCRIPTS_FOLDER];
-	ClientApp *olk  = [ClientApp withBundleId:outlookBundleId	 imageName:@"outlook_icon"	folderName:OUTLOOK_SCRIPTS_FOLDER];
-	clientApps = [[NSArray arrayWithObjects:mail, ent, olk, nil] retain];
+    clientApps = [[ClientApp allClients] retain];
 	isShowingProgress = YES;
-	[self setSelectedClient:mail];
+	[self setSelectedClient:[clientApps objectAtIndex:0]];
 }
 
 -(void)setFrontAppTimer:(NSTimer *)t {

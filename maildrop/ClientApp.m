@@ -20,28 +20,46 @@
 //
 
 #import "ClientApp.h"
+#import "MailFactory.h"
+#import "OutlookFactory.h"
+#import "EntourageFactory.h"
 
 @implementation ClientApp
 
-@synthesize bundleId, iconImage=image, folderName;
+static NSArray *_allClients;
+static NSString *mailBundleId = @"com.apple.mail";
+static NSString *enotourageBundleId = @"com.microsoft.Entourage";
+static NSString *outlookBundleId = @"com.microsoft.Outlook";
 
--(id)initWithBundleId:(NSString *)bid imageName:(NSString *)imageName folderName:(NSString *)fn {
+@synthesize bundleId, iconImage=image, factory;
+
+-(id)initWithBundleId:(NSString *)bid imageName:(NSString *)imageName factory:(NSObject<EmailFactory> *)f {
 	self = [super init];
 	bundleId = [bid retain];
 	image = [[NSImage imageNamed:imageName] retain];
-	folderName = [fn retain];
+    factory = [f retain];
 	return self;
 }
 
 -(void)dealloc {
 	[bundleId release];
 	[image release];
-	[folderName release];
+	[factory release];
 	[super dealloc];
 }
 
-+(id)withBundleId:(NSString *)bid imageName:(NSString *)image folderName:(NSString *)fn {
-	return [[[ClientApp alloc] initWithBundleId:bid imageName:image folderName:fn] autorelease];
++(id)withBundleId:(NSString *)bid imageName:(NSString *)image factory:(NSObject<EmailFactory> *)f {
+	return [[[ClientApp alloc] initWithBundleId:bid imageName:image factory:f] autorelease];
+}
+
++(NSArray *)allClients {
+    if (_allClients == nil) {
+        ClientApp *mail = [ClientApp withBundleId:mailBundleId		 imageName:@"mail_icon"		factory:[[[MailFactory alloc] init] autorelease]];
+        ClientApp *ent  = [ClientApp withBundleId:enotourageBundleId imageName:@"entourage"		factory:[[[EntourageFactory alloc] init] autorelease]];
+        ClientApp *olk  = [ClientApp withBundleId:outlookBundleId	 imageName:@"outlook_icon"	factory:[[[OutlookFactory alloc] init] autorelease]];
+        _allClients = [[NSArray arrayWithObjects:mail, ent, olk, nil] retain];
+    }
+    return _allClients;
 }
 
 @end

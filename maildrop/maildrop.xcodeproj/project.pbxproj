@@ -13,6 +13,9 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		F41532EC0B4227FE00E36D7B /* CreateActivityController.m in Sources */ = {isa = PBXBuildFile; fileRef = F41532EB0B4227FE00E36D7B /* CreateActivityController.m */; };
 		F41A2463173085A9005BF9D5 /* ClientApp.m in Sources */ = {isa = PBXBuildFile; fileRef = F41A2462173085A9005BF9D5 /* ClientApp.m */; };
+		F41A246617308C60005BF9D5 /* MailFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F41A246517308C60005BF9D5 /* MailFactory.m */; };
+		F41A246917308C6C005BF9D5 /* OutlookFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F41A246817308C6C005BF9D5 /* OutlookFactory.m */; };
+		F41A246C17308C76005BF9D5 /* EntourageFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F41A246B17308C76005BF9D5 /* EntourageFactory.m */; };
 		F41B85570B3CFB5200971C0B /* Email.m in Sources */ = {isa = PBXBuildFile; fileRef = F41B85560B3CFB5200971C0B /* Email.m */; };
 		F41B85600B3CFE6400971C0B /* maildrop.sdef in Resources */ = {isa = PBXBuildFile; fileRef = F41B855F0B3CFE6400971C0B /* maildrop.sdef */; };
 		F41B85630B3CFF0800971C0B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F41B85620B3CFF0800971C0B /* AppDelegate.m */; };
@@ -115,6 +118,12 @@
 		F41A246017308458005BF9D5 /* outlook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = outlook.h; path = ../scriptingbridge/outlook.h; sourceTree = "<group>"; };
 		F41A2461173085A9005BF9D5 /* ClientApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientApp.h; sourceTree = "<group>"; };
 		F41A2462173085A9005BF9D5 /* ClientApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientApp.m; sourceTree = "<group>"; };
+		F41A246417308C60005BF9D5 /* MailFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailFactory.h; sourceTree = "<group>"; };
+		F41A246517308C60005BF9D5 /* MailFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailFactory.m; sourceTree = "<group>"; };
+		F41A246717308C6C005BF9D5 /* OutlookFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OutlookFactory.h; sourceTree = "<group>"; };
+		F41A246817308C6C005BF9D5 /* OutlookFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutlookFactory.m; sourceTree = "<group>"; };
+		F41A246A17308C76005BF9D5 /* EntourageFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntourageFactory.h; sourceTree = "<group>"; };
+		F41A246B17308C76005BF9D5 /* EntourageFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntourageFactory.m; sourceTree = "<group>"; };
 		F41B85550B3CFB5200971C0B /* Email.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Email.h; sourceTree = "<group>"; };
 		F41B85560B3CFB5200971C0B /* Email.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Email.m; sourceTree = "<group>"; };
 		F41B855F0B3CFE6400971C0B /* maildrop.sdef */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.sdef; path = maildrop.sdef; sourceTree = "<group>"; };
@@ -252,6 +261,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				F41A245D17308442005BF9D5 /* scriptingBridge */,
 				F4BF64C60EE1FAD800F52263 /* addEmail */,
 				F4BF64C50EE1FACF00F52263 /* appleScript objects */,
 				F4BF64C40EE1FAC400F52263 /* extensions */,
@@ -307,7 +317,6 @@
 		29B97314FDCFA39411CA2CEA /* maildrop */ = {
 			isa = PBXGroup;
 			children = (
-				F41A245D17308442005BF9D5 /* scriptingBridge */,
 				F4DBCB040B3DC2AB00D94639 /* common */,
 				F4329C4A0B3DA4AD003AB463 /* sforce */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -474,6 +483,12 @@
 				F41B85560B3CFB5200971C0B /* Email.m */,
 				F4451E350EDBAE9700ABBC35 /* Attachment.h */,
 				F4451E360EDBAE9700ABBC35 /* Attachment.m */,
+				F41A246417308C60005BF9D5 /* MailFactory.h */,
+				F41A246517308C60005BF9D5 /* MailFactory.m */,
+				F41A246717308C6C005BF9D5 /* OutlookFactory.h */,
+				F41A246817308C6C005BF9D5 /* OutlookFactory.m */,
+				F41A246A17308C76005BF9D5 /* EntourageFactory.h */,
+				F41A246B17308C76005BF9D5 /* EntourageFactory.m */,
 			);
 			name = "appleScript objects";
 			sourceTree = "<group>";
@@ -630,6 +645,9 @@
 				F4844D5D1319E7DB00E1F303 /* zkXmlDeserializer.m in Sources */,
 				F47E3521145906450017AD47 /* LionInfoWindowController.m in Sources */,
 				F41A2463173085A9005BF9D5 /* ClientApp.m in Sources */,
+				F41A246617308C60005BF9D5 /* MailFactory.m in Sources */,
+				F41A246917308C6C005BF9D5 /* OutlookFactory.m in Sources */,
+				F41A246C17308C76005BF9D5 /* EntourageFactory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
