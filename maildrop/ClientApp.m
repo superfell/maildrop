@@ -21,9 +21,10 @@
 
 #import "ClientApp.h"
 
-
-
 @implementation ClientApp
+
+@synthesize bundleId, iconImage=image, folderName;
+
 -(id)initWithBundleId:(NSString *)bid imageName:(NSString *)imageName folderName:(NSString *)fn {
 	self = [super init];
 	bundleId = [bid retain];
@@ -31,22 +32,16 @@
 	folderName = [fn retain];
 	return self;
 }
+
 -(void)dealloc {
 	[bundleId release];
 	[image release];
 	[folderName release];
 	[super dealloc];
 }
+
 +(id)withBundleId:(NSString *)bid imageName:(NSString *)image folderName:(NSString *)fn {
 	return [[[ClientApp alloc] initWithBundleId:bid imageName:image folderName:fn] autorelease];
 }
--(NSString *)bundleId {
-	return bundleId;
-}
--(NSImage *)iconImage {
-	return image;
-}
--(NSString *)folderName {
-	return folderName;
-}
+
 @end

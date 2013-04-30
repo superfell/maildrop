@@ -28,8 +28,9 @@
 }
 
 +(id)withBundleId:(NSString *)bid imageName:(NSString *)image folderName:(NSString *)fn;
--(NSImage *)iconImage;
--(NSString *)bundleId;
--(NSString *)folderName;
+
+@property (readonly) NSImage *iconImage;
+@property (readonly) NSString *bundleId;
+@property (readonly) NSString *folderName;
 
 @end
