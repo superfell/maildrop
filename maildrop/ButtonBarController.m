@@ -22,6 +22,7 @@
 #import "ButtonBarController.h"
 #import "zkSforce.h"
 #import "Constants.h"
+#import "ClientApp.h"
 
 NSString *mailBundleId = @"com.apple.mail";
 NSString *enotourageBundleId = @"com.microsoft.Entourage";
@@ -32,46 +33,6 @@ static const CGFloat WINDOW_HEIGHT_PROGRESS = 35.0f;
 @interface ButtonBarController ()
 -(void)setIsFrontMostApp:(BOOL)fm;
 -(void)hideProgressWithAnimation:(BOOL)animate;
-@end
-
-@interface ClientApp : NSObject {
-	NSImage	 *image;
-	NSString *bundleId;
-	NSString *folderName;
-}
-
-+(id)withBundleId:(NSString *)bid imageName:(NSString *)image folderName:(NSString *)fn;
--(NSImage *)iconImage;
--(NSString *)bundleId;
--(NSString *)folderName;
-@end
-
-@implementation ClientApp 
--(id)initWithBundleId:(NSString *)bid imageName:(NSString *)imageName folderName:(NSString *)fn {
-	self = [super init];
-	bundleId = [bid retain];
-	image = [[NSImage imageNamed:imageName] retain];
-	folderName = [fn retain];
-	return self;
-}
--(void)dealloc {
-	[bundleId release];
-	[image release];
-	[folderName release];
-	[super dealloc];
-}
-+(id)withBundleId:(NSString *)bid imageName:(NSString *)image folderName:(NSString *)fn {
-	return [[[ClientApp alloc] initWithBundleId:bid imageName:image folderName:fn] autorelease];
-}
--(NSString *)bundleId {
-	return bundleId;
-}
--(NSImage *)iconImage {
-	return image;
-}
--(NSString *)folderName {
-	return folderName;
-}
 @end
 
 @implementation ButtonBarController

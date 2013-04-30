@@ -12,6 +12,7 @@
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		F41532EC0B4227FE00E36D7B /* CreateActivityController.m in Sources */ = {isa = PBXBuildFile; fileRef = F41532EB0B4227FE00E36D7B /* CreateActivityController.m */; };
+		F41A2463173085A9005BF9D5 /* ClientApp.m in Sources */ = {isa = PBXBuildFile; fileRef = F41A2462173085A9005BF9D5 /* ClientApp.m */; };
 		F41B85570B3CFB5200971C0B /* Email.m in Sources */ = {isa = PBXBuildFile; fileRef = F41B85560B3CFB5200971C0B /* Email.m */; };
 		F41B85600B3CFE6400971C0B /* maildrop.sdef in Resources */ = {isa = PBXBuildFile; fileRef = F41B855F0B3CFE6400971C0B /* maildrop.sdef */; };
 		F41B85630B3CFF0800971C0B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F41B85620B3CFF0800971C0B /* AppDelegate.m */; };
@@ -109,6 +110,11 @@
 		8D1107320486CEB800E47090 /* Maildrop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Maildrop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F41532EA0B4227FE00E36D7B /* CreateActivityController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CreateActivityController.h; sourceTree = "<group>"; };
 		F41532EB0B4227FE00E36D7B /* CreateActivityController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = CreateActivityController.m; sourceTree = "<group>"; };
+		F41A245E17308458005BF9D5 /* entourage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = entourage.h; path = ../scriptingbridge/entourage.h; sourceTree = "<group>"; };
+		F41A245F17308458005BF9D5 /* mail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mail.h; path = ../scriptingbridge/mail.h; sourceTree = "<group>"; };
+		F41A246017308458005BF9D5 /* outlook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = outlook.h; path = ../scriptingbridge/outlook.h; sourceTree = "<group>"; };
+		F41A2461173085A9005BF9D5 /* ClientApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientApp.h; sourceTree = "<group>"; };
+		F41A2462173085A9005BF9D5 /* ClientApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientApp.m; sourceTree = "<group>"; };
 		F41B85550B3CFB5200971C0B /* Email.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Email.h; sourceTree = "<group>"; };
 		F41B85560B3CFB5200971C0B /* Email.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Email.m; sourceTree = "<group>"; };
 		F41B855F0B3CFE6400971C0B /* maildrop.sdef */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.sdef; path = maildrop.sdef; sourceTree = "<group>"; };
@@ -263,6 +269,8 @@
 				F46C83A90EC6777200944C77 /* Constants.m */,
 				F47E351F145906450017AD47 /* LionInfoWindowController.h */,
 				F47E3520145906450017AD47 /* LionInfoWindowController.m */,
+				F41A2461173085A9005BF9D5 /* ClientApp.h */,
+				F41A2462173085A9005BF9D5 /* ClientApp.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -299,6 +307,7 @@
 		29B97314FDCFA39411CA2CEA /* maildrop */ = {
 			isa = PBXGroup;
 			children = (
+				F41A245D17308442005BF9D5 /* scriptingBridge */,
 				F4DBCB040B3DC2AB00D94639 /* common */,
 				F4329C4A0B3DA4AD003AB463 /* sforce */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -353,6 +362,16 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F41A245D17308442005BF9D5 /* scriptingBridge */ = {
+			isa = PBXGroup;
+			children = (
+				F41A245E17308458005BF9D5 /* entourage.h */,
+				F41A245F17308458005BF9D5 /* mail.h */,
+				F41A246017308458005BF9D5 /* outlook.h */,
+			);
+			name = scriptingBridge;
 			sourceTree = "<group>";
 		};
 		F4329C4A0B3DA4AD003AB463 /* sforce */ = {
@@ -610,6 +629,7 @@
 				F4844D5C1319E7DB00E1F303 /* zkUserInfo.m in Sources */,
 				F4844D5D1319E7DB00E1F303 /* zkXmlDeserializer.m in Sources */,
 				F47E3521145906450017AD47 /* LionInfoWindowController.m in Sources */,
+				F41A2463173085A9005BF9D5 /* ClientApp.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
