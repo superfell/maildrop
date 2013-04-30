@@ -22,4 +22,8 @@
 #ifdef __OBJC__
     #import <Cocoa/Cocoa.h>
 	#import <Carbon/Carbon.h>
+
+    #import "entourage.h"
+    #import "mail.h"
+    #import "outlook.h"
 #endif
