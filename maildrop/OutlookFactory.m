@@ -20,6 +20,8 @@
 //
 
 #import "OutlookFactory.h"
+#import "Email.h"
+#import "Attachment.h"
 
 @implementation OutlookFactory
 
@@ -29,12 +31,59 @@ static NSString *outlookBundleId = @"com.microsoft.Outlook";
     return outlookBundleId;
 }
 
+-(OutlookApplication *)app {
+    return (OutlookApplication *)[self application];
+}
+
 -(NSUInteger)countOfSelectedEmails {
-    return 0;
+    return [[[self app] currentMessages] count];
+}
+
+-(Attachment *)makeAttachment:(OutlookAttachment *)src {
+    Attachment *r = [[[Attachment alloc] init] autorelease];
+    r.name = src.name;
+    [src saveIn:[r file] as:nil];
+    return r;
+}
+
+-(void)addAttachmentsTo:(Email *)res from:(OutlookMessage *)src {
+    for (OutlookAttachment *a in [src attachments])
+        [res insertInAttachments:[self makeAttachment:a]];
+}
+
+-(Email *)createEmail:(OutlookMessage *)msg includeAttachments:(BOOL)incAttachments {
+    Email *res = [[[Email alloc] init] autorelease];
+    res.subject = msg.subject;
+    res.body = msg.content;
+    // because scripting bridge doesn't generate any impls, we can't use [EOM class]
+    // as that'll fail in the linker, so we need to dynamically do it at runtime instead
+    if ([msg isKindOfClass:NSClassFromString(@"OutlookOutgoingMessage")]) {
+        res.date = msg.timeSent;
+        res.isASentEmail = YES;
+    } else {
+        res.date = msg.timeReceived;
+        res.isASentEmail = NO;
+    }
+    res.fromName = [msg.sender objectForKey:@"name"];
+    res.fromAddr = [msg.sender objectForKey:@"address"];
+    if (msg.recipients.count > 0) {
+        OutlookRecipient *r = [msg.recipients objectAtIndex:0];
+        res.toAddr = [r.emailAddress objectForKey:@"address"];
+        res.toName = [r.emailAddress objectForKey:@"name"];
+    }
+    if (incAttachments)
+        [self addAttachmentsTo:res from:msg];
+    return res;
 }
 
 -(NSArray *)selectedEmailsWithAttachments:(BOOL)includeAttachments {
-    return [NSArray array];
+    NSMutableArray *results = [NSMutableArray array];
+    OutlookApplication *app = [self app];
+    for (OutlookMessage *msg in [app currentMessages]) {
+        [results addObject:[self createEmail:msg includeAttachments:includeAttachments]];
+    }
+    return results;
 }
+
 
 @end
