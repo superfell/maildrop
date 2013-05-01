@@ -23,4 +23,18 @@
 
 @implementation OutlookFactory
 
+static NSString *outlookBundleId = @"com.microsoft.Outlook";
+
+-(NSString *)bundleId {
+    return outlookBundleId;
+}
+
+-(NSUInteger)countOfSelectedEmails {
+    return 0;
+}
+
+-(NSArray *)selectedEmails {
+    return [NSArray array];
+}
+
 @end

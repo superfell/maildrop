@@ -27,15 +27,13 @@
 @implementation ClientApp
 
 static NSArray *_allClients;
-static NSString *mailBundleId = @"com.apple.mail";
-static NSString *enotourageBundleId = @"com.microsoft.Entourage";
-static NSString *outlookBundleId = @"com.microsoft.Outlook";
+
 
 @synthesize bundleId, iconImage=image, factory;
 
--(id)initWithBundleId:(NSString *)bid imageName:(NSString *)imageName factory:(NSObject<EmailFactory> *)f {
+-(id)initWithImageName:(NSString *)imageName factory:(NSObject<EmailFactory> *)f {
 	self = [super init];
-	bundleId = [bid retain];
+	bundleId = [[f bundleId] retain];
 	image = [[NSImage imageNamed:imageName] retain];
     factory = [f retain];
 	return self;
@@ -48,15 +46,15 @@ static NSString *outlookBundleId = @"com.microsoft.Outlook";
 	[super dealloc];
 }
 
-+(id)withBundleId:(NSString *)bid imageName:(NSString *)image factory:(NSObject<EmailFactory> *)f {
-	return [[[ClientApp alloc] initWithBundleId:bid imageName:image factory:f] autorelease];
++(id)withImageName:(NSString *)image factory:(NSObject<EmailFactory> *)f {
+	return [[[ClientApp alloc] initWithImageName:image factory:f] autorelease];
 }
 
 +(NSArray *)allClients {
     if (_allClients == nil) {
-        ClientApp *mail = [ClientApp withBundleId:mailBundleId		 imageName:@"mail_icon"		factory:[[[MailFactory alloc] init] autorelease]];
-        ClientApp *ent  = [ClientApp withBundleId:enotourageBundleId imageName:@"entourage"		factory:[[[EntourageFactory alloc] init] autorelease]];
-        ClientApp *olk  = [ClientApp withBundleId:outlookBundleId	 imageName:@"outlook_icon"	factory:[[[OutlookFactory alloc] init] autorelease]];
+        ClientApp *mail = [ClientApp withImageName:@"mail_icon"	   factory:[[[MailFactory alloc] init] autorelease]];
+        ClientApp *ent  = [ClientApp withImageName:@"entourage"	   factory:[[[EntourageFactory alloc] init] autorelease]];
+        ClientApp *olk  = [ClientApp withImageName:@"outlook_icon" factory:[[[OutlookFactory alloc] init] autorelease]];
         _allClients = [[NSArray arrayWithObjects:mail, ent, olk, nil] retain];
     }
     return _allClients;

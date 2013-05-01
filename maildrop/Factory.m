@@ -1,4 +1,4 @@
-// Copyright (c) 2011,2013 Simon Fell
+// Copyright (c) 2013 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
 // copy of this software and associated documentation files (the "Software"),
@@ -19,25 +19,16 @@
 // THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
+#import "Factory.h"
 
-@protocol EmailFactory
--(NSString *)bundleId;
--(NSUInteger)countOfSelectedEmails;
--(NSArray *)selectedEmails; // of class Email
-@end
+@implementation Factory
 
-@interface ClientApp : NSObject {
-	NSImage	 *image;
-	NSString *bundleId;
-	NSString *folderName;
-    NSObject<EmailFactory> *factory;
+-(NSString *)bundleId {
+    return nil;
 }
 
-+(NSArray *)allClients;
-
-@property (readonly) NSImage *iconImage;
-@property (readonly) NSString *bundleId;
-@property (readonly) NSObject<EmailFactory> *factory;
+-(SBApplication *)application {
+    return [SBApplication applicationWithBundleIdentifier:[self bundleId]];
+}
 
 @end

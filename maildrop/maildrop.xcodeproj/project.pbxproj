@@ -16,6 +16,8 @@
 		F41A246617308C60005BF9D5 /* MailFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F41A246517308C60005BF9D5 /* MailFactory.m */; };
 		F41A246917308C6C005BF9D5 /* OutlookFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F41A246817308C6C005BF9D5 /* OutlookFactory.m */; };
 		F41A246C17308C76005BF9D5 /* EntourageFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F41A246B17308C76005BF9D5 /* EntourageFactory.m */; };
+		F41A246F17308EF2005BF9D5 /* Factory.m in Sources */ = {isa = PBXBuildFile; fileRef = F41A246E17308EF2005BF9D5 /* Factory.m */; };
+		F41A247117309059005BF9D5 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F41A247017309059005BF9D5 /* ScriptingBridge.framework */; };
 		F41B85570B3CFB5200971C0B /* Email.m in Sources */ = {isa = PBXBuildFile; fileRef = F41B85560B3CFB5200971C0B /* Email.m */; };
 		F41B85600B3CFE6400971C0B /* maildrop.sdef in Resources */ = {isa = PBXBuildFile; fileRef = F41B855F0B3CFE6400971C0B /* maildrop.sdef */; };
 		F41B85630B3CFF0800971C0B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F41B85620B3CFF0800971C0B /* AppDelegate.m */; };
@@ -124,6 +126,9 @@
 		F41A246817308C6C005BF9D5 /* OutlookFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OutlookFactory.m; sourceTree = "<group>"; };
 		F41A246A17308C76005BF9D5 /* EntourageFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntourageFactory.h; sourceTree = "<group>"; };
 		F41A246B17308C76005BF9D5 /* EntourageFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntourageFactory.m; sourceTree = "<group>"; };
+		F41A246D17308EF2005BF9D5 /* Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Factory.h; sourceTree = "<group>"; };
+		F41A246E17308EF2005BF9D5 /* Factory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Factory.m; sourceTree = "<group>"; };
+		F41A247017309059005BF9D5 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 		F41B85550B3CFB5200971C0B /* Email.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Email.h; sourceTree = "<group>"; };
 		F41B85560B3CFB5200971C0B /* Email.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Email.m; sourceTree = "<group>"; };
 		F41B855F0B3CFE6400971C0B /* maildrop.sdef */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.sdef; path = maildrop.sdef; sourceTree = "<group>"; };
@@ -248,6 +253,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F41A247117309059005BF9D5 /* ScriptingBridge.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				F4DBCB0D0B3DC4F000D94639 /* Security.framework in Frameworks */,
 				F450990D0B51A969007D82E9 /* Sparkle.framework in Frameworks */,
@@ -317,6 +323,7 @@
 		29B97314FDCFA39411CA2CEA /* maildrop */ = {
 			isa = PBXGroup;
 			children = (
+				F41A247017309059005BF9D5 /* ScriptingBridge.framework */,
 				F4DBCB040B3DC2AB00D94639 /* common */,
 				F4329C4A0B3DA4AD003AB463 /* sforce */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -489,6 +496,8 @@
 				F41A246817308C6C005BF9D5 /* OutlookFactory.m */,
 				F41A246A17308C76005BF9D5 /* EntourageFactory.h */,
 				F41A246B17308C76005BF9D5 /* EntourageFactory.m */,
+				F41A246D17308EF2005BF9D5 /* Factory.h */,
+				F41A246E17308EF2005BF9D5 /* Factory.m */,
 			);
 			name = "appleScript objects";
 			sourceTree = "<group>";
@@ -648,6 +657,7 @@
 				F41A246617308C60005BF9D5 /* MailFactory.m in Sources */,
 				F41A246917308C6C005BF9D5 /* OutlookFactory.m in Sources */,
 				F41A246C17308C76005BF9D5 /* EntourageFactory.m in Sources */,
+				F41A246F17308EF2005BF9D5 /* Factory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,4 +22,18 @@
 
 @implementation EntourageFactory
 
+static NSString *enotourageBundleId = @"com.microsoft.Entourage";
+
+-(NSString *)bundleId {
+    return enotourageBundleId;
+}
+
+-(NSUInteger)countOfSelectedEmails {
+    return 0;
+}
+
+-(NSArray *)selectedEmails {
+    return [NSArray array];
+}
+
 @end

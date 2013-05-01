@@ -21,7 +21,8 @@
 
 #import <Foundation/Foundation.h>
 #import "ClientApp.h"
+#import "Factory.h"
 
-@interface EntourageFactory : NSObject<EmailFactory>
+@interface EntourageFactory : Factory<EmailFactory>
 
 @end

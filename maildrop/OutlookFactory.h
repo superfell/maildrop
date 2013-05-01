@@ -21,7 +21,8 @@
 
 #import <Foundation/Foundation.h>
 #import "ClientApp.h"
+#import "Factory.h"
 
-@interface OutlookFactory : NSObject<EmailFactory>
+@interface OutlookFactory : Factory<EmailFactory>
 
 @end
