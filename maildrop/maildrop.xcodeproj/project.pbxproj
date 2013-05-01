@@ -35,7 +35,6 @@
 		F46C83C40EC683BE00944C77 /* entourage.png in Resources */ = {isa = PBXBuildFile; fileRef = F46C83C20EC683BE00944C77 /* entourage.png */; };
 		F46C83C50EC683BE00944C77 /* mail_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = F46C83C30EC683BE00944C77 /* mail_icon.png */; };
 		F46C83DA0EC77A1200944C77 /* maildrop32.png in Resources */ = {isa = PBXBuildFile; fileRef = F46C83D90EC77A1200944C77 /* maildrop32.png */; };
-		F47BD7080B4E3F3D00E15CEE /* entourage scripts in Resources */ = {isa = PBXBuildFile; fileRef = F47BD7040B4E3F3D00E15CEE /* entourage scripts */; };
 		F47E3521145906450017AD47 /* LionInfoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F47E3520145906450017AD47 /* LionInfoWindowController.m */; };
 		F47E35B1145910420017AD47 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F47E35B0145910420017AD47 /* Localizable.strings */; };
 		F4844D3E1319E7DB00E1F303 /* zkBaseClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F4844CFE1319E7DB00E1F303 /* zkBaseClient.m */; };
@@ -74,7 +73,6 @@
 		F49210690B44CED100C5C9AB /* WhatSearchDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F49210680B44CED100C5C9AB /* WhatSearchDataSource.m */; };
 		F49210760B44D0D500C5C9AB /* ZKDescribeSObject_additions.m in Sources */ = {isa = PBXBuildFile; fileRef = F49210750B44D0D500C5C9AB /* ZKDescribeSObject_additions.m */; };
 		F4921CFC0EDFA52E00E95E03 /* NSData-Base64Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F4921CFB0EDFA52E00E95E03 /* NSData-Base64Extensions.m */; };
-		F49592801292448F00DDD2A7 /* outlook scripts in Resources */ = {isa = PBXBuildFile; fileRef = F495927C1292448F00DDD2A7 /* outlook scripts */; };
 		F4A0E541127C9AF60038B1CE /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A0E540127C9AF60038B1CE /* libxml2.2.dylib */; };
 		F4DBCAF70B3DC0C700D94639 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DBCAF50B3DC0C700D94639 /* LoginController.m */; };
 		F4DBCB0D0B3DC4F000D94639 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DBCB0C0B3DC4F000D94639 /* Security.framework */; };
@@ -86,7 +84,6 @@
 		F4E83C3E0B8EAE5E00217FDB /* minus-8.png in Resources */ = {isa = PBXBuildFile; fileRef = F4E83C3B0B8EAE5E00217FDB /* minus-8.png */; };
 		F4E83C3F0B8EAE5E00217FDB /* plus-8.png in Resources */ = {isa = PBXBuildFile; fileRef = F4E83C3C0B8EAE5E00217FDB /* plus-8.png */; };
 		F4F87CFC0B4E1FDF006F6B63 /* WelcomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F87CFB0B4E1FDF006F6B63 /* WelcomeController.m */; };
-		F4F87D1C0B4E24F2006F6B63 /* mail scripts in Resources */ = {isa = PBXBuildFile; fileRef = F4F87D180B4E24F2006F6B63 /* mail scripts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -152,7 +149,6 @@
 		F46C83C20EC683BE00944C77 /* entourage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = entourage.png; sourceTree = "<group>"; };
 		F46C83C30EC683BE00944C77 /* mail_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mail_icon.png; sourceTree = "<group>"; };
 		F46C83D90EC77A1200944C77 /* maildrop32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = maildrop32.png; sourceTree = "<group>"; };
-		F47BD7040B4E3F3D00E15CEE /* entourage scripts */ = {isa = PBXFileReference; explicitFileType = folder; path = "entourage scripts"; sourceTree = "<group>"; };
 		F47E351F145906450017AD47 /* LionInfoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LionInfoWindowController.h; sourceTree = "<group>"; };
 		F47E3520145906450017AD47 /* LionInfoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LionInfoWindowController.m; sourceTree = "<group>"; };
 		F47E35AE1459103D0017AD47 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -229,7 +225,6 @@
 		F49210750B44D0D500C5C9AB /* ZKDescribeSObject_additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZKDescribeSObject_additions.m; sourceTree = "<group>"; };
 		F4921CFA0EDFA52E00E95E03 /* NSData-Base64Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData-Base64Extensions.h"; sourceTree = "<group>"; };
 		F4921CFB0EDFA52E00E95E03 /* NSData-Base64Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData-Base64Extensions.m"; sourceTree = "<group>"; };
-		F495927C1292448F00DDD2A7 /* outlook scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "outlook scripts"; sourceTree = "<group>"; };
 		F4A0E540127C9AF60038B1CE /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		F4DBCAF50B3DC0C700D94639 /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
 		F4DBCAF60B3DC0C700D94639 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
@@ -245,7 +240,6 @@
 		F4E83C3C0B8EAE5E00217FDB /* plus-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus-8.png"; path = "../common/plus-8.png"; sourceTree = SOURCE_ROOT; };
 		F4F87CFA0B4E1FDF006F6B63 /* WelcomeController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = WelcomeController.h; sourceTree = "<group>"; };
 		F4F87CFB0B4E1FDF006F6B63 /* WelcomeController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = WelcomeController.m; sourceTree = "<group>"; };
-		F4F87D180B4E24F2006F6B63 /* mail scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "mail scripts"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -357,9 +351,6 @@
 				F4E83C3B0B8EAE5E00217FDB /* minus-8.png */,
 				F4E83C3C0B8EAE5E00217FDB /* plus-8.png */,
 				F44421DF0B5351A0002AB629 /* maildropGrowl.scpt */,
-				F495927C1292448F00DDD2A7 /* outlook scripts */,
-				F47BD7040B4E3F3D00E15CEE /* entourage scripts */,
-				F4F87D180B4E24F2006F6B63 /* mail scripts */,
 				F4DBCB5F0B3E3A2600D94639 /* maildrop.icns */,
 				F41B855F0B3CFE6400971C0B /* maildrop.sdef */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -583,8 +574,6 @@
 				F41B85600B3CFE6400971C0B /* maildrop.sdef in Resources */,
 				F4DBCB390B3E259400D94639 /* Credits.html in Resources */,
 				F4DBCB600B3E3A2600D94639 /* maildrop.icns in Resources */,
-				F4F87D1C0B4E24F2006F6B63 /* mail scripts in Resources */,
-				F47BD7080B4E3F3D00E15CEE /* entourage scripts in Resources */,
 				F4E83C3D0B8EAE5E00217FDB /* Login.nib in Resources */,
 				F4E83C3E0B8EAE5E00217FDB /* minus-8.png in Resources */,
 				F4E83C3F0B8EAE5E00217FDB /* plus-8.png in Resources */,
@@ -593,7 +582,6 @@
 				F46C83C40EC683BE00944C77 /* entourage.png in Resources */,
 				F46C83C50EC683BE00944C77 /* mail_icon.png in Resources */,
 				F46C83DA0EC77A1200944C77 /* maildrop32.png in Resources */,
-				F49592801292448F00DDD2A7 /* outlook scripts in Resources */,
 				F45F31E212939A3700BDCF61 /* outlook_icon.png in Resources */,
 				F47E35B1145910420017AD47 /* Localizable.strings in Resources */,
 			);

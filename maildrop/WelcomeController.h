@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2008 Simon Fell
+// Copyright (c) 2006-2008,2013 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -23,18 +23,6 @@
 
 @interface WelcomeController : NSObject {
     IBOutlet NSWindow 	*window;
-	NSString 			*text;
-	int					progress;
-	NSMutableArray		*installList;
-	BOOL				done;
 }
-
-- (int)installProgress;
-- (void)setInstallProgress:(int)newInstallProgress;
-- (BOOL)installDone;
-- (void)setInstallDone:(BOOL)newInstallDone;
-- (NSString *)installText;
-- (void)setInstallText:(NSString *)aInstallText;
-- (void)installScripts:(id)sender;
 
 @end

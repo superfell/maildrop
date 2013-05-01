@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2008 Simon Fell
+// Copyright (c) 2006-2008,2013 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -34,115 +34,13 @@
 	return currentVersionString == nil ? 0.0f : [currentVersionString floatValue];	
 }
 
-- (void)installScripts:(id)sender {
-	[installList release];
-	installList = nil;
-	[window makeKeyAndOrderFront:self];
-	[self setInstallText:@"Installing Scripts..."];
-	[self setInstallProgress:1];
-	[self setInstallDone:NO];
-	[NSTimer scheduledTimerWithTimeInterval:0.10 target:self selector:@selector(startInstall:) userInfo:nil repeats:NO];
-}
-
 - (void)checkShowWelcome:(NSNotification *)n {
 	float currentVersion = [self currentVersion];
 	float lastRegistered = [[NSUserDefaults standardUserDefaults] floatForKey:@"installedVersion"];
 	if (currentVersion > lastRegistered) {
-		[self installScripts:self];
-	} else {
-		[self setInstallText:@""];
-		[self setInstallProgress:0];
-		[self setInstallDone:YES];
+        [window makeKeyAndOrderFront:self];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithFloat:[self currentVersion]] forKey:@"installedVersion"];
 	}
-}
-
-- (void)dealloc {
-	[text release];
-	[super dealloc];
-}
-
-- (void)buildInstallList {
-	NSString *a1 = [[NSBundle mainBundle] pathForResource:ADD_EMAIL_SCRIPT_NAME ofType:@"scpt" inDirectory:MAIL_SCRIPTS_FOLDER];
-	NSString *a2 = [[NSBundle mainBundle] pathForResource:ADD_CASE_SCRIPT_NAME	ofType:@"scpt" inDirectory:MAIL_SCRIPTS_FOLDER];
-	NSString *e1 = [[NSBundle mainBundle] pathForResource:ADD_EMAIL_SCRIPT_NAME ofType:@"scpt" inDirectory:ENTOURAGE_SCRIPTS_FOLDER];
-	NSString *e2 = [[NSBundle mainBundle] pathForResource:ADD_CASE_SCRIPT_NAME	ofType:@"scpt" inDirectory:ENTOURAGE_SCRIPTS_FOLDER];
-	NSArray *library = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-	NSString *mailScripts = [[library objectAtIndex:0] stringByAppendingPathComponent:@"Scripts/Applications/Mail"];
-	NSArray *docs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *entourageScripts = [[docs objectAtIndex:0] stringByAppendingPathComponent:@"Microsoft User Data/Entourage Script Menu Items"];
-	
-	installList = [[NSMutableArray alloc] init];
-	[installList addObject:[NSArray arrayWithObjects:a1, mailScripts, nil]];
-	[installList addObject:[NSArray arrayWithObjects:a2, mailScripts, nil]];
-	[installList addObject:[NSArray arrayWithObjects:e1, entourageScripts, nil]];
-	[installList addObject:[NSArray arrayWithObjects:e2, entourageScripts, nil]];
-}
-
-- (void)ensureDirectoryExists:(NSString *)dir {
-	if (![[NSFileManager defaultManager] fileExistsAtPath:dir]) {
-		[self ensureDirectoryExists:[dir stringByDeletingLastPathComponent]];
-		[[NSFileManager defaultManager] createDirectoryAtPath:dir attributes:nil];	
-	}
-}
-
-- (void)fileManager:(NSFileManager *)manager willProcessPath:(NSString *)path {
-}
-
--(BOOL)fileManager:(NSFileManager *)manager shouldProceedAfterError:(NSDictionary *)errorInfo {
-    NSRunAlertPanel(@"Maildrop", @"File operation error:%@ with file: %@\r\n\r\nPlease fix and select Reinstall Scripts from the help menu", @"OK", nil, nil, 
-            [errorInfo objectForKey:@"Error"], 
-            [errorInfo objectForKey:@"Path"]);
-    return NO;
-}
-
-- (void)startInstall:(id)sender {
-	if (installList == nil) 
-		[self buildInstallList];
-	
-	if ([installList count] > 0) {
-		NSArray *todo = [installList lastObject];
-		NSString *destDir = [todo objectAtIndex:1];
-		NSString *srcFile = [todo objectAtIndex:0];
-		NSString *dstFile = [destDir stringByAppendingPathComponent:[srcFile lastPathComponent]];
-		[self ensureDirectoryExists:destDir];
-		if ([[NSFileManager defaultManager] fileExistsAtPath:dstFile])
-			[[NSFileManager defaultManager] removeFileAtPath:dstFile handler:self];
-		if(![[NSFileManager defaultManager] copyPath:srcFile toPath:dstFile handler:self])
-			NSLog(@"Failed on copy of %@ to %@", srcFile, dstFile);
-		[installList removeLastObject];
-		[self setInstallProgress:progress+1];
-		[NSTimer scheduledTimerWithTimeInterval:0.15 target:self selector:@selector(startInstall:) userInfo:nil repeats:NO];
-	} else {
-		[self setInstallText:@"Finished Installing Scripts"];
-		[self setInstallDone:YES];
-		[[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithFloat:[self currentVersion]] forKey:@"installedVersion"];
-	}
-}
-
-- (int)installProgress {
-	return progress;
-}
-
-- (void)setInstallProgress:(int)newInstallProgress {
-	progress = newInstallProgress;
-}
-
-- (NSString *)installText {
-	return text;
-}
-
-- (void)setInstallText:(NSString *)aInstallText {
-	aInstallText = [aInstallText copy];
-	[text release];
-	text = aInstallText;
-}
-
-- (BOOL)installDone {
-	return done;
-}
-
-- (void)setInstallDone:(BOOL)newInstallDone {
-	done = newInstallDone;
 }
 
 @end
