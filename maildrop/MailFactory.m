@@ -21,6 +21,7 @@
 
 #import "MailFactory.h"
 #import "Email.h"
+#import "Attachment.h"
 
 @implementation MailFactory
 
@@ -61,29 +62,46 @@ static NSString *mailBundleId = @"com.apple.mail";
     return NO;
 }
 
--(Email *)createEmail:(MailMessage *)msg app:(MailApplication *)app {
-    Email *res = [[[Email alloc] init] autorelease];
-    res.subject = msg.subject;
-    res.body = [msg.content get];   // TODO
-    res.fromAddr = [app extractAddressFrom:msg.sender];
-    res.fromName = [app extractNameFrom:msg.sender];
-    SBElementArray *recips = msg.recipients;
-    if ([recips count] > 0) {
-        NSString *r = [recips objectAtIndex:0];
-        res.toName = [app extractNameFrom:r];
-        res.toAddr = [app extractAddressFrom:r];
-    }
-    res.date = msg.dateReceived;
-    res.isASentEmail = [self is:msg.mailbox inMailboxTree:[app sentMailbox]];
+-(Attachment *)createAttachment:(MailMailAttachment *)src {
+    Attachment *res = [[[Attachment alloc] init] autorelease];
+    res.mimeType = src.MIMEType;
+    res.name = src.name;
+    [src saveIn:[res file] as:MailSaveableFileFormatNativeFormat];
     return res;
 }
 
--(NSArray *)selectedEmails {
+-(void)addAttachmentsTo:(Email *)res from:(MailMessage *)msg {
+    for (MailMailAttachment *a in [msg mailAttachments]) {
+        [res insertInAttachments:[self createAttachment:a]];
+    }
+}
+
+-(Email *)createEmail:(MailMessage *)msg app:(MailApplication *)app includeAttachments:(BOOL)incAttachments {
+    Email *res = [[[Email alloc] init] autorelease];
+    res.subject = msg.subject;
+    res.body = [msg.content get];
+    res.fromAddr = [app extractAddressFrom:msg.sender];
+    res.fromName = [app extractNameFrom:msg.sender];
+    SBElementArray *recips = msg.toRecipients;
+    if ([recips count] > 0) {
+        MailRecipient *r = [recips objectAtIndex:0];
+        res.toName = [r name];
+        res.toAddr = [r address];
+    }
+    res.date = msg.dateReceived;
+    res.isASentEmail = [self is:msg.mailbox inMailboxTree:[app sentMailbox]];
+    if (incAttachments) {
+        [self addAttachmentsTo:res from:msg];
+    }
+    return res;
+}
+
+-(NSArray *)selectedEmailsWithAttachments:(BOOL)includeAttachments {
     MailApplication *app = [self app];
     NSMutableArray *results = [NSMutableArray array];
     MailMessageViewer *viewer = [self topmostView:app];
     for (MailMessage *msg in [viewer selectedMessages]) {
-        [results addObject:[self createEmail:msg app:app]];
+        [results addObject:[self createEmail:msg app:app includeAttachments:includeAttachments]];
     }
     return results;
 }

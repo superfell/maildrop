@@ -24,7 +24,7 @@
 @protocol EmailFactory
 -(NSString *)bundleId;
 -(NSUInteger)countOfSelectedEmails;
--(NSArray *)selectedEmails; // of class Email
+-(NSArray *)selectedEmailsWithAttachments:(BOOL)includeAttachments; // of class Email
 @end
 
 @interface ClientApp : NSObject {

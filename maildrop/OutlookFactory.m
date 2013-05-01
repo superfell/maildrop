@@ -33,7 +33,7 @@ static NSString *outlookBundleId = @"com.microsoft.Outlook";
     return 0;
 }
 
--(NSArray *)selectedEmails {
+-(NSArray *)selectedEmailsWithAttachments:(BOOL)includeAttachments {
     return [NSArray array];
 }
 

@@ -32,7 +32,7 @@ static NSString *enotourageBundleId = @"com.microsoft.Entourage";
     return 0;
 }
 
--(NSArray *)selectedEmails {
+-(NSArray *)selectedEmailsWithAttachments:(BOOL)includeAttachments{ 
     return [NSArray array];
 }
 
