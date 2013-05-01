@@ -269,10 +269,8 @@
 
 - (NSString *)buildWhatSosl {
 	NSMutableString *sosl = [NSMutableString stringWithFormat:@"FIND {%@*} IN ALL FIELDS RETURNING", [self escapeSosl:[self whatSearchText]]];
-	NSMutableDictionary *sobject;
 	BOOL first = YES;
-	NSEnumerator *e = [[self whatObjectTypes] objectEnumerator];
-	while (sobject = [e nextObject]) {
+    for (NSMutableDictionary *sobject in [self whatObjectTypes]) {
 		if (![[sobject objectForKey:@"checked"] boolValue]) continue;
 		ZKDescribeSObject *desc = [sforce describeSObject:[sobject objectForKey:@"type"]];
 		[sosl appendFormat:@"%@ %@(Id", first ? @"" : @",", [desc name]];
@@ -286,7 +284,8 @@
 		[sosl appendFormat:@")"];
 		first = NO;
 	}
-	return sosl;
+    // If we didn't find any checked types, first will still be true, and we should return nil to skip the search
+	return first ? nil : sosl;
 }
 
 - (void)setWhatSearchResultsData:(NSArray *)res {
@@ -302,6 +301,7 @@
 - (IBAction)searchWhat:(id)sender {
 	[self saveCheckedWhats];
 	NSString *sosl = [self buildWhatSosl];
+    if (sosl == nil) return;
 	@try {
 		NSArray *res = [sforce search:sosl];
 		[self setWhatSearchResultsData:res];
