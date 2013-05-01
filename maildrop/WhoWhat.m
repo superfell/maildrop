@@ -28,12 +28,13 @@
 
 @synthesize sobject;
 
-+ (void)initialize {
-	NSArray *keys = [NSArray arrayWithObjects:@"sobject", nil];
-    [self setKeys:keys triggerChangeNotificationsForDependentKey:@"salesforceId"];
-    [self setKeys:keys triggerChangeNotificationsForDependentKey:@"name"];
-    [self setKeys:keys triggerChangeNotificationsForDependentKey:@"type"];
-    [self setKeys:keys triggerChangeNotificationsForDependentKey:@"displayName"];
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    // these 3 Keys on depend on the sobject key.(if sobject changes, these 4 can change as well)
+    NSSet *dependentKeys = [NSSet setWithObjects:@"salesforceId", @"name", @"type", @"displayName", nil];
+    if ([dependentKeys containsObject:key]) {
+        return [NSSet setWithObject:@"sobject"];
+    }
+    return [super keyPathsForValuesAffectingValueForKey:key];
 }
 
 -(id)initWithClient:(ZKSforceClient *)c {
