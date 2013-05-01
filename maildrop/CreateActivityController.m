@@ -210,6 +210,7 @@
 }
 
 - (NSString *)escapeSosl:(NSString *)src {
+    if (src == nil || [src length] == 0) return src;
 	// from docs, these are all reserved
 	NSArray *reserved = [NSArray arrayWithObjects:@"\\", @"&", @"|", @"!", @"{", @"}", @"[", @"]", @"^", @"~", @"*:", @":", @"'" ,@"\"", @"+", @"-", nil];
 	NSMutableString *s = [NSMutableString stringWithString:src];

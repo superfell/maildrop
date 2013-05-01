@@ -22,10 +22,9 @@
 #import "ButtonBarController.h"
 #import "zkSforce.h"
 #import "Constants.h"
+#import "ClientApp.h"
+#import "Email.h"
 
-NSString *mailBundleId = @"com.apple.mail";
-NSString *enotourageBundleId = @"com.microsoft.Entourage";
-NSString *outlookBundleId = @"com.microsoft.Outlook";
 
 static const CGFloat WINDOW_HEIGHT_PROGRESS = 35.0f;
 
@@ -34,55 +33,12 @@ static const CGFloat WINDOW_HEIGHT_PROGRESS = 35.0f;
 -(void)hideProgressWithAnimation:(BOOL)animate;
 @end
 
-@interface ClientApp : NSObject {
-	NSImage	 *image;
-	NSString *bundleId;
-	NSString *folderName;
-}
-
-+(id)withBundleId:(NSString *)bid imageName:(NSString *)image folderName:(NSString *)fn;
--(NSImage *)iconImage;
--(NSString *)bundleId;
--(NSString *)folderName;
-@end
-
-@implementation ClientApp 
--(id)initWithBundleId:(NSString *)bid imageName:(NSString *)imageName folderName:(NSString *)fn {
-	self = [super init];
-	bundleId = [bid retain];
-	image = [[NSImage imageNamed:imageName] retain];
-	folderName = [fn retain];
-	return self;
-}
--(void)dealloc {
-	[bundleId release];
-	[image release];
-	[folderName release];
-	[super dealloc];
-}
-+(id)withBundleId:(NSString *)bid imageName:(NSString *)image folderName:(NSString *)fn {
-	return [[[ClientApp alloc] initWithBundleId:bid imageName:image folderName:fn] autorelease];
-}
--(NSString *)bundleId {
-	return bundleId;
-}
--(NSImage *)iconImage {
-	return image;
-}
--(NSString *)folderName {
-	return folderName;
-}
-@end
-
 @implementation ButtonBarController
 
 -(void)awakeFromNib {
-	ClientApp *mail = [ClientApp withBundleId:mailBundleId		 imageName:@"mail_icon"		folderName:MAIL_SCRIPTS_FOLDER];
-	ClientApp *ent  = [ClientApp withBundleId:enotourageBundleId imageName:@"entourage"		folderName:ENTOURAGE_SCRIPTS_FOLDER];
-	ClientApp *olk  = [ClientApp withBundleId:outlookBundleId	 imageName:@"outlook_icon"	folderName:OUTLOOK_SCRIPTS_FOLDER];
-	clientApps = [[NSArray arrayWithObjects:mail, ent, olk, nil] retain];
+    clientApps = [[ClientApp allClients] retain];
 	isShowingProgress = YES;
-	[self setSelectedClient:mail];
+	[self setSelectedClient:[clientApps objectAtIndex:0]];
 }
 
 -(void)setFrontAppTimer:(NSTimer *)t {
@@ -232,30 +188,29 @@ static const CGFloat WINDOW_HEIGHT_PROGRESS = 35.0f;
 	[a runModal];
 }
 
--(void)executeAppleScript:(NSString *)resourceName {
-	NSString *scriptFile = [[NSBundle mainBundle] pathForResource:resourceName ofType:@"scpt" inDirectory:[selectedClient folderName]];
-	NSLog(@"scriptFile is %@", scriptFile);
-
-	NSDictionary *err = nil;
-	NSAppleScript *script = [[[NSAppleScript alloc] initWithContentsOfURL:[NSURL fileURLWithPath:scriptFile] error:&err] autorelease];
-	// force recompile to fix stupid 10.4 problems
-	NSAppleScript *s2 = [[[NSAppleScript alloc] initWithSource:[script source]] autorelease];
-	if (![s2 compileAndReturnError:&err]) {
-		[self reportScriptError:@"recompiling" source:scriptFile error:err];
-	} else {
-		script = s2;
-	}
-	if ([script executeAndReturnError:&err] == nil) {
-		[self reportScriptError:@"executing" source:scriptFile error:err];
-	}
+-(NSArray *)selectedEmailsOrAlert:(NSString *)attachmentPrefName {
+    NSUInteger count = [[selectedClient factory] countOfSelectedEmails];
+    if (count != 1) {
+        NSString *msg = count == 0 ? @"You have not selected an email in your email client" : @"You have %d emails selected";
+        NSAlert * a = [NSAlert alertWithMessageText:@"Please select an email" defaultButton:@"Close" alternateButton:nil otherButton:nil informativeTextWithFormat:msg, count];
+        [a runModal];
+        return nil;
+    }
+    BOOL loadAttachments = [[NSUserDefaults standardUserDefaults] boolForKey:attachmentPrefName];
+    NSArray *emails = [[selectedClient factory] selectedEmailsWithAttachments:loadAttachments];
+    return emails;
 }
 
 -(IBAction)addEmail:(id)sender {
-	[self executeAppleScript:ADD_EMAIL_SCRIPT_NAME];
+    NSArray *emails = [self selectedEmailsOrAlert:ATTACHMENTS_ON_EMAIL_PREF];
+    if (emails == nil) return;
+    [[emails objectAtIndex:0] createActivity:nil];
 }
 
 -(IBAction)createCase:(id)sender {
-	[self executeAppleScript:ADD_CASE_SCRIPT_NAME];
+    NSArray *emails = [self selectedEmailsOrAlert:ATTACHMENTS_ON_CASES_PREF];
+    if (emails == nil) return;
+    [[emails objectAtIndex:0] createCase:nil];
 }
 
 @end
