@@ -716,7 +716,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "-lcrypto";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Maildrop;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = YES;
@@ -739,7 +739,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "-lcrypto";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Maildrop;
 				WRAPPER_EXTENSION = app;
 			};
