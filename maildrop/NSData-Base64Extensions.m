@@ -26,7 +26,7 @@
 -(NSString *) encodeBase64 {
     SecTransformRef b64transform = SecEncodeTransformCreate(kSecBase64Encoding, NULL);
     SecTransformSetAttribute(b64transform, kSecTransformInputAttributeName, (CFTypeRef)self, NULL);
-    CFDateRef output = SecTransformExecute(b64transform, NULL);
+    CFDataRef output = SecTransformExecute(b64transform, NULL);
     CFRelease(b64transform);
     return [[[NSString alloc] initWithData:(NSData *)output encoding:NSASCIIStringEncoding] autorelease];
 }
