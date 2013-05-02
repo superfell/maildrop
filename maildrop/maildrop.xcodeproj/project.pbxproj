@@ -18,6 +18,7 @@
 		F41A246C17308C76005BF9D5 /* EntourageFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = F41A246B17308C76005BF9D5 /* EntourageFactory.m */; };
 		F41A246F17308EF2005BF9D5 /* Factory.m in Sources */ = {isa = PBXBuildFile; fileRef = F41A246E17308EF2005BF9D5 /* Factory.m */; };
 		F41A247117309059005BF9D5 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F41A247017309059005BF9D5 /* ScriptingBridge.framework */; };
+		F41A248B1731E554005BF9D5 /* Login.xib in Resources */ = {isa = PBXBuildFile; fileRef = F41A248A1731E554005BF9D5 /* Login.xib */; };
 		F41B85570B3CFB5200971C0B /* Email.m in Sources */ = {isa = PBXBuildFile; fileRef = F41B85560B3CFB5200971C0B /* Email.m */; };
 		F41B85600B3CFE6400971C0B /* maildrop.sdef in Resources */ = {isa = PBXBuildFile; fileRef = F41B855F0B3CFE6400971C0B /* maildrop.sdef */; };
 		F41B85630B3CFF0800971C0B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F41B85620B3CFF0800971C0B /* AppDelegate.m */; };
@@ -80,9 +81,6 @@
 		F4DBCB600B3E3A2600D94639 /* maildrop.icns in Resources */ = {isa = PBXBuildFile; fileRef = F4DBCB5F0B3E3A2600D94639 /* maildrop.icns */; };
 		F4E83C370B8EAE4700217FDB /* credential.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E83C330B8EAE4600217FDB /* credential.m */; };
 		F4E83C390B8EAE4700217FDB /* ZKLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E83C350B8EAE4600217FDB /* ZKLoginController.m */; };
-		F4E83C3D0B8EAE5E00217FDB /* Login.nib in Resources */ = {isa = PBXBuildFile; fileRef = F4E83C3A0B8EAE5E00217FDB /* Login.nib */; };
-		F4E83C3E0B8EAE5E00217FDB /* minus-8.png in Resources */ = {isa = PBXBuildFile; fileRef = F4E83C3B0B8EAE5E00217FDB /* minus-8.png */; };
-		F4E83C3F0B8EAE5E00217FDB /* plus-8.png in Resources */ = {isa = PBXBuildFile; fileRef = F4E83C3C0B8EAE5E00217FDB /* plus-8.png */; };
 		F4F87CFC0B4E1FDF006F6B63 /* WelcomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F87CFB0B4E1FDF006F6B63 /* WelcomeController.m */; };
 /* End PBXBuildFile section */
 
@@ -126,6 +124,7 @@
 		F41A246D17308EF2005BF9D5 /* Factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Factory.h; sourceTree = "<group>"; };
 		F41A246E17308EF2005BF9D5 /* Factory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Factory.m; sourceTree = "<group>"; };
 		F41A247017309059005BF9D5 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
+		F41A248A1731E554005BF9D5 /* Login.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Login.xib; path = ../common/Login.xib; sourceTree = "<group>"; };
 		F41B85550B3CFB5200971C0B /* Email.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Email.h; sourceTree = "<group>"; };
 		F41B85560B3CFB5200971C0B /* Email.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Email.m; sourceTree = "<group>"; };
 		F41B855F0B3CFE6400971C0B /* maildrop.sdef */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.sdef; path = maildrop.sdef; sourceTree = "<group>"; };
@@ -235,9 +234,6 @@
 		F4E83C330B8EAE4600217FDB /* credential.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = credential.m; path = ../common/credential.m; sourceTree = SOURCE_ROOT; };
 		F4E83C340B8EAE4600217FDB /* ZKLoginController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ZKLoginController.h; path = ../common/ZKLoginController.h; sourceTree = SOURCE_ROOT; };
 		F4E83C350B8EAE4600217FDB /* ZKLoginController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = ZKLoginController.m; path = ../common/ZKLoginController.m; sourceTree = SOURCE_ROOT; };
-		F4E83C3A0B8EAE5E00217FDB /* Login.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = Login.nib; path = ../common/Login.nib; sourceTree = SOURCE_ROOT; };
-		F4E83C3B0B8EAE5E00217FDB /* minus-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "minus-8.png"; path = "../common/minus-8.png"; sourceTree = SOURCE_ROOT; };
-		F4E83C3C0B8EAE5E00217FDB /* plus-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "plus-8.png"; path = "../common/plus-8.png"; sourceTree = SOURCE_ROOT; };
 		F4F87CFA0B4E1FDF006F6B63 /* WelcomeController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = WelcomeController.h; sourceTree = "<group>"; };
 		F4F87CFB0B4E1FDF006F6B63 /* WelcomeController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = WelcomeController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -341,15 +337,13 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F41A248A1731E554005BF9D5 /* Login.xib */,
 				F45F31E112939A3700BDCF61 /* outlook_icon.png */,
 				F46C83D90EC77A1200944C77 /* maildrop32.png */,
 				F46C83C20EC683BE00944C77 /* entourage.png */,
 				F46C83C30EC683BE00944C77 /* mail_icon.png */,
 				F46C838B0EC64E3C00944C77 /* cases32.png */,
 				F46C838C0EC64E3C00944C77 /* mail32.png */,
-				F4E83C3A0B8EAE5E00217FDB /* Login.nib */,
-				F4E83C3B0B8EAE5E00217FDB /* minus-8.png */,
-				F4E83C3C0B8EAE5E00217FDB /* plus-8.png */,
 				F44421DF0B5351A0002AB629 /* maildropGrowl.scpt */,
 				F4DBCB5F0B3E3A2600D94639 /* maildrop.icns */,
 				F41B855F0B3CFE6400971C0B /* maildrop.sdef */,
@@ -574,9 +568,6 @@
 				F41B85600B3CFE6400971C0B /* maildrop.sdef in Resources */,
 				F4DBCB390B3E259400D94639 /* Credits.html in Resources */,
 				F4DBCB600B3E3A2600D94639 /* maildrop.icns in Resources */,
-				F4E83C3D0B8EAE5E00217FDB /* Login.nib in Resources */,
-				F4E83C3E0B8EAE5E00217FDB /* minus-8.png in Resources */,
-				F4E83C3F0B8EAE5E00217FDB /* plus-8.png in Resources */,
 				F46C838D0EC64E3C00944C77 /* cases32.png in Resources */,
 				F46C838E0EC64E3C00944C77 /* mail32.png in Resources */,
 				F46C83C40EC683BE00944C77 /* entourage.png in Resources */,
@@ -584,6 +575,7 @@
 				F46C83DA0EC77A1200944C77 /* maildrop32.png in Resources */,
 				F45F31E212939A3700BDCF61 /* outlook_icon.png in Resources */,
 				F47E35B1145910420017AD47 /* Localizable.strings in Resources */,
+				F41A248B1731E554005BF9D5 /* Login.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

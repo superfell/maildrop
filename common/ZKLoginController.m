@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2009 Simon Fell
+// Copyright (c) 2006-2012 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -23,34 +23,39 @@
 #import "credential.h"
 #import "zkSforceClient.h"
 #import "zkSoapException.h"
-#import "zkLoginResult.h"
+
+@interface ZKLoginController ()
+@property (retain) Credential *selectedCredential;
+-(void)closeLoginUi;
+@end
 
 @implementation ZKLoginController
 
-static NSString * login_lastUsernameKey = @"login_lastUserName";
+@synthesize clientId, urlOfNewServer, statusText, password, preferedApiVersion, delegate, selectedCredential;
 
-+ (void)initialize {
-	[self setKeys:[NSArray arrayWithObject:@"server"]   triggerChangeNotificationsForDependentKey:@"credentials"];
-	[self setKeys:[NSArray arrayWithObject:@"server"]   triggerChangeNotificationsForDependentKey:@"canDeleteServer"];
-	[self setKeys:[NSArray arrayWithObject:@"username"] triggerChangeNotificationsForDependentKey:@"password"];
+static NSString *login_lastUsernameKey = @"login_lastUserName";
+static NSString *prod = @"https://www.salesforce.com";
+static NSString *test = @"https://test.salesforce.com";
+
+
++(NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    NSSet *paths = [super keyPathsForValuesAffectingValueForKey:key];
+    if ([key isEqualToString:@"password"]) 
+        return [paths setByAddingObject:@"username"];
+    if ([key isEqualToString:@"credentials"] || [key isEqualToString:@"canDeleteServer"])
+        return [paths setByAddingObject:@"server"];
+    return paths;
 }
 
 - (id)init {
 	self = [super init];
 	server = [[[NSUserDefaults standardUserDefaults] objectForKey:@"server"] copy];
 	[self setUsername:[[NSUserDefaults standardUserDefaults] objectForKey:login_lastUsernameKey]];
+	preferedApiVersion = 27;
 	return self;
 }
 
-- (void)setImage:(NSString *)name onButton:(NSButton *)b {
-	NSString *imgFile = [[NSBundle mainBundle] pathForResource:name ofType:@"png"];
-	NSImage *img = [[[NSImage alloc] initWithContentsOfFile:imgFile] autorelease];
-	[b setImage:img];
-}
-
 - (void)awakeFromNib {
-	[self setImage:@"plus-8" onButton:addButton];
-	[self setImage:@"minus-8" onButton:delButton];
 	[loginProgress setUsesThreadedAnimation:YES];
 	[loginProgress setHidden:YES];
 	[loginProgress setDoubleValue:22.0];
@@ -64,7 +69,7 @@ static NSString * login_lastUsernameKey = @"login_lastUserName";
 	[credentials release];
 	[selectedCredential release];
 	[sforce release];
-	[newUrl release];
+	[urlOfNewServer release];
 	[super dealloc];
 }
 
@@ -83,10 +88,18 @@ static NSString * login_lastUsernameKey = @"login_lastUserName";
 }
 
 - (ZKSforceClient *)showModalLoginWindow:(id)sender {
+	return [self showModalLoginWindow:sender submitIfHaveCredentials:NO];
+}
+
+- (ZKSforceClient *)showModalLoginWindow:(id)sender submitIfHaveCredentials:(BOOL)autoSubmit {
 	[self loadNib];
 	target = self;
 	selector = @selector(endModalWindow:);
 	modalWindow = nil;
+	if (autoSubmit && [password length] > 0 && [username length] > 0) {
+		[self login:sender];
+		if ([statusText length] == 0) return sforce;
+	}
 	[NSApp runModalForWindow:window];
 	[window close];
 	return [sforce loggedIn] ? sforce : nil;
@@ -115,25 +128,21 @@ static NSString * login_lastUsernameKey = @"login_lastUserName";
 	}
 }
 
-static NSString *prod = @"https://www.salesforce.com";
-static NSString *test = @"https://test.salesforce.com";
-
 - (BOOL)canDeleteServer {
 	return ([server caseInsensitiveCompare:prod] != NSOrderedSame) && ([server caseInsensitiveCompare:test] != NSOrderedSame);
 }
 
-// this will show a new window, handling the fact that the original login window may of been a stand alone window, or already be a sheet.
-- (void)showNewWindow:(NSWindow *)newWindowToShow {
+- (IBAction)showAddNewServer:(id)sender {
+	[self setUrlOfNewServer:@"https://"];
 	if (modalWindow != nil) {
 		[NSApp endSheet:window];
-		[window orderOut:self];
+		[window orderOut:sender];
 	}
-	[NSApp beginSheet:newWindowToShow modalForWindow:modalWindow == nil ? window : modalWindow modalDelegate:self didEndSelector:@selector(restoreLoginWindow:returnCode:contextInfo:) contextInfo:nil];	
-}
-
-- (IBAction)showAddNewServer:(id)sender {
-	[self setNewUrl:@"https://"];
-	[self showNewWindow:newUrlWindow];
+	[NSApp beginSheet:newUrlWindow
+       modalForWindow:modalWindow == nil ? window : modalWindow
+        modalDelegate:self
+       didEndSelector:@selector(restoreLoginWindow:returnCode:contextInfo:)
+          contextInfo:nil];
 }
 
 - (IBAction)closeAddNewServer:(id)sender {
@@ -143,53 +152,49 @@ static NSString *test = @"https://test.salesforce.com";
 
 - (IBAction)deleteServer:(id)sender {
 	if (![self canDeleteServer]) return;
+    NSString *removedServer = [self server];
 	NSArray *servers = [[NSUserDefaults standardUserDefaults] objectForKey:@"servers"];
 	NSMutableArray *newServers = [NSMutableArray arrayWithCapacity:[servers count]];
-	NSString *s;
-	NSEnumerator *e = [servers objectEnumerator];
-	while (s = [e nextObject]) {
-		if ([s caseInsensitiveCompare:server] == NSOrderedSame) continue;
+    for (NSString *s in servers) {
+		if ([s caseInsensitiveCompare:removedServer] == NSOrderedSame) continue;
 		[newServers addObject:s];
 	}
 	[[NSUserDefaults standardUserDefaults] setObject:newServers forKey:@"servers"];
 	[self setServer:prod];
+    if ([delegate respondsToSelector:@selector(loginController:serverUrlRemoved:)])
+        [delegate loginController:self serverUrlRemoved:[NSURL URLWithString:removedServer]];
 }
 
 - (IBAction)addNewServer:(id)sender {
-	NSString *new = [self newUrl];
+	NSString *new = [self urlOfNewServer];
 	if (![new isEqualToString:@"https://"]) {
 		NSArray *servers = [[NSUserDefaults standardUserDefaults] objectForKey:@"servers"];
 		if (![servers containsObject:new]) {
-			NSMutableArray *newServers = [NSMutableArray array];
-			[newServers addObjectsFromArray:servers];
-			[newServers addObject:new];
+            NSArray *newServers = [servers arrayByAddingObject:new];
 			[[NSUserDefaults standardUserDefaults] setObject:newServers forKey:@"servers"];
 		}
 		[self setServer:new];
 		[self closeAddNewServer:sender];
+        if ([delegate respondsToSelector:@selector(loginController:serverUrlAdded:)])
+            [delegate loginController:self serverUrlAdded:[NSURL URLWithString:new]];
 	}
-	// Note, Analyze might complain about a leak here, but its just confused because of the newUrl property starting with new. TODO rename it.
 }
 
-- (IBAction)cancelLogin:(id)sender {
+-(void)closeLoginUi {
 	if (target == self) {
 		[NSApp stopModal];
 	} else if (modalWindow != nil) {
 		[NSApp endSheet:window];
-		[window orderOut:sender];
+		[window orderOut:self];
 	} else {
 		[window close];
 	}
 }
 
-- (Credential *)selectedCredential {
-	return selectedCredential;
-}
-
-- (void)setSelectedCredential:(Credential *)aValue {
-	Credential *oldSelectedCredential = selectedCredential;
-	selectedCredential = [aValue retain];
-	[oldSelectedCredential release];
+- (IBAction)cancelLogin:(id)sender {
+    [self closeLoginUi];
+    if ([delegate respondsToSelector:@selector(loginControllerLoginCancelled:)])
+        [delegate loginControllerLoginCancelled:self];
 }
 
 - (void)showAlertSheetWithMessageText:(NSString *)message 
@@ -213,7 +218,7 @@ static NSString *test = @"https://test.salesforce.com";
 	if (returnCode == NSAlertDefaultReturn)
 		[[self selectedCredential] update:username password:password];
 	[[alert window] orderOut:self];
-	[self cancelLogin:self];
+	[self closeLoginUi];
 	[target performSelector:selector withObject:sforce];	
 }
 
@@ -222,12 +227,12 @@ static NSString *test = @"https://test.salesforce.com";
 	if (returnCode == NSAlertDefaultReturn) 
 		[Credential createCredentialForServer:server username:username password:password];
 	[[alert window] orderOut:self];
-	[self cancelLogin:self];
+    [self closeLoginUi];
 	[target performSelector:selector withObject:sforce];	
 }
 
 - (void)promptAndAddToKeychain {
-	[self showAlertSheetWithMessageText:@"Create Keychain entry with new username & password?" 
+	[self showAlertSheetWithMessageText:@"Crete Keychain entry with new username & password?" 
 				defaultButton:@"Create Keychain Entry" 
 				altButton:@"No thanks" 
 				otherButton:nil 
@@ -246,70 +251,30 @@ static NSString *test = @"https://test.salesforce.com";
 				contextInfo:nil];
 }
 
-- (ZKSforceClient *)performLogin:(ZKSoapException **)error loginResult:(ZKLoginResult **)loginResult {
+- (ZKSforceClient *)performLogin:(ZKSoapException **)error withApiVersion:(int)version {
 	[sforce release];
 	sforce = [[ZKSforceClient alloc] init];
-	[sforce setLoginProtocolAndHost:server];	
-	*loginResult = nil;
+	[sforce setLoginProtocolAndHost:server andVersion:version];	
 	if ([clientId length] > 0)
 		[sforce setClientId:clientId];
 	@try {
-		*loginResult = [sforce login:username password:password];
+		[sforce login:username password:password];
 		[[NSUserDefaults standardUserDefaults] setObject:server forKey:@"server"];
 		[[NSUserDefaults standardUserDefaults] setObject:username forKey:login_lastUsernameKey];
 	}
 	@catch (ZKSoapException *ex) {
+		if ([[ex reason] hasPrefix:@"UNSUPPORTED_API_VERSION:"]) {
+			NSLog(@"Login failed with %@ on API Version %d, retrying with version %d", [ex reason], version, version-1);
+			return [self performLogin:error withApiVersion:version-1];
+		}
 		if (error != nil) *error = ex;
 		return nil;
 	}
 	return sforce;
 }
 
--(BOOL)hasLoginHelp {
-	return [[NSApp delegate] respondsToSelector:@selector(showLoginHelp:)];
-}
-
--(IBAction)showLoginHelp:(id)sender {
-	if ([self hasLoginHelp])
-		[[NSApp delegate] performSelector:@selector(showLoginHelp:) withObject:self];
-}
-
--(void)loginErrorClosing:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo {
-	if (returnCode == NSAlertAlternateReturn) {
-		[self showLoginHelp:self];
-	}
-}
-
--(void)showException:(ZKSoapException *)ex {
-	NSString *alt = [self hasLoginHelp] ? @"Help" : nil;
-	[self showAlertSheetWithMessageText:[ex reason]
-		defaultButton:@"Close"
-		altButton:alt
-		otherButton:nil
-		additionalText:@""
-		didEndSelector:@selector(loginErrorClosing:returnCode:contextInfo:)
-		contextInfo:nil];	
-}
-
-
-- (void)promptPasswordExpired {
-	[self showNewWindow:passwordExpiredWindow];
-}
-
-- (IBAction)cancelChangePassword:(id)sender {
-	[self setStatusText:@""];
-	[NSApp endSheet:passwordExpiredWindow];	
-	[passwordExpiredWindow orderOut:sender];
-}
-
-- (IBAction)changePassword:(id)sender {
-	@try {
-		[sforce setPassword:[self password] forUserId:[[sforce currentUserInfo] userId]];
-		[self cancelChangePassword:sender];
-	} 
-	@catch (ZKSoapException *ex) {
-		[self setStatusText:[ex reason]];
-	}
+- (ZKSforceClient *)performLogin:(ZKSoapException **)error {
+	return [self performLogin:error withApiVersion:preferedApiVersion];
 }
 
 - (IBAction)login:(id)sender {
@@ -318,17 +283,11 @@ static NSString *test = @"https://test.salesforce.com";
 	[loginProgress display];
 	@try {
 		ZKSoapException *ex = nil;
-		ZKLoginResult *lr = nil;
-		[self performLogin:&ex loginResult:&lr];
+		[self performLogin:&ex];
 		if (ex != nil) {
 			[self setStatusText:[ex reason]];
-			[self showException:ex];
 			return;
 		} 
-		if ([lr passwordExpired]) {
-			[self promptPasswordExpired];
-			return;
-		}
 		if (selectedCredential == nil || (![[[selectedCredential username] lowercaseString] isEqualToString:[username lowercaseString]])) {
 			[self promptAndAddToKeychain];
 			return;
@@ -337,7 +296,9 @@ static NSString *test = @"https://test.salesforce.com";
 			[self promptAndUpdateKeychain];
 			return;
 		}
-		[self cancelLogin:sender];
+		[self closeLoginUi];
+        if ([delegate respondsToSelector:@selector(loginController:loginCompleted:)])
+            [delegate loginController:self loginCompleted:sforce];
 		[target performSelector:selector withObject:sforce];
 	}
 	@finally {		
@@ -395,55 +356,14 @@ static NSString *test = @"https://test.salesforce.com";
 	[self setPasswordFromKeychain];
 }
 
-- (NSString *)password {
-	return password;
-}
-
-- (void)setPassword:(NSString *)aPassword {
-	aPassword = [aPassword copy];
-	[password release];
-	password = aPassword;
-}
-
 - (NSString *)username {
-	return username;
+	return [[username retain] autorelease];
 }
 
 - (void)setUsername:(NSString *)aUsername {
-	aUsername = [aUsername copy];
-	[username release];
-	username = aUsername;
+	[username autorelease];
+	username = [aUsername copy];
 	[self setPasswordFromKeychain];
-}
-
-- (NSString *)clientId {
-	return clientId;
-}
-
-- (void)setClientId:(NSString *)aClientId {
-	aClientId = [aClientId copy];
-	[clientId release];
-	clientId = aClientId;
-}
-
-- (NSString *)newUrl {
-	return newUrl;
-}
-
-- (void)setNewUrl:(NSString *)aNewUrl {
-	aNewUrl = [aNewUrl copy];
-	[newUrl release];
-	newUrl = aNewUrl;
-}
-
-- (NSString *)statusText {
-	return statusText;
-}
-
-- (void)setStatusText:(NSString *)aStatusText {
-	aStatusText = [aStatusText copy];
-	[statusText release];
-	statusText = aStatusText;
 }
 
 @end

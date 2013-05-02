@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2008 Simon Fell
+// Copyright (c) 2006-2012 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -26,7 +26,15 @@
 @class Credential;
 @class ZKSforceClient;
 @class ZKSoapException;
-@class ZKLoginResult;
+@class ZKLoginController;
+
+@protocol ZKLoginControllerDelegate <NSObject>
+@optional
+-(void)loginControllerLoginCancelled:(ZKLoginController *)controller;
+-(void)loginController:(ZKLoginController *)controller loginCompleted:(ZKSforceClient *)client;
+-(void)loginController:(ZKLoginController *)controller serverUrlAdded:(NSURL *)url;
+-(void)loginController:(ZKLoginController *)controller serverUrlRemoved:(NSURL *)url;
+@end
 
 @interface ZKLoginController : NSObject {
 	NSString 		*username;
@@ -36,8 +44,9 @@
 	NSArray  		*credentials;
 	Credential 		*selectedCredential;
 	ZKSforceClient 	*sforce;
-	NSString		*newUrl;
+	NSString		*urlOfNewServer;
 	NSString		*statusText;
+	int				preferedApiVersion;
 	
 	NSWindow 			*modalWindow;
 	id					target;
@@ -46,11 +55,14 @@
 	IBOutlet NSButton 	*addButton;
 	IBOutlet NSButton	*delButton;
 	IBOutlet NSWindow	*newUrlWindow;
-	IBOutlet NSWindow	*passwordExpiredWindow;
 	IBOutlet NSProgressIndicator *loginProgress;
+    
+    NSObject<ZKLoginControllerDelegate> *delegate;
 }
 
 - (ZKSforceClient *)showModalLoginWindow:(id)sender;
+- (ZKSforceClient *)showModalLoginWindow:(id)sender submitIfHaveCredentials:(BOOL)autoSubmit;
+
 - (void)showLoginWindow:(id)sender target:(id)target selector:(SEL)selector;
 - (void)showLoginSheet:(NSWindow *)modalForWindow target:(id)target selector:(SEL)selector;
 
@@ -61,26 +73,19 @@
 - (IBAction)addNewServer:(id)sender;
 - (IBAction)deleteServer:(id)sender;
 
-- (IBAction)cancelChangePassword:(id)sender;
-- (IBAction)changePassword:(id)sender;
+@property (retain) NSString *username;
+@property (retain) NSString *password;
+@property (retain) NSString *server;
+@property (retain) NSString *urlOfNewServer;
+@property (retain) NSString *statusText;
+@property (retain) NSString *clientId;
+@property (assign) int preferedApiVersion;
+@property (assign) NSObject<ZKLoginControllerDelegate> *delegate;
 
-- (NSString *)username;
-- (void)setUsername:(NSString *)aUsername;
-- (NSString *)password;
-- (void)setPassword:(NSString *)aPassword;
-- (NSString *)server;
-- (void)setServer:(NSString *)aServer;
 - (NSArray *)credentials;
-- (NSString *)newUrl;
-- (void)setNewUrl:(NSString *)aNewUrl;
-- (NSString *)statusText;
-- (void)setStatusText:(NSString *)aStatusText;
 - (BOOL)canDeleteServer;
-- (NSString *)clientId;
-- (void)setClientId:(NSString *)aClientId;
 - (void)setClientIdFromInfoPlist;
-- (ZKSforceClient *)performLogin:(ZKSoapException **)error loginResult:(ZKLoginResult **)result;
+- (ZKSforceClient *)performLogin:(ZKSoapException **)error;
 
--(IBAction)showLoginHelp:(id)sender;
--(BOOL)hasLoginHelp;
+
 @end
