@@ -26,6 +26,8 @@
 	<string>3.0</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
+	<key>SUPublicDSAKeyFile</key>
+	<string>dsa_pub.pem</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>NSAppleScriptEnabled</key>

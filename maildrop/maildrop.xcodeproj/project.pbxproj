@@ -24,6 +24,7 @@
 		F41A249C1731E6E0005BF9D5 /* ZKDescribeTabSetResult.m in Sources */ = {isa = PBXBuildFile; fileRef = F41A24951731E6E0005BF9D5 /* ZKDescribeTabSetResult.m */; };
 		F41A249D1731E6E0005BF9D5 /* zkQueryResult+NSTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F41A24971731E6E0005BF9D5 /* zkQueryResult+NSTableView.m */; };
 		F41A249E1731E6E0005BF9D5 /* zkSforceClient+zkAsyncQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = F41A24991731E6E0005BF9D5 /* zkSforceClient+zkAsyncQuery.m */; };
+		F41A24A417320587005BF9D5 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = F41A24A317320587005BF9D5 /* dsa_pub.pem */; };
 		F41B85570B3CFB5200971C0B /* Email.m in Sources */ = {isa = PBXBuildFile; fileRef = F41B85560B3CFB5200971C0B /* Email.m */; };
 		F41B85600B3CFE6400971C0B /* maildrop.sdef in Resources */ = {isa = PBXBuildFile; fileRef = F41B855F0B3CFE6400971C0B /* maildrop.sdef */; };
 		F41B85630B3CFF0800971C0B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F41B85620B3CFF0800971C0B /* AppDelegate.m */; };
@@ -139,6 +140,7 @@
 		F41A24971731E6E0005BF9D5 /* zkQueryResult+NSTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "zkQueryResult+NSTableView.m"; path = "../zksforce/zkSforce/zkQueryResult+NSTableView.m"; sourceTree = "<group>"; };
 		F41A24981731E6E0005BF9D5 /* zkSforceClient+zkAsyncQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "zkSforceClient+zkAsyncQuery.h"; path = "../zksforce/zkSforce/zkSforceClient+zkAsyncQuery.h"; sourceTree = "<group>"; };
 		F41A24991731E6E0005BF9D5 /* zkSforceClient+zkAsyncQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "zkSforceClient+zkAsyncQuery.m"; path = "../zksforce/zkSforce/zkSforceClient+zkAsyncQuery.m"; sourceTree = "<group>"; };
+		F41A24A317320587005BF9D5 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		F41B85550B3CFB5200971C0B /* Email.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Email.h; sourceTree = "<group>"; };
 		F41B85560B3CFB5200971C0B /* Email.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Email.m; sourceTree = "<group>"; };
 		F41B855F0B3CFE6400971C0B /* maildrop.sdef */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.sdef; path = maildrop.sdef; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F41A247017309059005BF9D5 /* ScriptingBridge.framework */,
 				F450990C0B51A969007D82E9 /* Sparkle.framework */,
 				F4DBCB0C0B3DC4F000D94639 /* Security.framework */,
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
@@ -325,7 +328,6 @@
 		29B97314FDCFA39411CA2CEA /* maildrop */ = {
 			isa = PBXGroup;
 			children = (
-				F41A247017309059005BF9D5 /* ScriptingBridge.framework */,
 				F4DBCB040B3DC2AB00D94639 /* common */,
 				F4329C4A0B3DA4AD003AB463 /* sforce */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -349,6 +351,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F41A24A317320587005BF9D5 /* dsa_pub.pem */,
 				F41A248A1731E554005BF9D5 /* Login.xib */,
 				F45F31E112939A3700BDCF61 /* outlook_icon.png */,
 				F46C83D90EC77A1200944C77 /* maildrop32.png */,
@@ -596,6 +599,7 @@
 				F45F31E212939A3700BDCF61 /* outlook_icon.png in Resources */,
 				F47E35B1145910420017AD47 /* Localizable.strings in Resources */,
 				F41A248B1731E554005BF9D5 /* Login.xib in Resources */,
+				F41A24A417320587005BF9D5 /* dsa_pub.pem in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
