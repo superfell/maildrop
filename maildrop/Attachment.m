@@ -37,7 +37,8 @@
 }
 
 - (void)dealloc {
-	[[NSFileManager defaultManager] removeFileAtPath:[[file absoluteURL] path] handler:nil];
+    NSError *err;
+	[[NSFileManager defaultManager] removeItemAtURL:file error:&err];
 	[salesforceId release];
 	[parentId release];
 	[name release];
@@ -67,10 +68,11 @@
 }
 
 -(NSString *)formattedSize {
-	NSDictionary *p = [[NSFileManager defaultManager] fileAttributesAtPath:[[file absoluteURL] path] traverseLink:YES];
+    NSError *err;
+	NSDictionary *p = [[NSFileManager defaultManager] attributesOfItemAtPath:[[file absoluteURL] path] error:&err];
 	long sz = [[p objectForKey:NSFileSize] longValue];
 	if (sz < 1024)
-		return [NSString stringWithFormat:@"%d bytes", sz];
+		return [NSString stringWithFormat:@"%ld bytes", sz];
 	if (sz < (1024 * 1024))
 		return [NSString stringWithFormat:@"%2.1f Kb", (sz / 1024.0f)];
 	return [NSString stringWithFormat:@"%2.1f Mb", (sz / (1024.0f * 1024))];

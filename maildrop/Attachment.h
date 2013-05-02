@@ -35,7 +35,7 @@
 @property (retain) NSString *name;
 @property (retain) NSString *mimeType;
 @property (retain) NSURL *file;
-@property (retain) NSString *parentId;
+@property (retain, nonatomic) NSString *parentId;
 @property (retain) NSString *salesforceId;
 @property (assign) BOOL shouldUpload;
 @property (retain) NSObject<WhoWhat> *parentWhoWhat;

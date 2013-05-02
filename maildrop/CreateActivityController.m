@@ -37,7 +37,7 @@
 
 @interface CreateActivityController ()
 - (void)saveCheckedWhats;
-@property (retain) ZKSforceClient *sforce;
+@property (retain, nonatomic) ZKSforceClient *sforce;
 @end
 
 @implementation ZKSObject (AccountNameHelper)
@@ -59,11 +59,12 @@
 @synthesize email, closedTaskStatus;
 @synthesize sforce, storeTaskStatusDefault;
 
-+ (void)initialize {
-	NSArray *keys = [NSArray arrayWithObjects:@"email", nil];
-    [self setKeys:keys triggerChangeNotificationsForDependentKey:@"emailSubject"];
-	keys = [NSArray arrayWithObjects:@"sforce", nil];
-	[self setKeys:keys triggerChangeNotificationsForDependentKey:@"whoSearchToolTip"];
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    if ([key isEqualToString:@"emailSubject"])
+        return [NSSet setWithObject:@"email"];
+    if ([key isEqualToString:@"whoSearchToolTip"])
+        return [NSSet setWithObject:@"sforce"];
+    return [super keyPathsForValuesAffectingValueForKey:key];
 }
 
 - (id)init {

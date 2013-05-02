@@ -52,7 +52,7 @@
 	results = [newResults retain]; 
 }
 
-- (int)numberOfRowsInTableView:(NSTableView *)v {
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)v {
 	return [results count];
 }
 
@@ -79,7 +79,7 @@
 	return [row fieldValue:[f name]];
 }
 
-- (id)tableView:(NSTableView *)view objectValueForTableColumn:(NSTableColumn *)tc row:(int)rowIdx {
+- (id)tableView:(NSTableView *)view objectValueForTableColumn:(NSTableColumn *)tc row:(NSInteger)rowIdx {
 	ZKSObject *r = [results objectAtIndex:rowIdx];
 	NSString *ident = [tc identifier];
 	if ([ident isEqualToString:@"type"]) {

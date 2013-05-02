@@ -29,7 +29,7 @@
 @synthesize sobject;
 
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
-    // these 3 Keys on depend on the sobject key.(if sobject changes, these 4 can change as well)
+    // these 4 Keys all depend on the sobject key.(if sobject changes, these 4 can change as well)
     NSSet *dependentKeys = [NSSet setWithObjects:@"salesforceId", @"name", @"type", @"displayName", nil];
     if ([dependentKeys containsObject:key]) {
         return [NSSet setWithObject:@"sobject"];
