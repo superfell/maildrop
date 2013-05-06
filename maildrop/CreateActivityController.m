@@ -161,23 +161,24 @@
 }
 
 - (IBAction)create:(id)sender {
-	SObjectPermsWrapper *task = [SObjectPermsWrapper withDescribe:[sforce describeSObject:@"Task"] forUpdate:NO];
-	[task setFieldValue:[NSString stringWithFormat:@"Email: %@", [email subject]] field:@"Subject"];
-	[task setFieldValue:[self buildDescriptionFromEmail:email] field:@"Description"];
+    NSString *sobjectType = @"Task";
+	SObjectPermsWrapper *activity = [SObjectPermsWrapper withDescribe:[sforce describeSObject:sobjectType] forUpdate:NO];
+	[activity setFieldValue:[NSString stringWithFormat:@"Email: %@", [email subject]] field:@"Subject"];
+	[activity setFieldValue:[self buildDescriptionFromEmail:email] field:@"Description"];
 	NSString *statusVal = [self closedTaskStatus];
 	if (self.storeTaskStatusDefault)
 		[[NSUserDefaults standardUserDefaults] setObject:statusVal forKey:DEFAULT_TASK_STATUS_PREF];
 		
-	[task setFieldValue:statusVal field:@"Status"];
-	[task setFieldValue:@"Email" field:@"Type"];
+	[activity setFieldValue:statusVal field:@"Status"];
+	[activity setFieldValue:@"Email" field:@"Type"];
 	NSDate *date = [email date];
 	if (date != nil) {
 		NSCalendarDate *duedate = [date dateWithCalendarFormat:nil timeZone:nil];
-		[task setFieldDateValue:duedate field:@"ActivityDate"];
+		[activity setFieldDateValue:duedate field:@"ActivityDate"];
 	}
 	ZKSObject *who = [self selectedWho];
 	ZKSObject *what = [self selectedWhat];
-	[task setFieldValue:[who id] field:@"WhoId"];
+	[activity setFieldValue:[who id] field:@"WhoId"];
 	if ([[who type] isEqualToString:LEAD] && (what != nil)) {
 		NSAlert * a = [NSAlert alertWithMessageText:@"Can not create Email"
 								defaultButton:@"Cancel Creation" 
@@ -187,19 +188,19 @@
 		[a beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:nil]; 
 		return;
 	}  
-	[task setFieldValue:[[self selectedWhat] id] field:@"WhatId"];
+	[activity setFieldValue:[[self selectedWhat] id] field:@"WhatId"];
 	// check description length
-	NSString *desc = [[task sobject] fieldValue:@"Description"];
-	int descMax = [[[sforce describeSObject:@"Task"] fieldWithName:@"Description"] length];
+	NSString *desc = [[activity sobject] fieldValue:@"Description"];
+	int descMax = [[[activity describe] fieldWithName:@"Description"] length];
 	if ([desc length] > descMax) {
 		NSAlert *a = [NSAlert alertWithMessageText:@"Email is too long" defaultButton:@"Truncate" alternateButton:@"Cancel" otherButton:nil
 			informativeTextWithFormat:@"Email body is %d characters long, which is longer than max allowed of %d by Salesforce.com, do you want to truncate the email body, or cancel creating it?", [desc length], descMax];
 		if (NSAlertDefaultReturn == [a runModal])
-			[task setFieldValue:[desc substringToIndex:descMax] field:@"Description"];
+			[activity setFieldValue:[desc substringToIndex:descMax] field:@"Description"];
 		else
 			return;	// cancel creation.
 	}
-	ZKSaveResult *sr = [[sforce create:[NSArray arrayWithObject:[task sobject]]] objectAtIndex:0];
+	ZKSaveResult *sr = [[sforce create:[NSArray arrayWithObject:[activity sobject]]] objectAtIndex:0];
 	if ([sr success]) {
 		taskId = [[sr id] copy];
 		[pendingTaskWhoWhat setTaskId:[sr id]];

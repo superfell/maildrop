@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2008 Simon Fell
+// Copyright (c) 2006-2008,2013 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -45,6 +45,10 @@
 
 - (ZKSObject *)sobject {
 	return sobject;
+}
+
+- (ZKDescribeSObject *)describe {
+    return describe;
 }
 
 - (BOOL)hasAccess:(NSString *)field {
