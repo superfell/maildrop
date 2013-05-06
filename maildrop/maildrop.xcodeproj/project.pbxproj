@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -80,6 +79,7 @@
 		F49210760B44D0D500C5C9AB /* ZKDescribeSObject_additions.m in Sources */ = {isa = PBXBuildFile; fileRef = F49210750B44D0D500C5C9AB /* ZKDescribeSObject_additions.m */; };
 		F4921CFC0EDFA52E00E95E03 /* NSData-Base64Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F4921CFB0EDFA52E00E95E03 /* NSData-Base64Extensions.m */; };
 		F4A0E541127C9AF60038B1CE /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A0E540127C9AF60038B1CE /* libxml2.2.dylib */; };
+		F4A8F012173763930009B26D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4A8F010173763930009B26D /* MainMenu.xib */; };
 		F4DBCAF70B3DC0C700D94639 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DBCAF50B3DC0C700D94639 /* LoginController.m */; };
 		F4DBCB0D0B3DC4F000D94639 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DBCB0C0B3DC4F000D94639 /* Security.framework */; };
 		F4DBCB390B3E259400D94639 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = F4DBCB380B3E259400D94639 /* Credits.html */; };
@@ -107,7 +107,6 @@
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* maildrop_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = maildrop_Prefix.pch; sourceTree = "<group>"; };
@@ -239,6 +238,7 @@
 		F4921CFA0EDFA52E00E95E03 /* NSData-Base64Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData-Base64Extensions.h"; sourceTree = "<group>"; };
 		F4921CFB0EDFA52E00E95E03 /* NSData-Base64Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData-Base64Extensions.m"; sourceTree = "<group>"; };
 		F4A0E540127C9AF60038B1CE /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		F4A8F011173763930009B26D /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		F4DBCAF50B3DC0C700D94639 /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
 		F4DBCAF60B3DC0C700D94639 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
 		F4DBCB0C0B3DC4F000D94639 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
@@ -351,6 +351,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F4A8F010173763930009B26D /* MainMenu.xib */,
 				F41A24A317320587005BF9D5 /* dsa_pub.pem */,
 				F41A248A1731E554005BF9D5 /* Login.xib */,
 				F45F31E112939A3700BDCF61 /* outlook_icon.png */,
@@ -364,7 +365,6 @@
 				F41B855F0B3CFE6400971C0B /* maildrop.sdef */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
-				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
 				F4DBCB380B3E259400D94639 /* Credits.html */,
 				F47E35B0145910420017AD47 /* Localizable.strings */,
 			);
@@ -570,6 +570,7 @@
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
+				English,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* maildrop */;
 			projectDirPath = "";
@@ -586,7 +587,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F44421E00B5351A0002AB629 /* maildropGrowl.scpt in Resources */,
-				8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				F41B85600B3CFE6400971C0B /* maildrop.sdef in Resources */,
 				F4DBCB390B3E259400D94639 /* Credits.html in Resources */,
@@ -600,6 +600,7 @@
 				F47E35B1145910420017AD47 /* Localizable.strings in Resources */,
 				F41A248B1731E554005BF9D5 /* Login.xib in Resources */,
 				F41A24A417320587005BF9D5 /* dsa_pub.pem in Resources */,
+				F4A8F012173763930009B26D /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -683,20 +684,20 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		29B97318FDCFA39411CA2CEA /* MainMenu.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				29B97319FDCFA39411CA2CEA /* English */,
-			);
-			name = MainMenu.nib;
-			sourceTree = "<group>";
-		};
 		F47E35B0145910420017AD47 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				F47E35AE1459103D0017AD47 /* English */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		F4A8F010173763930009B26D /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F4A8F011173763930009B26D /* English */,
+			);
+			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
