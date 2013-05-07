@@ -54,7 +54,7 @@ static NSString *outlookBundleId = @"com.microsoft.Outlook";
 -(Email *)createEmail:(OutlookMessage *)msg includeAttachments:(BOOL)incAttachments {
     Email *res = [[[Email alloc] init] autorelease];
     res.subject = msg.subject;
-    res.body = msg.content;
+    res.body = msg.plainTextContent;
     // because scripting bridge doesn't generate any impls, we can't use [EOM class]
     // as that'll fail in the linker, so we need to dynamically do it at runtime instead
     if ([msg isKindOfClass:NSClassFromString(@"OutlookOutgoingMessage")]) {
