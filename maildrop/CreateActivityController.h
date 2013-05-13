@@ -21,6 +21,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "WhatSearchDataSource.h"
+#import "ActivityBuilder.h"
 
 @class ZKSforceClient;
 @class Email;
@@ -28,8 +29,7 @@
 @class SObjectWhoWhat;
 @class PendingTaskWhoWhat;
 
-@interface CreateActivityController : NSObject
-{
+@interface CreateActivityController : NSObject<ActivityBuilderDelegate> {
 	IBOutlet NSArrayController	*whoSearchController;
 	IBOutlet NSTableView		*whatSearchResults;
 	IBOutlet NSWindow			*window;
@@ -51,6 +51,7 @@
 	SObjectWhoWhat			*selectedWho;
 	SObjectWhoWhat			*selectedWhat;
 	PendingTaskWhoWhat		*pendingTaskWhoWhat;
+    ActivityBuilder         *activityBuilder;
 	
 	NSString 				*whoSearchText;
 	NSString				*whatSearchText;

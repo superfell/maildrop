@@ -86,6 +86,7 @@
 		F4DBCB600B3E3A2600D94639 /* maildrop.icns in Resources */ = {isa = PBXBuildFile; fileRef = F4DBCB5F0B3E3A2600D94639 /* maildrop.icns */; };
 		F4E83C370B8EAE4700217FDB /* credential.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E83C330B8EAE4600217FDB /* credential.m */; };
 		F4E83C390B8EAE4700217FDB /* ZKLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E83C350B8EAE4600217FDB /* ZKLoginController.m */; };
+		F4E99FFE17419BDF0082F200 /* ActivityBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = F4E99FFD17419BDF0082F200 /* ActivityBuilder.m */; };
 		F4F87CFC0B4E1FDF006F6B63 /* WelcomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F87CFB0B4E1FDF006F6B63 /* WelcomeController.m */; };
 /* End PBXBuildFile section */
 
@@ -248,6 +249,8 @@
 		F4E83C330B8EAE4600217FDB /* credential.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = credential.m; path = ../common/credential.m; sourceTree = SOURCE_ROOT; };
 		F4E83C340B8EAE4600217FDB /* ZKLoginController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = ZKLoginController.h; path = ../common/ZKLoginController.h; sourceTree = SOURCE_ROOT; };
 		F4E83C350B8EAE4600217FDB /* ZKLoginController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; name = ZKLoginController.m; path = ../common/ZKLoginController.m; sourceTree = SOURCE_ROOT; };
+		F4E99FFC17419BDF0082F200 /* ActivityBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityBuilder.h; sourceTree = "<group>"; };
+		F4E99FFD17419BDF0082F200 /* ActivityBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityBuilder.m; sourceTree = "<group>"; };
 		F4F87CFA0B4E1FDF006F6B63 /* WelcomeController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = WelcomeController.h; sourceTree = "<group>"; };
 		F4F87CFB0B4E1FDF006F6B63 /* WelcomeController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = WelcomeController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -519,6 +522,8 @@
 				F41532EB0B4227FE00E36D7B /* CreateActivityController.m */,
 				F49210670B44CED100C5C9AB /* WhatSearchDataSource.h */,
 				F49210680B44CED100C5C9AB /* WhatSearchDataSource.m */,
+				F4E99FFC17419BDF0082F200 /* ActivityBuilder.h */,
+				F4E99FFD17419BDF0082F200 /* ActivityBuilder.m */,
 			);
 			name = addEmail;
 			sourceTree = "<group>";
@@ -670,6 +675,7 @@
 				F41A249C1731E6E0005BF9D5 /* ZKDescribeTabSetResult.m in Sources */,
 				F41A249D1731E6E0005BF9D5 /* zkQueryResult+NSTableView.m in Sources */,
 				F41A249E1731E6E0005BF9D5 /* zkSforceClient+zkAsyncQuery.m in Sources */,
+				F4E99FFE17419BDF0082F200 /* ActivityBuilder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

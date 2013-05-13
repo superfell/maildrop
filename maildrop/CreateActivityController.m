@@ -38,6 +38,7 @@
 @interface CreateActivityController ()
 - (void)saveCheckedWhats;
 @property (retain, nonatomic) ZKSforceClient *sforce;
+@property (retain, nonatomic) ActivityBuilder *activityBuilder;
 @end
 
 @implementation ZKSObject (AccountNameHelper)
@@ -52,7 +53,7 @@
 
 @implementation CreateActivityController
 
-@synthesize whoSearchText, whatSearchText;
+@synthesize whoSearchText, whatSearchText, activityBuilder;
 @synthesize contactFirstName, contactLastName;
 @synthesize contactEmail, contactCompany, contactLeadStatus;
 @synthesize createContactAllowed, createLeadAllowed;
@@ -86,6 +87,7 @@
 	[pendingTaskWhoWhat release];
 	[taskStatus release];
 	[closedTaskStatus release];
+    [activityBuilder release];
 	[super dealloc];
 }
 
@@ -145,70 +147,41 @@
 	}
 }
 
-- (void)alertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo {
-	if (returnCode == NSAlertAlternateReturn) {
-		// clicked create, so unset the what, and call create again
-		[whatSearchResults deselectAll:self];
-		[self create:self];
-	}
-}
-
-- (NSString *)buildDescriptionFromEmail:(Email *)e {
-	if (![[NSUserDefaults standardUserDefaults] boolForKey:ADD_EMAIL_TO_DESC_PREF])
-		return [e body];
-	// otherwise add to/from to the description
-	return [NSString stringWithFormat:@"From: %@\r\nTo: %@\r\n\r\n%@", [e fromAddr], [e toAddr], [e body]];
-}
-
-- (IBAction)create:(id)sender {
-    NSString *sobjectType = @"Task";
-	SObjectPermsWrapper *activity = [SObjectPermsWrapper withDescribe:[sforce describeSObject:sobjectType] forUpdate:NO];
-	[activity setFieldValue:[NSString stringWithFormat:@"Email: %@", [email subject]] field:@"Subject"];
-	[activity setFieldValue:[self buildDescriptionFromEmail:email] field:@"Description"];
-	NSString *statusVal = [self closedTaskStatus];
-	if (self.storeTaskStatusDefault)
-		[[NSUserDefaults standardUserDefaults] setObject:statusVal forKey:DEFAULT_TASK_STATUS_PREF];
-		
-	[activity setFieldValue:statusVal field:@"Status"];
-	[activity setFieldValue:@"Email" field:@"Type"];
-	NSDate *date = [email date];
-	if (date != nil) {
-		NSCalendarDate *duedate = [date dateWithCalendarFormat:nil timeZone:nil];
-		[activity setFieldDateValue:duedate field:@"ActivityDate"];
-	}
-	ZKSObject *who = [self selectedWho];
-	ZKSObject *what = [self selectedWhat];
-	[activity setFieldValue:[who id] field:@"WhoId"];
-	if ([[who type] isEqualToString:LEAD] && (what != nil)) {
-		NSAlert * a = [NSAlert alertWithMessageText:@"Can not create Email"
-								defaultButton:@"Cancel Creation" 
-								alternateButton:@"Create without setting \"Related to What\""
-								otherButton:nil 
-								informativeTextWithFormat:@"You can not create an email with a \"Related to What\" value when its \"Related to Who\" is a Lead"];
-		[a beginSheetModalForWindow:window modalDelegate:self didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:) contextInfo:nil]; 
-		return;
-	}  
-	[activity setFieldValue:[[self selectedWhat] id] field:@"WhatId"];
-	// check description length
-	NSString *desc = [[activity sobject] fieldValue:@"Description"];
-	int descMax = [[[activity describe] fieldWithName:@"Description"] length];
-	if ([desc length] > descMax) {
-		NSAlert *a = [NSAlert alertWithMessageText:@"Email is too long" defaultButton:@"Truncate" alternateButton:@"Cancel" otherButton:nil
-			informativeTextWithFormat:@"Email body is %d characters long, which is longer than max allowed of %d by Salesforce.com, do you want to truncate the email body, or cancel creating it?", [desc length], descMax];
-		if (NSAlertDefaultReturn == [a runModal])
-			[activity setFieldValue:[desc substringToIndex:descMax] field:@"Description"];
-		else
-			return;	// cancel creation.
-	}
-	ZKSaveResult *sr = [[sforce create:[NSArray arrayWithObject:[activity sobject]]] objectAtIndex:0];
+-(void)activityBuilder:(ActivityBuilder *)builder builtActivity:(ZKSObject *)activity {
+    ZKSaveResult *sr = [[sforce create:[NSArray arrayWithObject:activity]] objectAtIndex:0];
 	if ([sr success]) {
 		taskId = [[sr id] copy];
 		[pendingTaskWhoWhat setTaskId:[sr id]];
 		[NSApp stopModal];
-	} else { 
-		NSAlert * a = [NSAlert alertWithMessageText:@"Unable to create email" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[sr message]];
+	} else {
+		NSAlert * a = [NSAlert alertWithMessageText:@"Unable to create email"
+                                      defaultButton:@"OK"
+                                    alternateButton:nil
+                                        otherButton:nil
+                          informativeTextWithFormat:[sr message]];
 		[a runModal];
 	}
+    self.activityBuilder = nil;
+}
+
+-(void)activityBuilderCanceled:(ActivityBuilder *)builder {
+    self.activityBuilder = nil;
+}
+
+- (IBAction)create:(id)sender {
+    TaskActivityBuilder *builder = [[[TaskActivityBuilder alloc] init] autorelease];
+    builder.email  = email;
+    builder.who  = [self selectedWho];
+    builder.what = [self selectedWhat];
+    builder.status = [self closedTaskStatus];
+    builder.sforce = sforce;
+    builder.window = window;
+
+    if (self.storeTaskStatusDefault)
+		[[NSUserDefaults standardUserDefaults] setObject:builder.status forKey:DEFAULT_TASK_STATUS_PREF];
+
+    self.activityBuilder = builder;
+    [builder build:self];
 }
 
 - (NSString *)escapeSosl:(NSString *)src {
