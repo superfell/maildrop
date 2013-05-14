@@ -37,10 +37,12 @@
 	IBOutlet ButtonBarController		*buttonBarController;
 	IBOutlet NSWindow					*attachmentsWarningWindow;
 	IBOutlet LionInfoWindowController	*lionInfoWindowController;
-	
+	IBOutlet NSWindow                   *preferencesWindow;
+    
 	NSMutableArray		*emails;
 	NSMutableArray		*attachments;
 	ZKSforceClient		*sforce;
+    
 }
 
 - (NSArray *)emails;
@@ -64,6 +66,7 @@
 - (IBAction)showButtonBarHelp:(id)sender;
 - (IBAction)showHelp:(id)sender;
 - (IBAction)showTaskRelatedListHelp:(id)sender;
+- (IBAction)showPreferences:(id)sender;
 
 - (void)shouldCheckForAttachmentsRelatedListOnTask;
 

@@ -25,4 +25,6 @@
     IBOutlet NSWindow 	*window;
 }
 
+-(IBAction)showHelp:(id)sender;
+
 @end

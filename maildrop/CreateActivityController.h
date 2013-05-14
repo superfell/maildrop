@@ -33,8 +33,6 @@
 	IBOutlet NSArrayController	*whoSearchController;
 	IBOutlet NSTableView		*whatSearchResults;
 	IBOutlet NSWindow			*window;
-	IBOutlet NSWindow			*createContactWindow;
-	IBOutlet NSWindow			*createLeadWindow;
 	IBOutlet NSWindow			*whatSearchConfigWindow;
 	
 	NSTextField					*whatNoResults;
@@ -43,8 +41,6 @@
 	NSArray					*whatObjectTypes;
 	NSString				*closedTaskStatus;
 	NSArray					*taskStatus;
-	NSArray					*leadStatus;
-	NSString				*defaultLeadStatus;
 	NSArray					*whoSearchResults;
 	WhatSearchDataSource	*whatResultsTableSource;
 
@@ -58,11 +54,6 @@
 	Email					*email;
 	NSString				*taskId;
 	
-	NSString				*contactFirstName;
-	NSString				*contactLastName;
-	NSString				*contactEmail;
-	NSString				*contactCompany;
-	NSString				*contactLeadStatus;
 	BOOL					createContactAllowed;
 	BOOL					createLeadAllowed;
 	BOOL					storeTaskStatusDefault;
@@ -71,18 +62,11 @@
 - (NSString *)createActivity:(Email *)email sforce:(ZKSforceClient *)sforce;
 - (NSArray *)whatObjectTypes;
 - (NSArray *)whoSearchResults;
-- (NSArray *)leadStatus;
 - (NSArray *)taskStatus;
-- (NSString *)defaultLeadStatus;
 
 @property (readonly) BOOL hasStatusField;
 @property (retain) NSString *whatSearchText;
 @property (retain) NSString *whoSearchText;
-@property (retain) NSString *contactFirstName;
-@property (retain) NSString *contactLastName;
-@property (retain) NSString *contactEmail;
-@property (retain) NSString *contactCompany;
-@property (retain) NSString *contactLeadStatus;
 @property (retain) NSString *emailSubject;
 @property (retain) NSString *closedTaskStatus;
 @property (assign) BOOL storeTaskStatusDefault;
@@ -99,16 +83,15 @@
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)create:(id)sender;
+
 - (IBAction)searchWho:(id)sender;
 - (IBAction)searchWhat:(id)sender;
+
 - (IBAction)showCreateContact:(id)sender;
-- (IBAction)cancelCreateContact:(id)sender;
-- (IBAction)createContact:(id)sender;
 - (IBAction)showCreateLead:(id)sender;
-- (IBAction)cancelCreateLead:(id)sender;
-- (IBAction)createLead:(id)sender;
 
 - (IBAction)configureWhatSearchColumns:(id)sender;
 - (IBAction)closeWhatConfig:(id)sender;
+- (IBAction)showActivityHelp:(id)sender;
 
 @end

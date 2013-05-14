@@ -38,9 +38,14 @@
 	float currentVersion = [self currentVersion];
 	float lastRegistered = [[NSUserDefaults standardUserDefaults] floatForKey:@"installedVersion"];
 	if (currentVersion > lastRegistered) {
+        [NSBundle loadNibNamed:@"Welcome" owner:self];
         [window makeKeyAndOrderFront:self];
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithFloat:[self currentVersion]] forKey:@"installedVersion"];
 	}
+}
+
+-(IBAction)showHelp:(id)sender {
+    [[NSApp delegate] showHelp:sender];
 }
 
 @end
