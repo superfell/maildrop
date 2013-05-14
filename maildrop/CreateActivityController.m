@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2011 Simon Fell
+// Copyright (c) 2006-2013 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -30,6 +30,8 @@
 #import "WhoWhat.h"
 #import "zkSObject.h"
 #import "Constants.h"
+#import "CreateContactController.h"
+#import "CreateLeadController.h"
 
 @interface ZKSObject (AccountNameHelper)
 -(NSString *)accountName;
@@ -54,8 +56,6 @@
 @implementation CreateActivityController
 
 @synthesize whoSearchText, whatSearchText, activityBuilder;
-@synthesize contactFirstName, contactLastName;
-@synthesize contactEmail, contactCompany, contactLeadStatus;
 @synthesize createContactAllowed, createLeadAllowed;
 @synthesize email, closedTaskStatus;
 @synthesize sforce, storeTaskStatusDefault;
@@ -103,10 +103,6 @@
 
 - (IBAction)showActivityHelp:(id)sender {
     [[NSApp delegate] showActivityHelp:sender];
-}
-
-- (BOOL)hasEntity:(NSString *)entity {
-	return [sforce describeGlobalFor:entity] != nil;
 }
 
 - (ZKSObject *)selectedWho {
@@ -216,7 +212,7 @@
 }
 
 - (BOOL)canSearchWho {
-	return [self hasEntity:CONTACT] || [self hasEntity:LEAD];
+	return [sforce hasEntity:CONTACT] || [sforce hasEntity:LEAD];
 }
 
 - (NSString *)whoSearchToolTip {
@@ -230,14 +226,14 @@
 
 	if ([type isEqualToString:LEAD])
 		return [NSString stringWithFormat:@"%@,%@", WHO_FIELDS, WHO_FIELDS_LEAD];
-	if ([self hasEntity:ACCOUNT])
+	if ([sforce hasEntity:ACCOUNT])
 		return [NSString stringWithFormat:@"%@,%@", WHO_FIELDS, WHO_FIELDS_CONTACT];
 	return WHO_FIELDS;
 }
 
 - (IBAction)searchWho:(id)sender {
-	BOOL hasContacts = [self hasEntity:CONTACT];
-	BOOL hasLeads =    [self hasEntity:LEAD];
+	BOOL hasContacts = [sforce hasEntity:CONTACT];
+	BOOL hasLeads =    [sforce hasEntity:LEAD];
 	NSMutableString *sosl = [NSMutableString stringWithFormat:@"FIND {%@} IN ALL FIELDS RETURNING ", [self escapeSosl:[self whoSearchText]]];
 	if (hasLeads)
 		[sosl appendFormat:@"Lead(%@)", [self whoFieldsForType:LEAD]];
@@ -314,24 +310,6 @@
 	[email setSubject:aEmailSubject];
 }
 
-- (void)setCurrentPropertiesFromEmail {
-	NSString *name = [email nameOfInterest];
-	NSRange rng = [name rangeOfString:@" "];
-	if (rng.location == NSNotFound) {
-		[self setContactFirstName:nil];
-		[self setContactLastName:name];
-	} else {
-		[self setContactFirstName:[name substringToIndex:rng.location]];
-		[self setContactLastName:[name substringFromIndex:rng.location + rng.length]];
-	}
-	[self setContactEmail:[email addrOfInterest]];
-	[self setContactCompany:@""];
-	if ([self createLeadAllowed])
-		[self setContactLeadStatus:[self defaultLeadStatus]];
-	else
-		[self setContactLeadStatus:@""];
-}
-
 - (void)resetState {
 	[self setWhoSearchResults:nil];
 	[self setWhatSearchResultsData:nil];
@@ -341,65 +319,37 @@
 	pendingTaskWhoWhat = [[PendingTaskWhoWhat alloc] init];
 }
 
-- (IBAction)showCreateContact:(id)sender {
-	[self setCurrentPropertiesFromEmail];
-	[NSApp beginSheet:createContactWindow modalForWindow:window modalDelegate:self didEndSelector:nil contextInfo:nil];
+-(void)createWhoWithController:(CreateContactController *)controller {
+    NSString *type = [controller typeOfSObject];
+    [controller showSheetFromEmail:self.email inWindow:window client:sforce created:^(NSString *recordId) {
+        // query the record back from salesforce.com, pick up the compound name, plus anything else done server side
+        
+		ZKSObject *n = [[[sforce query:[NSString stringWithFormat:@"select %@ from %@ where id='%@' LIMIT 1",
+                                        [self whoFieldsForType:type], type, recordId]] records] objectAtIndex:0];
+		// add info to list view,
+		NSMutableArray *newList = [NSMutableArray arrayWithArray:[self whoSearchResults]];
+		[newList insertObject:n atIndex:0];
+		[self setWhoSearchResults:newList];
+		[whoSearchController setSelectionIndex:0];
+        
+    } canceled:^ {
+    }];
 }
 
-- (IBAction)cancelCreateContact:(id)sender {
-	[NSApp endSheet:createContactWindow];
-	[createContactWindow orderOut:sender];
+- (IBAction)showCreateContact:(id)sender {
+    CreateContactController *c = [[[CreateContactController alloc] init] autorelease];
+    [self createWhoWithController:c];
 }
 
 - (IBAction)showCreateLead:(id)sender {
-	[self setCurrentPropertiesFromEmail];
-	[NSApp beginSheet:createLeadWindow modalForWindow:window modalDelegate:self didEndSelector:nil contextInfo:nil];
-}
-
-- (IBAction)cancelCreateLead:(id)sender {
-	[NSApp endSheet:createLeadWindow];
-	[createLeadWindow orderOut:sender];
+    CreateLeadController *c = [[[CreateLeadController alloc] init] autorelease];
+    [self createWhoWithController:c];
 }
 
 - (NSString *)makeNotNull:(NSString *)s {
 	 if (s == nil || [s length] == 0)
 		return @" ";
 	return s;
-}
-
-- (void)createNewSObjectItem:(BOOL)isLead window:(NSWindow *)sheetWindow {
-	ZKSObject *n = [ZKSObject withType:isLead ? LEAD : CONTACT];
-	[n setFieldValue:[self makeNotNull:[self contactFirstName]] field:@"FirstName"];
-	[n setFieldValue:[self makeNotNull:[self contactLastName]]  field:@"LastName"];
-	[n setFieldValue:[self makeNotNull:[self contactEmail]]     field:@"Email"];
-	if (isLead) {
-		[n setFieldValue:[self makeNotNull:[self contactCompany]]   field:@"Company"];
-		[n setFieldValue:[self makeNotNull:[self contactLeadStatus]] field:@"Status"];
-	}
-	ZKSaveResult *sr = [[sforce create:[NSArray arrayWithObject:n]] objectAtIndex:0];
-	if ([sr success]) {
-		[NSApp endSheet:sheetWindow];
-		[sheetWindow orderOut:self];
-		// query the record back from salesforce.com, pick up the compound name, plus anything else done server side
-		n = [[[sforce query:[NSString stringWithFormat:@"select %@ from %@ where id='%@' LIMIT 1", [self whoFieldsForType:[n type]], [n type], [sr id]]] records] objectAtIndex:0];
-		// add info to list view, 
-		NSMutableArray *newList = [NSMutableArray arrayWithArray:[self whoSearchResults]];
-		[newList insertObject:n atIndex:0];
-		[self setWhoSearchResults:newList];
-		[whoSearchController setSelectionIndex:0];
-	} else {
-		NSAlert * a = [NSAlert alertWithMessageText:@"Create Failed" defaultButton:@"OK" alternateButton:nil otherButton:nil 
-							   informativeTextWithFormat:[NSString stringWithFormat:@"%@ : %@", [sr statusCode], [sr message]]];
-		[a runModal];
-	}
-}
-
-- (IBAction)createContact:(id)sender {
-	[self createNewSObjectItem:NO window:createContactWindow];
-}
-
-- (IBAction)createLead:(id)sender {
-	[self createNewSObjectItem:YES window:createLeadWindow];
 }
 
 - (void)saveCheckedWhats {
@@ -463,7 +413,7 @@
 }
 
 - (BOOL)isCreateableObjectType:(NSString *)sobjectName {
-	if (![self hasEntity:sobjectName]) return NO;
+	if (![sforce hasEntity:sobjectName]) return NO;
 	return [[sforce describeSObject:sobjectName] createable];
 }
 
@@ -475,10 +425,6 @@
 		[whatObjectTypes release];
 		whatObjectTypes = nil;
 		[self didChangeValueForKey:@"whatObjectTypes"];
-		[self willChangeValueForKey:@"leadStatus"];
-		[leadStatus release];
-		leadStatus = nil;
-		[self didChangeValueForKey:@"leadStatus"];
 		[self willChangeValueForKey:@"whatObjectTypeDescribes"];
 		[self didChangeValueForKey:@"whatObjectTypeDescribes"];
 	}
@@ -488,7 +434,7 @@
 }
 
 -(NSArray *)taskStatus {
-	if (taskStatus == nil && [self hasEntity:@"TaskStatus"]) {
+	if (taskStatus == nil && [sforce hasEntity:@"TaskStatus"]) {
 		ZKQueryResult *qr = [sforce query:@"select MasterLabel,IsClosed from TaskStatus order by sortOrder"];
 		taskStatus = [[qr records] retain];
 	}
@@ -513,41 +459,14 @@
 	return sawUserDefault ? userDefault : sysDefault;
 }
 
-- (NSArray *)leadStatus {
-	if (leadStatus != nil) return leadStatus;
-	if (sforce == nil) return nil;
-	if (![self hasEntity:@"LeadStatus"]) return nil;
-	ZKQueryResult *qr = [sforce query:@"select MasterLabel, IsDefault from LeadStatus order by SortOrder"];
-	NSMutableArray *ls = [NSMutableArray arrayWithCapacity:[qr size]];
-	ZKSObject *s;
-	NSEnumerator *e = [[qr records] objectEnumerator];
-	while (s = [e nextObject]) {
-		if ([s boolValue:@"IsDefault"])
-			defaultLeadStatus = [[s fieldValue:@"MasterLabel"] copy];
-		[ls addObject:[s fieldValue:@"MasterLabel"]];
-	}
-	leadStatus = [ls retain];
-	return leadStatus;
-}
-
-- (NSString *)defaultLeadStatus {
-	if (defaultLeadStatus == nil)
-		[self leadStatus];
-	return defaultLeadStatus;
-}
-
 - (void)setSforce:(ZKSforceClient *)sf {
 	if (sf == sforce) return;
 	[sforce autorelease];
 	sforce = [sf retain];
 	[whatObjectTypes release];
 	whatObjectTypes = nil;
-	[leadStatus release];
-	leadStatus = nil;
 	[taskStatus release];
 	taskStatus = nil;
-	[defaultLeadStatus release];
-	defaultLeadStatus = nil;
 	[selectedWho release];
 	selectedWho = nil;
 	[selectedWhat release];

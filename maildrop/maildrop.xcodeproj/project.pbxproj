@@ -27,6 +27,10 @@
 		F41B85570B3CFB5200971C0B /* Email.m in Sources */ = {isa = PBXBuildFile; fileRef = F41B85560B3CFB5200971C0B /* Email.m */; };
 		F41B85600B3CFE6400971C0B /* maildrop.sdef in Resources */ = {isa = PBXBuildFile; fileRef = F41B855F0B3CFE6400971C0B /* maildrop.sdef */; };
 		F41B85630B3CFF0800971C0B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F41B85620B3CFF0800971C0B /* AppDelegate.m */; };
+		F41F5B561742B17B001297D9 /* CreateContact.xib in Resources */ = {isa = PBXBuildFile; fileRef = F41F5B541742B17B001297D9 /* CreateContact.xib */; };
+		F41F5B5A1742B2A1001297D9 /* CreateContactController.m in Sources */ = {isa = PBXBuildFile; fileRef = F41F5B581742B2A1001297D9 /* CreateContactController.m */; };
+		F41F5B621742E0F9001297D9 /* CreateLead.xib in Resources */ = {isa = PBXBuildFile; fileRef = F41F5B601742E0F9001297D9 /* CreateLead.xib */; };
+		F41F5B651742E138001297D9 /* CreateLeadController.m in Sources */ = {isa = PBXBuildFile; fileRef = F41F5B641742E138001297D9 /* CreateLeadController.m */; };
 		F44421E00B5351A0002AB629 /* maildropGrowl.scpt in Resources */ = {isa = PBXBuildFile; fileRef = F44421DF0B5351A0002AB629 /* maildropGrowl.scpt */; };
 		F4451E370EDBAE9700ABBC35 /* Attachment.m in Sources */ = {isa = PBXBuildFile; fileRef = F4451E360EDBAE9700ABBC35 /* Attachment.m */; };
 		F4451EF20EDBC9DA00ABBC35 /* AsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F4451EF10EDBC9DA00ABBC35 /* AsItem.m */; };
@@ -146,6 +150,12 @@
 		F41B855F0B3CFE6400971C0B /* maildrop.sdef */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.sdef; path = maildrop.sdef; sourceTree = "<group>"; };
 		F41B85610B3CFF0800971C0B /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F41B85620B3CFF0800971C0B /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F41F5B551742B17B001297D9 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/CreateContact.xib; sourceTree = "<group>"; };
+		F41F5B571742B2A1001297D9 /* CreateContactController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateContactController.h; sourceTree = "<group>"; };
+		F41F5B581742B2A1001297D9 /* CreateContactController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateContactController.m; sourceTree = "<group>"; };
+		F41F5B611742E0F9001297D9 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/CreateLead.xib; sourceTree = "<group>"; };
+		F41F5B631742E138001297D9 /* CreateLeadController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateLeadController.h; sourceTree = "<group>"; };
+		F41F5B641742E138001297D9 /* CreateLeadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateLeadController.m; sourceTree = "<group>"; };
 		F44421DF0B5351A0002AB629 /* maildropGrowl.scpt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.scpt; path = maildropGrowl.scpt; sourceTree = "<group>"; };
 		F4451E350EDBAE9700ABBC35 /* Attachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attachment.h; sourceTree = "<group>"; };
 		F4451E360EDBAE9700ABBC35 /* Attachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attachment.m; sourceTree = "<group>"; };
@@ -354,6 +364,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F41F5B601742E0F9001297D9 /* CreateLead.xib */,
+				F41F5B541742B17B001297D9 /* CreateContact.xib */,
 				F4A8F010173763930009B26D /* MainMenu.xib */,
 				F41A24A317320587005BF9D5 /* dsa_pub.pem */,
 				F41A248A1731E554005BF9D5 /* Login.xib */,
@@ -522,6 +534,10 @@
 				F41532EB0B4227FE00E36D7B /* CreateActivityController.m */,
 				F49210670B44CED100C5C9AB /* WhatSearchDataSource.h */,
 				F49210680B44CED100C5C9AB /* WhatSearchDataSource.m */,
+				F41F5B571742B2A1001297D9 /* CreateContactController.h */,
+				F41F5B581742B2A1001297D9 /* CreateContactController.m */,
+				F41F5B631742E138001297D9 /* CreateLeadController.h */,
+				F41F5B641742E138001297D9 /* CreateLeadController.m */,
 				F4E99FFC17419BDF0082F200 /* ActivityBuilder.h */,
 				F4E99FFD17419BDF0082F200 /* ActivityBuilder.m */,
 			);
@@ -606,6 +622,8 @@
 				F41A248B1731E554005BF9D5 /* Login.xib in Resources */,
 				F41A24A417320587005BF9D5 /* dsa_pub.pem in Resources */,
 				F4A8F012173763930009B26D /* MainMenu.xib in Resources */,
+				F41F5B561742B17B001297D9 /* CreateContact.xib in Resources */,
+				F41F5B621742E0F9001297D9 /* CreateLead.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -676,6 +694,8 @@
 				F41A249D1731E6E0005BF9D5 /* zkQueryResult+NSTableView.m in Sources */,
 				F41A249E1731E6E0005BF9D5 /* zkSforceClient+zkAsyncQuery.m in Sources */,
 				F4E99FFE17419BDF0082F200 /* ActivityBuilder.m in Sources */,
+				F41F5B5A1742B2A1001297D9 /* CreateContactController.m in Sources */,
+				F41F5B651742E138001297D9 /* CreateLeadController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,6 +708,22 @@
 				089C165DFE840E0CC02AAC07 /* English */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F41F5B541742B17B001297D9 /* CreateContact.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F41F5B551742B17B001297D9 /* English */,
+			);
+			name = CreateContact.xib;
+			sourceTree = "<group>";
+		};
+		F41F5B601742E0F9001297D9 /* CreateLead.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F41F5B611742E0F9001297D9 /* English */,
+			);
+			name = CreateLead.xib;
 			sourceTree = "<group>";
 		};
 		F47E35B0145910420017AD47 /* Localizable.strings */ = {

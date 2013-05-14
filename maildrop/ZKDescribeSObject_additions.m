@@ -98,4 +98,8 @@
 	return nil;
 }
 
+-(BOOL)hasEntity:(NSString *)entity {
+    return [self describeGlobalFor:entity] != nil;
+}
+
 @end
