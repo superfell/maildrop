@@ -75,6 +75,7 @@
 - (NSArray *)taskStatus;
 - (NSString *)defaultLeadStatus;
 
+@property (readonly) BOOL hasStatusField;
 @property (retain) NSString *whatSearchText;
 @property (retain) NSString *whoSearchText;
 @property (retain) NSString *contactFirstName;

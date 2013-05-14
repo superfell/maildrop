@@ -65,6 +65,8 @@
         return [NSSet setWithObject:@"email"];
     if ([key isEqualToString:@"whoSearchToolTip"])
         return [NSSet setWithObject:@"sforce"];
+    if ([key isEqualToString:@"hasStatusField"])
+        return [NSSet setWithObject:@"email"];
     return [super keyPathsForValuesAffectingValueForKey:key];
 }
 
@@ -166,6 +168,11 @@
 
 -(void)activityBuilderCanceled:(ActivityBuilder *)builder {
     self.activityBuilder = nil;
+}
+
+-(BOOL)hasStatusField {
+    NSString *type = [[NSUserDefaults standardUserDefaults] objectForKey:EMAIL_ACTIVITY_TYPE_PREF];
+    return [type isEqualToString:EMAIL_ACTIVITY_TYPE_TASK];
 }
 
 - (IBAction)create:(id)sender {
