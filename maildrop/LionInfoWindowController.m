@@ -1,4 +1,4 @@
-// Copyright (c) 2011 Simon Fell
+// Copyright (c) 2011,2013 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -46,7 +46,8 @@
 		(Gestalt(gestaltSystemVersionBugFix, &bugFixVer) == noErr)) {
 		if (minorVer != 0x07) return;
 		[ud setBool:TRUE forKey:HAVE_SHOWN_10_72_INFO_WINDOW];
-		
+        [NSBundle loadNibNamed:@"LionInfo" owner:self];
+        
 		// if bugFix < 2 and attachments are on, then show message about upgrading, and button should disable attachments
 		if ((bugFixVer < 2) && (hasAttachments)) {
 			NSString *lbl = [NSString stringWithFormat:@"%@\n\n%@\n\n%@",
