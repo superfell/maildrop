@@ -169,7 +169,9 @@
 }
 
 - (IBAction)create:(id)sender {
-    TaskActivityBuilder *builder = [[[TaskActivityBuilder alloc] init] autorelease];
+    NSString *type = [[NSUserDefaults standardUserDefaults] objectForKey:EMAIL_ACTIVITY_TYPE_PREF];
+    Class builderType = [type isEqualToString:EMAIL_ACTIVITY_TYPE_TASK] ? [TaskActivityBuilder class] : [EventActivityBuilder class];
+    ActivityBuilder *builder = [[[builderType alloc] init] autorelease];
     builder.email  = email;
     builder.who  = [self selectedWho];
     builder.what = [self selectedWhat];

@@ -49,7 +49,8 @@
 	[defaults setObject:[NSNumber numberWithBool:YES] forKey:AUTO_SHOW_HIDE_BUTTONBAR];
 	[defaults setObject:[NSNumber numberWithBool:YES] forKey:SHOW_LION_MAIL_INFO_PREF];
 	[defaults setObject:[NSNumber numberWithBool:NO]  forKey:HAVE_SHOWN_10_72_INFO_WINDOW];
-	
+	[defaults setObject:EMAIL_ACTIVITY_TYPE_TASK forKey:EMAIL_ACTIVITY_TYPE_PREF];
+    
 	[defaults setObject:@"Subject" forKey:@"additionalField_Case"];
 	[[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }

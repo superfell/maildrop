@@ -33,8 +33,10 @@
 + (id) withDescribe:(ZKDescribeSObject *)desc forUpdate:(BOOL)isUpdate;
 
 - (id) initWithDescribe:(ZKDescribeSObject *)desc forUpdate:(BOOL)isUpdate;
-- (BOOL)setFieldValue:(NSString *)val field:(NSString *)field;
+- (BOOL)setFieldValue:(NSObject *)val field:(NSString *)field;
 - (BOOL)setFieldDateValue:(NSCalendarDate *)value field:(NSString *)field;
+- (BOOL)setFieldDateTimeValue:(NSCalendarDate *)value field:(NSString *)field;
+
 - (ZKSObject *)sobject;
 - (ZKDescribeSObject *)describe;
 

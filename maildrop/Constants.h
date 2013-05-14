@@ -1,4 +1,4 @@
-// Copyright (c) 2008-2011 Simon Fell
+// Copyright (c) 2008-2013 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -35,6 +35,9 @@ extern NSString *SHOW_NEW_EMAIL_PREF;
 extern NSString *ATTACHMENTS_ON_CASES_PREF;
 extern NSString *ATTACHMENTS_ON_EMAIL_PREF;
 extern NSString *DEFAULT_TASK_STATUS_PREF;
+extern NSString *EMAIL_ACTIVITY_TYPE_PREF;
+extern NSString *EMAIL_ACTIVITY_TYPE_TASK;
+extern NSString *EMAIL_ACTIVITY_TYPE_EVENT;
 
 extern NSString *SHOW_TASK_RELATEDLIST_WARNING_PREF;
 extern NSString *SHOW_LION_MAIL_INFO_PREF;

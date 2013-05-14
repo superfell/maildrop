@@ -56,9 +56,9 @@
 	return isupdate ? [f updateable] : [f createable];
 }
 
--(NSString *)cleanValue:(NSString *)s {
-	if (s == nil) return nil;
-	NSMutableString *c = [NSMutableString stringWithString:s];
+-(NSObject *)cleanValue:(NSObject *)s {
+	if (s == nil || ![s isKindOfClass:[NSString class]]) return s;
+	NSMutableString *c = [NSMutableString stringWithString:(NSString *)s];
 	for (int i = 0; i < [c length]; i++) {
 		unichar x = [c characterAtIndex:i];
 		if (x < 32 && (x != 9) && (x != 0x0A) && (x != 0x0D))
@@ -67,7 +67,7 @@
 	return c;
 }
 
-- (BOOL)setFieldValue:(NSString *)val field:(NSString *)field {
+- (BOOL)setFieldValue:(NSObject *)val field:(NSString *)field {
 	if ([self hasAccess:field]) {
 		[sobject setFieldValue:[self cleanValue:val] field:field];
 		return YES;
@@ -78,6 +78,14 @@
 - (BOOL)setFieldDateValue:(NSCalendarDate *)val field:(NSString *)field {
 	if ([self hasAccess:field]) {
 		[sobject setFieldDateValue:val field:field];
+		return YES;
+	}
+	return NO;
+}
+
+- (BOOL)setFieldDateTimeValue:(NSCalendarDate *)val field:(NSString *)field {
+	if ([self hasAccess:field]) {
+		[sobject setFieldDateTimeValue:val field:field];
 		return YES;
 	}
 	return NO;

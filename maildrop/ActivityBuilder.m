@@ -70,11 +70,6 @@
     
 	[activity setFieldValue:status field:@"Status"];
 	[activity setFieldValue:@"Email" field:@"Type"];
-	NSDate *date = [email date];
-	if (date != nil) {
-		NSCalendarDate *duedate = [date dateWithCalendarFormat:nil timeZone:nil];
-		[activity setFieldDateValue:duedate field:@"ActivityDate"];
-	}
 	[activity setFieldValue:[who id] field:@"WhoId"];
 	if ([[who type] isEqualToString:LEAD] && (what != nil)) {
 		NSAlert * a = [NSAlert alertWithMessageText:@"Can not create Email"
@@ -103,6 +98,15 @@
     return activity;
 }
 
+-(NSCalendarDate *)emailDate {
+    NSDate *date = [email date];
+    if (date != nil) {
+        NSCalendarDate *d = [date dateWithCalendarFormat:nil timeZone:nil];
+        return d;
+    }
+    return nil;
+}
+
 @end
 
 @implementation TaskActivityBuilder
@@ -111,7 +115,7 @@
     self.delegate = d;
     SObjectPermsWrapper *task = [super buildWithType:@"Task"];
     if (task != nil) {
-        // do task specific stuff
+        [task setFieldDateValue:[self emailDate] field:@"ActivityDate"];
         [self.delegate activityBuilder:self builtActivity:[task sobject]];
     }
 }
@@ -124,7 +128,9 @@
     self.delegate = d;
     SObjectPermsWrapper *event = [super buildWithType:@"Event"];
     if (event != nil) {
-        // do event specific stuff
+        [event setFieldValue:@"false" field:@"IsAllDayEvent"];
+        [event setFieldDateTimeValue:[self emailDate] field:@"ActivityDateTime"];
+        [event setFieldValue:@"1" field:@"DurationInMinutes"];
         [self.delegate activityBuilder:self builtActivity:[event sobject]];
     }
 }

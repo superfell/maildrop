@@ -1,4 +1,4 @@
-// Copyright (c) 2008-2011 Simon Fell
+// Copyright (c) 2008-2013 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -35,6 +35,9 @@ NSString *SHOW_NEW_EMAIL_PREF			= @"showNewEmail";
 NSString *ATTACHMENTS_ON_CASES_PREF		= @"addAttachmentsToCases";
 NSString *ATTACHMENTS_ON_EMAIL_PREF		= @"addAttachmentsToActivities";
 NSString *DEFAULT_TASK_STATUS_PREF		= @"defaultTaskStatus";
+NSString *EMAIL_ACTIVITY_TYPE_PREF      = @"emailActivityType";
+NSString *EMAIL_ACTIVITY_TYPE_TASK      = @"Task";
+NSString *EMAIL_ACTIVITY_TYPE_EVENT     = @"Event";
 
 NSString *SHOW_TASK_RELATEDLIST_WARNING_PREF = @"showTaskRelatedListWarning";
 NSString *SHOW_LION_MAIL_INFO_PREF      = @"showLionMailInfo";
