@@ -33,6 +33,7 @@
 		F41F5B651742E138001297D9 /* CreateLeadController.m in Sources */ = {isa = PBXBuildFile; fileRef = F41F5B641742E138001297D9 /* CreateLeadController.m */; };
 		F41F5B681742F911001297D9 /* LionInfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = F41F5B661742F911001297D9 /* LionInfo.xib */; };
 		F41F5B6B1742FAF2001297D9 /* Welcome.xib in Resources */ = {isa = PBXBuildFile; fileRef = F41F5B691742FAF2001297D9 /* Welcome.xib */; };
+		F41F5B6E174300B2001297D9 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = F41F5B6C174300B2001297D9 /* Preferences.xib */; };
 		F44421E00B5351A0002AB629 /* maildropGrowl.scpt in Resources */ = {isa = PBXBuildFile; fileRef = F44421DF0B5351A0002AB629 /* maildropGrowl.scpt */; };
 		F4451E370EDBAE9700ABBC35 /* Attachment.m in Sources */ = {isa = PBXBuildFile; fileRef = F4451E360EDBAE9700ABBC35 /* Attachment.m */; };
 		F4451EF20EDBC9DA00ABBC35 /* AsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F4451EF10EDBC9DA00ABBC35 /* AsItem.m */; };
@@ -160,6 +161,7 @@
 		F41F5B641742E138001297D9 /* CreateLeadController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateLeadController.m; sourceTree = "<group>"; };
 		F41F5B671742F911001297D9 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/LionInfo.xib; sourceTree = "<group>"; };
 		F41F5B6A1742FAF2001297D9 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Welcome.xib; sourceTree = "<group>"; };
+		F41F5B6D174300B2001297D9 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Preferences.xib; sourceTree = "<group>"; };
 		F44421DF0B5351A0002AB629 /* maildropGrowl.scpt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.scpt; path = maildropGrowl.scpt; sourceTree = "<group>"; };
 		F4451E350EDBAE9700ABBC35 /* Attachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attachment.h; sourceTree = "<group>"; };
 		F4451E360EDBAE9700ABBC35 /* Attachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attachment.m; sourceTree = "<group>"; };
@@ -368,6 +370,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F41F5B6C174300B2001297D9 /* Preferences.xib */,
 				F41F5B691742FAF2001297D9 /* Welcome.xib */,
 				F41F5B661742F911001297D9 /* LionInfo.xib */,
 				F41F5B601742E0F9001297D9 /* CreateLead.xib */,
@@ -632,6 +635,7 @@
 				F41F5B621742E0F9001297D9 /* CreateLead.xib in Resources */,
 				F41F5B681742F911001297D9 /* LionInfo.xib in Resources */,
 				F41F5B6B1742FAF2001297D9 /* Welcome.xib in Resources */,
+				F41F5B6E174300B2001297D9 /* Preferences.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -748,6 +752,14 @@
 				F41F5B6A1742FAF2001297D9 /* English */,
 			);
 			name = Welcome.xib;
+			sourceTree = "<group>";
+		};
+		F41F5B6C174300B2001297D9 /* Preferences.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F41F5B6D174300B2001297D9 /* English */,
+			);
+			name = Preferences.xib;
 			sourceTree = "<group>";
 		};
 		F47E35B0145910420017AD47 /* Localizable.strings */ = {

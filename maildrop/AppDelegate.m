@@ -59,6 +59,7 @@
 	self = [super init];
 	emails = [[NSMutableArray alloc] init];
 	attachments = [[NSMutableArray alloc] init];
+    preferencesWindow = nil;
 	return self;
 }
 
@@ -66,11 +67,18 @@
 	[emails release];
 	[attachments release];
 	[sforce release];
+    [preferencesWindow release];
 	[super dealloc];
 }
 
 - (ButtonBarController *)buttonBarController {
 	return buttonBarController;
+}
+
+- (IBAction)showPreferences:(id)sender {
+    if (preferencesWindow == nil)
+        [NSBundle loadNibNamed:@"Preferences" owner:self];
+    [preferencesWindow makeKeyAndOrderFront:sender];
 }
 
 - (NSArray *)emails {
