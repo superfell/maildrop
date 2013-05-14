@@ -110,5 +110,6 @@
 
 - (IBAction)configureWhatSearchColumns:(id)sender;
 - (IBAction)closeWhatConfig:(id)sender;
+- (IBAction)showActivityHelp:(id)sender;
 
 @end

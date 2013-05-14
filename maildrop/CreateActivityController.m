@@ -101,6 +101,10 @@
 	[NSApp abortModal];
 }
 
+- (IBAction)showActivityHelp:(id)sender {
+    [[NSApp delegate] showActivityHelp:sender];
+}
+
 - (BOOL)hasEntity:(NSString *)entity {
 	return [sforce describeGlobalFor:entity] != nil;
 }
