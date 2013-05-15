@@ -90,7 +90,46 @@
 	[taskStatus release];
 	[closedTaskStatus release];
     [activityBuilder release];
+    [subjectOnlyConstraints release];
+    [subjectAndStatusConstraints release];
 	[super dealloc];
+}
+
+-(void)awakeFromNib {
+    NSDictionary *views = NSDictionaryOfVariableBindings(topContainer, subjectLabel, subjectText, statusLabel, statusPopup, statusDefaultCheckbox);
+    for (NSView *view in [views allValues])
+        [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    
+    NSArray *h1 = [NSLayoutConstraint constraintsWithVisualFormat:@"|-[subjectLabel]-[subjectText(>=100)]-|" options:NSLayoutFormatAlignAllBaseline metrics:nil views:views];
+    NSArray *h2 = [NSLayoutConstraint constraintsWithVisualFormat:@"|-[statusLabel]-[statusPopup(>=100)]-[statusDefaultCheckbox]-|"
+                                                          options:NSLayoutFormatAlignAllBaseline metrics:nil views:views];
+    
+    // one of these is added later on.
+    subjectAndStatusConstraints = [[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[subjectLabel]-[statusLabel]-|" options:0 metrics:nil views:views] retain];
+    subjectOnlyConstraints      = [[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[subjectLabel]-|" options:0 metrics:nil views:views] retain];
+    
+    [topContainer addConstraints:h1];
+    [topContainer addConstraints:h2];
+
+    // make subjectText and statusPopup start at the same starting point left to right.
+    [topContainer addConstraint:[NSLayoutConstraint constraintWithItem:subjectText
+                                                             attribute:NSLayoutAttributeLeft
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:statusPopup
+                                                             attribute:NSLayoutAttributeLeft
+                                                            multiplier:1.0 constant:0]];
+    
+    // make the end of the statusText and the end of the checkbox line up
+    [topContainer addConstraint:[NSLayoutConstraint constraintWithItem:subjectText
+                                                             attribute:NSLayoutAttributeRight
+                                                             relatedBy:NSLayoutRelationEqual
+                                                                toItem:statusDefaultCheckbox
+                                                             attribute:NSLayoutAttributeRight
+                                                            multiplier:1.0 constant:0]];
+    [statusPopup setContentHuggingPriority:240 forOrientation:NSLayoutConstraintOrientationHorizontal];
+    
+    [[topContainer superview] addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-2-[topContainer]" options:0 metrics:nil views:views]];
+    [[topContainer superview] addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-[topContainer(>=400@800)]-|" options:0 metrics:nil views:views]];
 }
 
 - (IBAction)cancel:(id)sender {
@@ -493,6 +532,15 @@
 	}
 	NSTimer *t = [NSTimer timerWithTimeInterval:0.01 target:self selector:@selector(initWhats:) userInfo:nil repeats:NO];
 	[[NSRunLoop currentRunLoop] addTimer:t forMode:NSModalPanelRunLoopMode];
+    
+    if ([self hasStatusField]) {
+        [topContainer removeConstraints:subjectOnlyConstraints];
+        [topContainer addConstraints:subjectAndStatusConstraints];
+    } else {
+        [topContainer removeConstraints:subjectAndStatusConstraints];
+        [topContainer addConstraints:subjectOnlyConstraints];
+    }
+    
 	[NSApp runModalForWindow:window];
 	[window orderOut:self];
 	// todo
