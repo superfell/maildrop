@@ -20,7 +20,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "WhatSearchDataSource.h"
 #import "ActivityBuilder.h"
 
 @class ZKSforceClient;
@@ -28,43 +27,8 @@
 @class ZKSObject;
 @class SObjectWhoWhat;
 @class PendingTaskWhoWhat;
-
-@interface FkSearchController : NSObject {
-    NSString        *searchText;
-    ZKSforceClient  *sforce;
-}
-
-@property (retain, nonatomic) NSString *searchText;
-@property (retain, nonatomic) ZKSforceClient *sforce;
-@property (readonly) ZKSObject *selected;
-
--(IBAction)search:(id)sender;
-@end
-
-@interface WhoController : FkSearchController {
-    IBOutlet NSArrayController	*whoSearchController;
-    NSArray                     *searchResults;
-}
-
-@property (readonly) BOOL createContactAllowed;
-@property (readonly) BOOL createLeadAllowed;
-@property (readonly) BOOL canSearch;
-@property (readonly) NSString *searchToolTip;
-@property (readonly) NSArrayController *whoSearchController; // temp
-@property (retain)   NSArray *searchResults;
-
-@end
-
-@interface WhatController : FkSearchController {
-    IBOutlet NSTableView    *whatSearchResults;
-	NSArray					*whatObjectTypes;
-    WhatSearchDataSource	*whatResultsTableSource;
-}
-
-- (NSArray *)whatObjectTypes;
-- (NSArray *)whatObjectTypeDescribes;
-
-@end
+@class WhoController;
+@class WhatController;
 
 @interface CreateActivityController : NSObject<ActivityBuilderDelegate> {
     IBOutlet WhoController      *whoController;

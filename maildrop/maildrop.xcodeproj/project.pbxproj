@@ -49,6 +49,7 @@
 		F46C83DA0EC77A1200944C77 /* maildrop32.png in Resources */ = {isa = PBXBuildFile; fileRef = F46C83D90EC77A1200944C77 /* maildrop32.png */; };
 		F47E3521145906450017AD47 /* LionInfoWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = F47E3520145906450017AD47 /* LionInfoWindowController.m */; };
 		F47E35B1145910420017AD47 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F47E35B0145910420017AD47 /* Localizable.strings */; };
+		F480308517547D3000D53BE3 /* WhoWhatSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = F480308417547D3000D53BE3 /* WhoWhatSearch.m */; };
 		F4844D3E1319E7DB00E1F303 /* zkBaseClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F4844CFE1319E7DB00E1F303 /* zkBaseClient.m */; };
 		F4844D3F1319E7DB00E1F303 /* zkChildRelationship.m in Sources */ = {isa = PBXBuildFile; fileRef = F4844D001319E7DB00E1F303 /* zkChildRelationship.m */; };
 		F4844D401319E7DB00E1F303 /* zkDescribeField.m in Sources */ = {isa = PBXBuildFile; fileRef = F4844D021319E7DB00E1F303 /* zkDescribeField.m */; };
@@ -184,6 +185,8 @@
 		F47E351F145906450017AD47 /* LionInfoWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LionInfoWindowController.h; sourceTree = "<group>"; };
 		F47E3520145906450017AD47 /* LionInfoWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LionInfoWindowController.m; sourceTree = "<group>"; };
 		F47E35AE1459103D0017AD47 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F480308317547D3000D53BE3 /* WhoWhatSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhoWhatSearch.h; sourceTree = "<group>"; };
+		F480308417547D3000D53BE3 /* WhoWhatSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhoWhatSearch.m; sourceTree = "<group>"; };
 		F4844CFD1319E7DB00E1F303 /* zkBaseClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zkBaseClient.h; path = ../zksforce/zkSforce/zkBaseClient.h; sourceTree = SOURCE_ROOT; };
 		F4844CFE1319E7DB00E1F303 /* zkBaseClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = zkBaseClient.m; path = ../zksforce/zkSforce/zkBaseClient.m; sourceTree = SOURCE_ROOT; };
 		F4844CFF1319E7DB00E1F303 /* zkChildRelationship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zkChildRelationship.h; path = ../zksforce/zkSforce/zkChildRelationship.h; sourceTree = SOURCE_ROOT; };
@@ -550,6 +553,8 @@
 			children = (
 				F48F5BC812B9D2D1002B9E3F /* WhoWhat.h */,
 				F48F5BC912B9D2D1002B9E3F /* WhoWhat.m */,
+				F480308317547D3000D53BE3 /* WhoWhatSearch.h */,
+				F480308417547D3000D53BE3 /* WhoWhatSearch.m */,
 				F41532EA0B4227FE00E36D7B /* CreateActivityController.h */,
 				F41532EB0B4227FE00E36D7B /* CreateActivityController.m */,
 				F49210670B44CED100C5C9AB /* WhatSearchDataSource.h */,
@@ -722,6 +727,7 @@
 				F41F5B651742E138001297D9 /* CreateLeadController.m in Sources */,
 				F4BEF56117543CE7004207D3 /* NSApplication_scripting.m in Sources */,
 				F4BEF57217546706004207D3 /* NSString_sosl.m in Sources */,
+				F480308517547D3000D53BE3 /* WhoWhatSearch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
