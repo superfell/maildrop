@@ -33,7 +33,7 @@
     CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
   	NSString *uniqueId = (NSString *)CFUUIDCreateString(kCFAllocatorDefault, uuid);
   	CFRelease(uuid);
-    return uniqueId;
+    return [uniqueId autorelease];
 }
 
 -(id)init {
