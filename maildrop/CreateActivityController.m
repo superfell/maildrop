@@ -63,11 +63,17 @@
     [super dealloc];
 }
 
+-(ZKSObject *)selected {
+    return nil;
+}
+
 @end
 
 @implementation WhoController
 
-+ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+@synthesize whoSearchController;
+
++(NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
     if ([key isEqualToString:@"canSearch"])
         return [NSSet setWithObject:@"sforce"];
     if ([key isEqualToString:@"searchToolTip"])
@@ -79,8 +85,14 @@
     return [sforce hasEntity:CONTACT] || [sforce hasEntity:LEAD];
 }
 
-- (NSString *)searchToolTip {
+-(NSString *)searchToolTip {
 	return [self canSearch] ? @"" : @"No access to Leads or Contacts, cannot search/set related to Who field";
+}
+
+-(ZKSObject *)selected {
+    NSArray *sel = [whoSearchController selectedObjects];
+	if ([sel count] == 0) return nil;
+	return [sel objectAtIndex:0];
 }
 
 @end
@@ -179,9 +191,7 @@
 }
 
 - (ZKSObject *)selectedWho {
-	NSArray *sel = [whoSearchController selectedObjects];
-	if ([sel count] == 0) return nil;
-	return [sel objectAtIndex:0];
+    return [whoController selected];
 }
 
 - (ZKSObject *)selectedWhat {
@@ -308,7 +318,7 @@
 		NSArray *res = [sforce search:sosl];
 		[self setWhoSearchResults:res];
 		if ([res count] == 1)
-			[whoSearchController setSelectionIndex:0];
+			[whoController.whoSearchController setSelectionIndex:0];
 	}
 	@catch (ZKSoapException *ex) {
 		NSAlert * a = [NSAlert alertWithMessageText:@"Search Failed" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[ex reason]];
@@ -395,7 +405,7 @@
 		NSMutableArray *newList = [NSMutableArray arrayWithArray:[self whoSearchResults]];
 		[newList insertObject:n atIndex:0];
 		[self setWhoSearchResults:newList];
-		[whoSearchController setSelectionIndex:0];
+		[whoController.whoSearchController setSelectionIndex:0];
         
     } canceled:^ {
     }];

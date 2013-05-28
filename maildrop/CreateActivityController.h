@@ -36,13 +36,16 @@
 
 @property (retain) NSString *searchText;
 @property (retain) ZKSforceClient *sforce;
+@property (readonly) ZKSObject *selected;
 @end
 
 @interface WhoController : FkSearchController {
+    IBOutlet NSArrayController	*whoSearchController;
 }
 
 @property (readonly) BOOL canSearch;
 @property (readonly) NSString *searchToolTip;
+@property (readonly) NSArrayController *whoSearchController; // temp
 
 @end
 
@@ -54,7 +57,6 @@
     IBOutlet WhoController      *whoController;
     IBOutlet WhatController     *whatController;
     
-	IBOutlet NSArrayController	*whoSearchController;
 	IBOutlet NSTableView		*whatSearchResults;
 	IBOutlet NSWindow			*window;
 	IBOutlet NSWindow			*whatSearchConfigWindow;
