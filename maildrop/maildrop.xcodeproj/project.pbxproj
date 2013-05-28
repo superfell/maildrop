@@ -36,7 +36,6 @@
 		F41F5B6E174300B2001297D9 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = F41F5B6C174300B2001297D9 /* Preferences.xib */; };
 		F44421E00B5351A0002AB629 /* maildropGrowl.scpt in Resources */ = {isa = PBXBuildFile; fileRef = F44421DF0B5351A0002AB629 /* maildropGrowl.scpt */; };
 		F4451E370EDBAE9700ABBC35 /* Attachment.m in Sources */ = {isa = PBXBuildFile; fileRef = F4451E360EDBAE9700ABBC35 /* Attachment.m */; };
-		F4451EF20EDBC9DA00ABBC35 /* AsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F4451EF10EDBC9DA00ABBC35 /* AsItem.m */; };
 		F450990D0B51A969007D82E9 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F450990C0B51A969007D82E9 /* Sparkle.framework */; };
 		F45099260B51A993007D82E9 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = F450990C0B51A969007D82E9 /* Sparkle.framework */; };
 		F459943A0B54A50D00EE154D /* SObjectPermsWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F45994380B54A50D00EE154D /* SObjectPermsWrapper.m */; };
@@ -168,8 +167,6 @@
 		F44421DF0B5351A0002AB629 /* maildropGrowl.scpt */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.scpt; path = maildropGrowl.scpt; sourceTree = "<group>"; };
 		F4451E350EDBAE9700ABBC35 /* Attachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attachment.h; sourceTree = "<group>"; };
 		F4451E360EDBAE9700ABBC35 /* Attachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Attachment.m; sourceTree = "<group>"; };
-		F4451EF00EDBC9DA00ABBC35 /* AsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsItem.h; sourceTree = "<group>"; };
-		F4451EF10EDBC9DA00ABBC35 /* AsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsItem.m; sourceTree = "<group>"; };
 		F450990C0B51A969007D82E9 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		F45994370B54A50C00EE154D /* SObjectPermsWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SObjectPermsWrapper.h; sourceTree = "<group>"; };
 		F45994380B54A50D00EE154D /* SObjectPermsWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SObjectPermsWrapper.m; sourceTree = "<group>"; };
@@ -299,7 +296,7 @@
 			children = (
 				F41A245D17308442005BF9D5 /* scriptingBridge */,
 				F4BF64C60EE1FAD800F52263 /* addEmail */,
-				F4BF64C50EE1FACF00F52263 /* appleScript objects */,
+				F4BF64C50EE1FACF00F52263 /* Email objects */,
 				F4BF64C40EE1FAC400F52263 /* extensions */,
 				F41B85610B3CFF0800971C0B /* AppDelegate.h */,
 				F41B85620B3CFF0800971C0B /* AppDelegate.m */,
@@ -524,11 +521,9 @@
 			name = extensions;
 			sourceTree = "<group>";
 		};
-		F4BF64C50EE1FACF00F52263 /* appleScript objects */ = {
+		F4BF64C50EE1FACF00F52263 /* Email objects */ = {
 			isa = PBXGroup;
 			children = (
-				F4451EF00EDBC9DA00ABBC35 /* AsItem.h */,
-				F4451EF10EDBC9DA00ABBC35 /* AsItem.m */,
 				F41B85550B3CFB5200971C0B /* Email.h */,
 				F41B85560B3CFB5200971C0B /* Email.m */,
 				F4451E350EDBAE9700ABBC35 /* Attachment.h */,
@@ -542,7 +537,7 @@
 				F41A246D17308EF2005BF9D5 /* Factory.h */,
 				F41A246E17308EF2005BF9D5 /* Factory.m */,
 			);
-			name = "appleScript objects";
+			name = "Email objects";
 			sourceTree = "<group>";
 		};
 		F4BF64C60EE1FAD800F52263 /* addEmail */ = {
@@ -673,7 +668,6 @@
 				F46C83890EC6429800944C77 /* ButtonBarController.m in Sources */,
 				F46C83AA0EC6777200944C77 /* Constants.m in Sources */,
 				F4451E370EDBAE9700ABBC35 /* Attachment.m in Sources */,
-				F4451EF20EDBC9DA00ABBC35 /* AsItem.m in Sources */,
 				F4921CFC0EDFA52E00E95E03 /* NSData-Base64Extensions.m in Sources */,
 				F48F5BCA12B9D2D1002B9E3F /* WhoWhat.m in Sources */,
 				F4844D3E1319E7DB00E1F303 /* zkBaseClient.m in Sources */,

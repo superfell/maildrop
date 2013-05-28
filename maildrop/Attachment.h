@@ -1,4 +1,4 @@
-// Copyright (c) 2008,2010,2011 Simon Fell
+// Copyright (c) 2008,2010,2011,2103 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -20,12 +20,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "AsItem.h"
 
 @class ZKSObject;
 @protocol WhoWhat;
 
-@interface Attachment : AsItem {
+@interface Attachment : NSObject {
 	NSString	*name, *mimeType, *salesforceId, *parentId;
 	NSURL		*file;
 	BOOL		shouldUpload;

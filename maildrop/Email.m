@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2010 Simon Fell
+// Copyright (c) 2006-2013 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -282,12 +282,10 @@ typedef enum GrowlNotification {
 }
 
 - (void)insertInAttachments:(Attachment *)att {
-	[att setContainer:self propertyName:@"attachments"];
 	[attachments addObject:att];
 }
 
 - (void)insertObject:(Attachment *)att inAttachmentsAtIndex:(unsigned int)index {
-	[att setContainer:self propertyName:@"attachments"];
 	[attachments insertObject:att atIndex:index];
 }
  

@@ -1,4 +1,4 @@
-// Copyright (c) 2008,2010 Simon Fell
+// Copyright (c) 2008,2010,2013 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -29,15 +29,22 @@
 
 @synthesize name, mimeType, file, parentId, shouldUpload, salesforceId, parentWhoWhat;
 
++(NSString *)uniqueId {
+    CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
+  	NSString *uniqueId = (NSString *)CFUUIDCreateString(kCFAllocatorDefault, uuid);
+  	CFRelease(uuid);
+    return uniqueId;
+}
+
 -(id)init {
 	self = [super init];
-	file = [[[NSURL URLWithString:uniqueId relativeToURL:[NSURL fileURLWithPath:NSTemporaryDirectory()]] absoluteURL] retain];
+	file = [[[NSURL URLWithString:[Attachment uniqueId] relativeToURL:[NSURL fileURLWithPath:NSTemporaryDirectory()]] absoluteURL] retain];
 	shouldUpload = YES;
 	return self;
 }
 
 - (void)dealloc {
-    NSError *err;
+    NSError *err = nil;
 	[[NSFileManager defaultManager] removeItemAtURL:file error:&err];
 	[salesforceId release];
 	[parentId release];
@@ -63,10 +70,6 @@
 	return parentId != nil ? parentId : [parentWhoWhat salesforceId];
 }
 
--(NSString *)uniqueId {
-	return uniqueId;
-}
-
 -(NSString *)formattedSize {
     NSError *err;
 	NSDictionary *p = [[NSFileManager defaultManager] attributesOfItemAtPath:[[file absoluteURL] path] error:&err];
@@ -79,7 +82,7 @@
 }
 
 -(NSString *)description {
-	return [NSString stringWithFormat:@"%@ :type %@ url %@ id %@", name, mimeType, file, uniqueId];
+	return [NSString stringWithFormat:@"%@ :type %@ file %@ size %@", name, mimeType, file, [self formattedSize]];
 }
 
 @end
