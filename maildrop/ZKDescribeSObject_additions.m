@@ -102,4 +102,9 @@
     return [self describeGlobalFor:entity] != nil;
 }
 
+-(BOOL)canCreateEntity:(NSString *)entity {
+    ZKDescribeGlobalSObject *d = [self describeGlobalFor:entity];
+    return d != nil && [d createable];
+}
+
 @end

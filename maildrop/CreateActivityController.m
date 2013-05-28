@@ -22,8 +22,8 @@
 #import "CreateActivityController.h"
 #import "Email.h"
 #import "ZKSforce.h"
+#import "ZKDescribeSObject_additions.h"
 #import "zkDescribeGlobalSObject.h"
-#import "ZKDescribeSObject_Additions.h"
 #import "SObjectPermsWrapper.h"
 #import "Attachment.h"
 #import "Constants.h"
@@ -78,9 +78,8 @@
 @synthesize whoSearchController, searchResults;
 
 +(NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
-    if ([key isEqualToString:@"canSearch"])
-        return [NSSet setWithObject:@"sforce"];
-    if ([key isEqualToString:@"searchToolTip"])
+    NSSet *sforceKeys = [NSSet setWithObjects:@"canSearch", @"searchToolTop", @"createContactAllowed", @"createLeadAllowed", nil];
+    if ([sforceKeys containsObject:key])
         return [NSSet setWithObject:@"sforce"];
     return [super keyPathsForValuesAffectingValueForKey:key];
 }
@@ -147,6 +146,15 @@
     [whoSearchController setSelectionIndex:0];
 }
 
+-(BOOL)createContactAllowed {
+    return [sforce canCreateEntity:CONTACT];
+
+}
+
+-(BOOL)createLeadAllowed {
+    return [sforce canCreateEntity:LEAD];
+}
+
 @end
 
 @implementation WhatController
@@ -156,7 +164,6 @@
 @implementation CreateActivityController
 
 @synthesize activityBuilder;
-@synthesize createContactAllowed, createLeadAllowed;
 @synthesize email, closedTaskStatus;
 @synthesize sforce, storeTaskStatusDefault;
 
@@ -543,8 +550,6 @@
 	[self didChangeValueForKey:@"taskStatus"];
 	[self willChangeValueForKey:@"selectedWhoWhats"];
 	[self didChangeValueForKey:@"selectedWhoWhats"];
-	[self setCreateContactAllowed:[self isCreateableObjectType:CONTACT]];
-	[self setCreateLeadAllowed:[self isCreateableObjectType:LEAD]];	
 }
 
 - (NSString *)createActivity:(Email *)theEmail sforce:(ZKSforceClient *)sf {

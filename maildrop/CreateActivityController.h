@@ -46,6 +46,8 @@
     NSArray                     *searchResults;
 }
 
+@property (readonly) BOOL createContactAllowed;
+@property (readonly) BOOL createLeadAllowed;
 @property (readonly) BOOL canSearch;
 @property (readonly) NSString *searchToolTip;
 @property (readonly) NSArrayController *whoSearchController; // temp
@@ -89,8 +91,6 @@
 	Email					*email;
 	NSString				*taskId;
 	
-	BOOL					createContactAllowed;
-	BOOL					createLeadAllowed;
 	BOOL					storeTaskStatusDefault;
 }
 
@@ -106,9 +106,6 @@
 
 - (NSArray *)whatObjectTypeDescribes;
 - (NSArray *)selectedWhoWhats;
-
-@property (assign) BOOL createContactAllowed;
-@property (assign) BOOL createLeadAllowed;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)create:(id)sender;

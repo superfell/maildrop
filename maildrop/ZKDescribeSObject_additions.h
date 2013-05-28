@@ -50,4 +50,5 @@
 // looks in the global describe results for the specified entities metadata.
 -(ZKDescribeGlobalSObject *)describeGlobalFor:(NSString *)entity;
 -(BOOL)hasEntity:(NSString *)entity;
+-(BOOL)canCreateEntity:(NSString *)entity;
 @end
