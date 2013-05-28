@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2011 Simon Fell
+// Copyright (c) 2006-2013 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -39,21 +39,9 @@
 	IBOutlet LionInfoWindowController	*lionInfoWindowController;
 	IBOutlet NSWindow                   *preferencesWindow;
     
-	NSMutableArray		*emails;
-	NSMutableArray		*attachments;
 	ZKSforceClient		*sforce;
     
 }
-
-- (NSArray *)emails;
-- (void)insertInEmails:(Email *)e;
-- (void)insertObject:(Email *)e inEmailsAtIndex:(unsigned int)index;
-- (void)removeObjectFromEmailsAtIndex:(unsigned int)index;
-
-- (NSArray *)attachments;
-- (void)insertInAttachments:(Attachment *)att;
-- (void)insertObject:(Attachment *)att inAttachmentsAtIndex:(unsigned int)index;
-- (void)removeObjectFromAttachmentsAtIndex:(unsigned int)index;
 
 - (ZKSforceClient *)sforce;
 - (ButtonBarController *)buttonBarController;

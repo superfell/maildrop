@@ -25,10 +25,6 @@
 extern NSString *ADD_EMAIL_SCRIPT_NAME;
 extern NSString *ADD_CASE_SCRIPT_NAME;
 
-extern NSString *MAIL_SCRIPTS_FOLDER;
-extern NSString *ENTOURAGE_SCRIPTS_FOLDER;
-extern NSString *OUTLOOK_SCRIPTS_FOLDER;
-
 extern NSString *ADD_EMAIL_TO_DESC_PREF;
 extern NSString *SHOW_NEW_CASE_PREF;
 extern NSString *SHOW_NEW_EMAIL_PREF;

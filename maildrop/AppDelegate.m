@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2011 Simon Fell
+// Copyright (c) 2006-2013 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -57,15 +57,11 @@
 
 - (id)init {
 	self = [super init];
-	emails = [[NSMutableArray alloc] init];
-	attachments = [[NSMutableArray alloc] init];
     preferencesWindow = nil;
 	return self;
 }
 
 - (void)dealloc {
-	[emails release];
-	[attachments release];
 	[sforce release];
     [preferencesWindow release];
 	[super dealloc];
@@ -81,48 +77,6 @@
     [preferencesWindow makeKeyAndOrderFront:sender];
 }
 
-- (NSArray *)emails {
-	return emails;
-}
-
-- (void)insertInEmails:(Email *)e {
-	[e setContainer:NSApp propertyName:@"emails"];
-	[emails addObject:e];
-}
-
-- (void)insertObject:(Email *)e inEmailsAtIndex:(unsigned int)index {
-	[e setContainer:NSApp propertyName:@"emails"];
-	[emails insertObject:e atIndex:index];
-}
-
-- (void)removeObjectFromEmailsAtIndex:(unsigned int)index {
-	// there's a retain count because any attachments in the email retained their container
-	// which is the email, so this doesn't actually free the email.
-	// To Work around it, we explicity release the attachments of the email here to break
-	// the cycle.
-	Email *e = [emails objectAtIndex:index];
-	[emails removeObjectAtIndex:index];
-	[e setAttachments:nil];
-}
-
-- (NSArray *)attachments {
-	return attachments;
-}
-
-- (void)insertInAttachments:(Attachment *)att {
-	[att setContainer:NSApp propertyName:@"attachments"];
-	[attachments addObject:att];
-}
-
-- (void)insertObject:(Attachment *)att inAttachmentsAtIndex:(unsigned int)index {
-	[att setContainer:NSApp propertyName:@"attachments"];
-	[attachments insertObject:att atIndex:index];
-}
-
-- (void)removeObjectFromAttachmentsAtIndex:(unsigned int)index {
-	[attachments removeObjectAtIndex:index];
-}
-
 -(NSNumber *)useAttachmentsOnActivities {
 	return [[NSUserDefaults standardUserDefaults] objectForKey:ATTACHMENTS_ON_EMAIL_PREF];
 }
@@ -132,8 +86,6 @@
 }
 
 - (BOOL)application:(NSApplication *)sender delegateHandlesKey:(NSString *)key { 
-    if ([key isEqualToString:@"emails"]) return YES;
-	if ([key isEqualToString:@"attachments"]) return YES; 
 	if ([key isEqualToString:@"useAttachmentsOnActivities"]) return YES;
 	if ([key isEqualToString:@"useAttachmentsOnCases"]) return YES;
     return NO; 
@@ -223,5 +175,6 @@
 -(IBAction)showTaskRelatedListHelp:(id)sender {
 	[self showHelpPage:@"pages/attachments.html"];
 }
+
 
 @end

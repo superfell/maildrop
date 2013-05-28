@@ -47,12 +47,6 @@
 	<suite name="Maildrop Suite" code="mDRP" description="Classes and commands for creating salesforce items from emails">
 		<class name="application" code="capp" description="An application&apos;s top level scripting object.">
 			<cocoa class="NSApplication"/>
-			<element description="The Emails" type="email">
-				<cocoa key="emails"/>
-			</element>
-			<element description="The Attachments" type="attachment">
-				<cocoa key="attachments"/>
-			</element>
 			<property name="name" code="pnam" description="The name of the application." type="text" access="r"/>
 			<property name="frontmost" code="pisf" description="Is this the frontmost (active) application?" type="boolean" access="r">
 				<cocoa key="isActive"/>
@@ -64,73 +58,17 @@
 			<property name="useAttachmentsOnCase" code="UACS" description="returns true if the user has attachments enabled fro cases in the preferences" type="boolean" access="r">
 				<cocoa key="useAttachmentsOnCases"/>
 			</property>
-		</class>
-		<class name="email" code="maIL" plural="emails">
-			<cocoa class="Email"/>
-			<element description="attachments for an email" type="attachment">
-				<cocoa key="attachments"/>
-			</element>
-			<property name="from address" code="frAD" description="The address the email was from" type="text">
-				<cocoa key="fromAddr"/>
-			</property>
-			<property name="to address" code="toAD" description="the address the email was sent to" type="text">
-				<cocoa key="toAddr"/>
-			</property>
-			<property name="plain body" code="pBDY" description="The plain text email body" type="text">
-				<cocoa key="body"/>
-			</property>
-			<property name="ID" code="ID  " description="unique ID" type="text" access="r">
-				<cocoa key="uniqueId"/>
-			</property>
-			<property name="from name" code="frNM" description="the name of the person the email was from" type="text">
-				<cocoa key="fromName"/>
-			</property>
-			<property name="subject" code="suBJ" description="The subject line of the email" type="text">
-				<cocoa key="subject"/>
-			</property>
-			<property name="salesforce id" code="sfID" description="The Id of the object in salesforce that was created from this email" type="text" access="r">
-				<cocoa key="salesforceId"/>
-			</property>
-			<property name="date received" code="DATE" description="Date/time that the email was recieved" type="date">
-				<cocoa key="date"/>
-			</property>
-			<property name="to name" code="toNM" description="The name of the person the email was to" type="text">
-				<cocoa key="toName"/>
-			</property>
-			<property name="outgoing" code="seNT" description="Is this email in the sent messages folder" type="boolean">
-				<cocoa key="isASentEmail"/>
-			</property>
-			<responds-to name="create activity">
-				<cocoa method="createActivity:"/>
+            <responds-to name="create activity">
+				<cocoa method="createASActivity:"/>
 			</responds-to>
 			<responds-to name="create case">
-				<cocoa method="createCase:"/>
+				<cocoa method="createASCase:"/>
 			</responds-to>
 		</class>
-		<class name="attachment" code="atTT" plural="attachments">
-			<cocoa class="Attachment"/>
-			<property name="ID" code="ID  " description="unique ID" type="text" access="r">
-				<cocoa key="uniqueId"/>
-			</property>
-			<property name="name" code="pnam" description="attachment name" type="text">
-				<cocoa key="name"/>
-			</property>
-			<property name="mimeType" code="miME" description="mime type" type="text">
-				<cocoa key="mimeType"/>
-			</property>
-			<property name="salesforce id" code="sfID" description="Salesforce Id" type="text" access="r">
-				<cocoa key="salesforceId"/>
-			</property>
-			<property name="file" code="atFL" description="The file that contains the actual attachment data." type="file">
-				<cocoa key="file"/>
-			</property>
-		</class>
-		<command name="create activity" code="creaACTV" description="adds the email to Salesforce.com">
-			<direct-parameter description="The email to create the activity from" type="email"/>
+		<command name="create activity" code="creaACTV" description="adds the currently selected email to Salesforce.com">
 			<result description="The salesforce.com Id of the newly created item" type="text"/>
 		</command>
-		<command name="create case" code="creaCASE" description="Create&apos;s a new Case from the email">
-			<direct-parameter description="The email to create the case from" type="email"/>
+		<command name="create case" code="creaCASE" description="Create&apos;s a new Case from the current selected email">
 			<result description="The Id of the case created in salesforce" type="text"/>
 		</command>
 	</suite>

@@ -23,8 +23,16 @@
 
 @interface WelcomeController : NSObject {
     IBOutlet NSWindow 	*window;
+	NSString 			*text;
+	int					progress;
+	BOOL				done;
 }
 
+@property (assign) int installProgress;
+@property (assign) BOOL installDone;
+@property (retain) NSString *installText;
+
+- (void)installScripts:(id)sender;
 -(IBAction)showHelp:(id)sender;
 
 @end

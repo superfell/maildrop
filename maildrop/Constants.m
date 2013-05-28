@@ -25,10 +25,6 @@
 NSString *ADD_EMAIL_SCRIPT_NAME			= @"Add Email to Salesforce.com";
 NSString *ADD_CASE_SCRIPT_NAME			= @"Create Case In Salesforce.com";
 
-NSString *MAIL_SCRIPTS_FOLDER			= @"mail scripts";
-NSString *ENTOURAGE_SCRIPTS_FOLDER		= @"entourage scripts";
-NSString *OUTLOOK_SCRIPTS_FOLDER		= @"outlook scripts";
-
 NSString *ADD_EMAIL_TO_DESC_PREF		= @"addEmailToTaskDescription";
 NSString *SHOW_NEW_CASE_PREF			= @"showNewCase";
 NSString *SHOW_NEW_EMAIL_PREF			= @"showNewEmail";

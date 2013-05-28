@@ -87,6 +87,9 @@
 		F4921CFC0EDFA52E00E95E03 /* NSData-Base64Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F4921CFB0EDFA52E00E95E03 /* NSData-Base64Extensions.m */; };
 		F4A0E541127C9AF60038B1CE /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A0E540127C9AF60038B1CE /* libxml2.2.dylib */; };
 		F4A8F012173763930009B26D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4A8F010173763930009B26D /* MainMenu.xib */; };
+		F4BEF56117543CE7004207D3 /* NSApplication_scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BEF56017543CE7004207D3 /* NSApplication_scripting.m */; };
+		F4BEF56A1754530D004207D3 /* Add Email to Salesforce.com.scpt in Resources */ = {isa = PBXBuildFile; fileRef = F4BEF5681754530C004207D3 /* Add Email to Salesforce.com.scpt */; };
+		F4BEF56B1754530D004207D3 /* Create Case In Salesforce.com.scpt in Resources */ = {isa = PBXBuildFile; fileRef = F4BEF5691754530D004207D3 /* Create Case In Salesforce.com.scpt */; };
 		F4DBCAF70B3DC0C700D94639 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DBCAF50B3DC0C700D94639 /* LoginController.m */; };
 		F4DBCB0D0B3DC4F000D94639 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DBCB0C0B3DC4F000D94639 /* Security.framework */; };
 		F4DBCB390B3E259400D94639 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = F4DBCB380B3E259400D94639 /* Credits.html */; };
@@ -256,6 +259,10 @@
 		F4921CFB0EDFA52E00E95E03 /* NSData-Base64Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData-Base64Extensions.m"; sourceTree = "<group>"; };
 		F4A0E540127C9AF60038B1CE /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		F4A8F011173763930009B26D /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		F4BEF55F17543CE7004207D3 /* NSApplication_scripting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSApplication_scripting.h; sourceTree = "<group>"; };
+		F4BEF56017543CE7004207D3 /* NSApplication_scripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSApplication_scripting.m; sourceTree = "<group>"; };
+		F4BEF5681754530C004207D3 /* Add Email to Salesforce.com.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Add Email to Salesforce.com.scpt"; sourceTree = "<group>"; };
+		F4BEF5691754530D004207D3 /* Create Case In Salesforce.com.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Create Case In Salesforce.com.scpt"; sourceTree = "<group>"; };
 		F4DBCAF50B3DC0C700D94639 /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
 		F4DBCAF60B3DC0C700D94639 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
 		F4DBCB0C0B3DC4F000D94639 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
@@ -370,6 +377,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F4BEF5681754530C004207D3 /* Add Email to Salesforce.com.scpt */,
+				F4BEF5691754530D004207D3 /* Create Case In Salesforce.com.scpt */,
 				F41F5B6C174300B2001297D9 /* Preferences.xib */,
 				F41F5B691742FAF2001297D9 /* Welcome.xib */,
 				F41F5B661742F911001297D9 /* LionInfo.xib */,
@@ -509,6 +518,8 @@
 				F4921CFB0EDFA52E00E95E03 /* NSData-Base64Extensions.m */,
 				F49210740B44D0D500C5C9AB /* ZKDescribeSObject_additions.h */,
 				F49210750B44D0D500C5C9AB /* ZKDescribeSObject_additions.m */,
+				F4BEF55F17543CE7004207D3 /* NSApplication_scripting.h */,
+				F4BEF56017543CE7004207D3 /* NSApplication_scripting.m */,
 			);
 			name = extensions;
 			sourceTree = "<group>";
@@ -636,6 +647,8 @@
 				F41F5B681742F911001297D9 /* LionInfo.xib in Resources */,
 				F41F5B6B1742FAF2001297D9 /* Welcome.xib in Resources */,
 				F41F5B6E174300B2001297D9 /* Preferences.xib in Resources */,
+				F4BEF56A1754530D004207D3 /* Add Email to Salesforce.com.scpt in Resources */,
+				F4BEF56B1754530D004207D3 /* Create Case In Salesforce.com.scpt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -708,6 +721,7 @@
 				F4E99FFE17419BDF0082F200 /* ActivityBuilder.m in Sources */,
 				F41F5B5A1742B2A1001297D9 /* CreateContactController.m in Sources */,
 				F41F5B651742E138001297D9 /* CreateLeadController.m in Sources */,
+				F4BEF56117543CE7004207D3 /* NSApplication_scripting.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
