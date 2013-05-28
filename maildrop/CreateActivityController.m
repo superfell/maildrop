@@ -53,9 +53,28 @@
 
 @end
 
+@implementation FkSearchController
+
+@synthesize searchText;
+
+-(void)dealloc {
+    [searchText release];
+    [super dealloc];
+}
+
+@end
+
+@implementation WhoController
+
+@end
+
+@implementation WhatController
+
+@end
+
 @implementation CreateActivityController
 
-@synthesize whoSearchText, whatSearchText, activityBuilder;
+@synthesize activityBuilder;
 @synthesize createContactAllowed, createLeadAllowed;
 @synthesize email, closedTaskStatus;
 @synthesize sforce, storeTaskStatusDefault;
@@ -80,8 +99,6 @@
 - (void)dealloc {
 	[sforce release];
 	[whatObjectTypes release];
-	[whoSearchText release];
-	[whatSearchText release];
 	[whoSearchResults release];
 	[whatResultsTableSource release];
 	[selectedWho release];
@@ -273,7 +290,7 @@
 - (IBAction)searchWho:(id)sender {
 	BOOL hasContacts = [sforce hasEntity:CONTACT];
 	BOOL hasLeads =    [sforce hasEntity:LEAD];
-	NSMutableString *sosl = [NSMutableString stringWithFormat:@"FIND {%@} IN ALL FIELDS RETURNING ", [self escapeSosl:[self whoSearchText]]];
+	NSMutableString *sosl = [NSMutableString stringWithFormat:@"FIND {%@} IN ALL FIELDS RETURNING ", [self escapeSosl:[whoController searchText]]];
 	if (hasLeads)
 		[sosl appendFormat:@"Lead(%@)", [self whoFieldsForType:LEAD]];
 	if (hasContacts)
@@ -291,7 +308,7 @@
 }
 
 - (NSString *)buildWhatSosl {
-	NSMutableString *sosl = [NSMutableString stringWithFormat:@"FIND {%@*} IN ALL FIELDS RETURNING", [self escapeSosl:[self whatSearchText]]];
+	NSMutableString *sosl = [NSMutableString stringWithFormat:@"FIND {%@*} IN ALL FIELDS RETURNING", [self escapeSosl:[whatController searchText]]];
 	BOOL first = YES;
     for (NSMutableDictionary *sobject in [self whatObjectTypes]) {
 		if (![[sobject objectForKey:@"checked"] boolValue]) continue;
@@ -352,8 +369,8 @@
 - (void)resetState {
 	[self setWhoSearchResults:nil];
 	[self setWhatSearchResultsData:nil];
-	[self setWhatSearchText:@""];
-	[self setWhoSearchText:@""];
+    [whoController setSearchText:@""];
+    [whatController setSearchText:@""];
 	[pendingTaskWhoWhat autorelease];
 	pendingTaskWhoWhat = [[PendingTaskWhoWhat alloc] init];
 }
@@ -467,7 +484,7 @@
 		[self willChangeValueForKey:@"whatObjectTypeDescribes"];
 		[self didChangeValueForKey:@"whatObjectTypeDescribes"];
 	}
-	self.whatSearchText = email.subject;
+	whatController.searchText = email.subject;
 	if (email.subject.length > 0) 
 		[self searchWhat:sender];
 }
@@ -522,7 +539,7 @@
 	[self resetState];
 	[self setSforce:sf];
 	[self setEmail:theEmail];
-	[self setWhoSearchText:[email addrOfInterest]];
+	[whoController setSearchText:[email addrOfInterest]];
 	[self setClosedTaskStatus:[self defaultTaskStatus]];
 	self.storeTaskStatusDefault = NO;
 	[NSApp activateIgnoringOtherApps:YES];

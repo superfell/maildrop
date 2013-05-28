@@ -29,7 +29,25 @@
 @class SObjectWhoWhat;
 @class PendingTaskWhoWhat;
 
+@interface FkSearchController : NSObject {
+    NSString *searchText;
+}
+
+@property (retain) NSString *searchText;
+@end
+
+@interface WhoController : FkSearchController {
+}
+@end
+
+@interface WhatController : FkSearchController {
+}
+@end
+
 @interface CreateActivityController : NSObject<ActivityBuilderDelegate> {
+    IBOutlet WhoController      *whoController;
+    IBOutlet WhatController     *whatController;
+    
 	IBOutlet NSArrayController	*whoSearchController;
 	IBOutlet NSTableView		*whatSearchResults;
 	IBOutlet NSWindow			*window;
@@ -57,8 +75,6 @@
 	PendingTaskWhoWhat		*pendingTaskWhoWhat;
     ActivityBuilder         *activityBuilder;
 	
-	NSString 				*whoSearchText;
-	NSString				*whatSearchText;
 	Email					*email;
 	NSString				*taskId;
 	
@@ -73,8 +89,6 @@
 - (NSArray *)taskStatus;
 
 @property (readonly) BOOL hasStatusField;
-@property (retain) NSString *whatSearchText;
-@property (retain) NSString *whoSearchText;
 @property (retain) NSString *emailSubject;
 @property (retain) NSString *closedTaskStatus;
 @property (assign) BOOL storeTaskStatusDefault;
