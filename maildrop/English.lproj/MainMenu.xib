@@ -2040,10 +2040,10 @@
 			<object class="NSCustomObject" id="216633087">
 				<string key="NSClassName">CreateActivityController</string>
 			</object>
-			<object class="NSCustomObject" id="406680210">
+			<object class="NSCustomObject" id="442489319">
 				<string key="NSClassName">WhoController</string>
 			</object>
-			<object class="NSCustomObject" id="190204577">
+			<object class="NSCustomObject" id="721121245">
 				<string key="NSClassName">WhatController</string>
 			</object>
 			<object class="NSArrayController" id="970735620">
@@ -3323,7 +3323,7 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">whoController</string>
 						<reference key="source" ref="216633087"/>
-						<reference key="destination" ref="406680210"/>
+						<reference key="destination" ref="442489319"/>
 					</object>
 					<int key="connectionID">2432</int>
 				</object>
@@ -3331,7 +3331,7 @@
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">whatController</string>
 						<reference key="source" ref="216633087"/>
-						<reference key="destination" ref="190204577"/>
+						<reference key="destination" ref="721121245"/>
 					</object>
 					<int key="connectionID">2433</int>
 				</object>
@@ -3403,10 +3403,10 @@
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: searchText</string>
 						<reference key="source" ref="761537901"/>
-						<reference key="destination" ref="406680210"/>
+						<reference key="destination" ref="442489319"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="761537901"/>
-							<reference key="NSDestination" ref="406680210"/>
+							<reference key="NSDestination" ref="442489319"/>
 							<string key="NSLabel">value: searchText</string>
 							<string key="NSBinding">value</string>
 							<string key="NSKeyPath">searchText</string>
@@ -3517,28 +3517,12 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">toolTip: whoSearchToolTip</string>
-						<reference key="source" ref="676335483"/>
-						<reference key="destination" ref="216633087"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="676335483"/>
-							<reference key="NSDestination" ref="216633087"/>
-							<string key="NSLabel">toolTip: whoSearchToolTip</string>
-							<string key="NSBinding">toolTip</string>
-							<string key="NSKeyPath">whoSearchToolTip</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">2286</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">enabled: searchText</string>
 						<reference key="source" ref="676335483"/>
-						<reference key="destination" ref="406680210"/>
-						<object class="NSNibBindingConnector" key="connector" id="901833598">
+						<reference key="destination" ref="442489319"/>
+						<object class="NSNibBindingConnector" key="connector" id="445847354">
 							<reference key="NSSource" ref="676335483"/>
-							<reference key="NSDestination" ref="406680210"/>
+							<reference key="NSDestination" ref="442489319"/>
 							<string key="NSLabel">enabled: searchText</string>
 							<string key="NSBinding">enabled</string>
 							<string key="NSKeyPath">searchText</string>
@@ -3553,26 +3537,42 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">enabled2: canSearchWho</string>
+						<string key="label">enabled2: canSearch</string>
 						<reference key="source" ref="676335483"/>
-						<reference key="destination" ref="216633087"/>
+						<reference key="destination" ref="442489319"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="676335483"/>
-							<reference key="NSDestination" ref="216633087"/>
-							<string key="NSLabel">enabled2: canSearchWho</string>
+							<reference key="NSDestination" ref="442489319"/>
+							<string key="NSLabel">enabled2: canSearch</string>
 							<string key="NSBinding">enabled2</string>
-							<string key="NSKeyPath">canSearchWho</string>
+							<string key="NSKeyPath">canSearch</string>
 							<dictionary key="NSOptions">
 								<integer value="-1" key="NSMultipleValuesPlaceholder"/>
 								<integer value="-1" key="NSNoSelectionPlaceholder"/>
 								<integer value="-1" key="NSNotApplicablePlaceholder"/>
 								<integer value="-1" key="NSNullPlaceholder"/>
 							</dictionary>
-							<reference key="NSPreviousConnector" ref="901833598"/>
+							<reference key="NSPreviousConnector" ref="445847354"/>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">2444</int>
+					<int key="connectionID">2446</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">toolTip: searchToolTip</string>
+						<reference key="source" ref="676335483"/>
+						<reference key="destination" ref="442489319"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="676335483"/>
+							<reference key="NSDestination" ref="442489319"/>
+							<string key="NSLabel">toolTip: searchToolTip</string>
+							<string key="NSBinding">toolTip</string>
+							<string key="NSKeyPath">searchToolTip</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">2448</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -3634,10 +3634,10 @@
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">enabled: searchText</string>
 						<reference key="source" ref="877952171"/>
-						<reference key="destination" ref="190204577"/>
+						<reference key="destination" ref="721121245"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="877952171"/>
-							<reference key="NSDestination" ref="190204577"/>
+							<reference key="NSDestination" ref="721121245"/>
 							<string key="NSLabel">enabled: searchText</string>
 							<string key="NSBinding">enabled</string>
 							<string key="NSKeyPath">searchText</string>
@@ -3662,10 +3662,10 @@
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: searchText</string>
 						<reference key="source" ref="571801338"/>
-						<reference key="destination" ref="190204577"/>
+						<reference key="destination" ref="721121245"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="571801338"/>
-							<reference key="NSDestination" ref="190204577"/>
+							<reference key="NSDestination" ref="721121245"/>
 							<string key="NSLabel">value: searchText</string>
 							<string key="NSBinding">value</string>
 							<string key="NSKeyPath">searchText</string>
@@ -5623,12 +5623,12 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">2430</int>
-						<reference key="object" ref="406680210"/>
+						<reference key="object" ref="442489319"/>
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">2431</int>
-						<reference key="object" ref="190204577"/>
+						<reference key="object" ref="721121245"/>
 						<reference key="parent" ref="0"/>
 					</object>
 				</array>
@@ -5891,7 +5891,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">2444</int>
+			<int key="maxID">2448</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

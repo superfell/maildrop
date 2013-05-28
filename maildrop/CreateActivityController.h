@@ -30,14 +30,20 @@
 @class PendingTaskWhoWhat;
 
 @interface FkSearchController : NSObject {
-    NSString *searchText;
+    NSString        *searchText;
+    ZKSforceClient  *sforce;
 }
 
 @property (retain) NSString *searchText;
+@property (retain) ZKSforceClient *sforce;
 @end
 
 @interface WhoController : FkSearchController {
 }
+
+@property (readonly) BOOL canSearch;
+@property (readonly) NSString *searchToolTip;
+
 @end
 
 @interface WhatController : FkSearchController {
@@ -99,9 +105,6 @@
 
 @property (assign) BOOL createContactAllowed;
 @property (assign) BOOL createLeadAllowed;
-
-- (BOOL)canSearchWho;
-- (NSString *)whoSearchToolTip;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)create:(id)sender;

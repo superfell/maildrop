@@ -55,9 +55,10 @@
 
 @implementation FkSearchController
 
-@synthesize searchText;
+@synthesize searchText, sforce;
 
 -(void)dealloc {
+    [sforce release];
     [searchText release];
     [super dealloc];
 }
@@ -65,6 +66,22 @@
 @end
 
 @implementation WhoController
+
++ (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    if ([key isEqualToString:@"canSearch"])
+        return [NSSet setWithObject:@"sforce"];
+    if ([key isEqualToString:@"searchToolTip"])
+        return [NSSet setWithObject:@"sforce"];
+    return [super keyPathsForValuesAffectingValueForKey:key];
+}
+
+-(BOOL)canSearch {
+    return [sforce hasEntity:CONTACT] || [sforce hasEntity:LEAD];
+}
+
+- (NSString *)searchToolTip {
+	return [self canSearch] ? @"" : @"No access to Leads or Contacts, cannot search/set related to Who field";
+}
 
 @end
 
@@ -265,14 +282,6 @@
 	if (res == whoSearchResults) return;
 	[whoSearchResults release];
 	whoSearchResults = [res retain];
-}
-
-- (BOOL)canSearchWho {
-	return [sforce hasEntity:CONTACT] || [sforce hasEntity:LEAD];
-}
-
-- (NSString *)whoSearchToolTip {
-	return [self canSearchWho] ? @"" : @"No access to Leads or Contacts, cannot search/set related to Who field";
 }
 
 -(NSString *)whoFieldsForType:(NSString *)type {
@@ -519,6 +528,10 @@
 	if (sf == sforce) return;
 	[sforce autorelease];
 	sforce = [sf retain];
+    [whoController setSforce:sforce];
+    [whatController setSforce:sforce];
+    
+    
 	[whatObjectTypes release];
 	whatObjectTypes = nil;
 	[taskStatus release];
@@ -543,7 +556,7 @@
 	[self setClosedTaskStatus:[self defaultTaskStatus]];
 	self.storeTaskStatusDefault = NO;
 	[NSApp activateIgnoringOtherApps:YES];
-	if ([self canSearchWho]) {
+	if ([whoController canSearch]) {
 		NSTimer *t = [NSTimer timerWithTimeInterval:0.01 target:self selector:@selector(searchWho:) userInfo:nil repeats:NO];
 		[[NSRunLoop currentRunLoop] addTimer:t forMode:NSModalPanelRunLoopMode];
 	}
