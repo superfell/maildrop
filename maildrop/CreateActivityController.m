@@ -39,7 +39,6 @@
 @end
 
 @interface CreateActivityController ()
-- (void)saveCheckedWhats;
 @property (retain, nonatomic) ZKSforceClient *sforce;
 @property (retain, nonatomic) ActivityBuilder *activityBuilder;
 @end
@@ -69,6 +68,11 @@
 }
 
 -(IBAction)search:(id)sender {
+}
+
+-(void)setSforce:(ZKSforceClient *)c {
+    [sforce autorelease];
+    sforce = [c retain];
 }
 
 @end
@@ -159,6 +163,131 @@
 
 @implementation WhatController
 
++(NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    NSSet *sforceKeys = [NSSet setWithObjects:@"whatObjectTypes", @"whatObjectTypeDescribes", nil];
+    if ([sforceKeys containsObject:key])
+        return [NSSet setWithObject:@"sforce"];
+    return [super keyPathsForValuesAffectingValueForKey:key];
+}
+
+-(void)dealloc {
+    [whatObjectTypes release];
+    [whatResultsTableSource release];
+    [super dealloc];
+}
+
+-(ZKSObject *)selected {
+    int sel = [whatSearchResults selectedRow];
+    if (sel < 0) return nil;
+    return [[whatResultsTableSource results] objectAtIndex:sel];
+}
+
+- (NSString *)buildWhatSosl {
+	NSMutableString *sosl = [NSMutableString stringWithFormat:@"FIND {%@*} IN ALL FIELDS RETURNING", [searchText escapedForSosl]];
+	BOOL first = YES;
+    for (NSDictionary *sobject in [self whatObjectTypes]) {
+		if (![[sobject objectForKey:@"checked"] boolValue]) continue;
+		ZKDescribeSObject *desc = [sforce describeSObject:[sobject objectForKey:@"type"]];
+		[sosl appendFormat:@"%@ %@(Id", first ? @"" : @",", [desc name]];
+		ZKDescribeField *f;
+		NSEnumerator *fe = [[desc nameFields] objectEnumerator];
+		while (f = [fe nextObject])
+			[sosl appendFormat:@", %@", [f name]];
+		f = [desc additionalDisplayField];
+		if (f != nil)
+			[sosl appendFormat:@", %@", [f name]];
+		[sosl appendFormat:@")"];
+		first = NO;
+	}
+    // If we didn't find any checked types, first will still be true, and we should return nil to skip the search
+	return first ? nil : sosl;
+}
+
+- (NSNumber *)shouldWhatObjectBeChecked:(ZKDescribeSObject *)sobject {
+	NSArray * defaultWhats = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedWhats"];
+	bool checked = NO;
+	if (defaultWhats == nil)
+		checked = ![sobject custom];
+	else
+		checked = [defaultWhats containsObject:[sobject name]];
+	return [NSNumber numberWithBool:checked];
+}
+
+-(void)setSforce:(ZKSforceClient *)c {
+    [super setSforce:c];
+    [whatObjectTypes autorelease];
+    whatObjectTypes = nil;
+}
+
+- (NSArray *)whatObjectTypeDescribes {
+	ZKDescribeSObject *desc = [sforce describeSObject:@"Task"];
+	NSMutableArray *types = [NSMutableArray array];
+	NSEnumerator *e = [[[desc fieldWithName:@"WhatId"] referenceTo] objectEnumerator];
+	NSString *type;
+	while (type = [e nextObject]) {
+		// for sosl, you can't search products or solutions with everything else
+		// they have to be done on there own, so for now, we'll just exclude them
+		// from the list all together.
+		if ([type isEqualToString:@"Product2"] || [type isEqualToString:@"Solution"]) continue;
+		ZKDescribeSObject * rd = [sforce describeSObject:type];
+		[types addObject:rd];
+	}
+	return types;
+}
+
+- (NSArray *)whatObjectTypes {
+	if (whatObjectTypes != nil) return whatObjectTypes;
+	NSMutableArray * types = [NSMutableArray array];
+    for (ZKDescribeSObject *type in [self whatObjectTypeDescribes]) {
+		NSMutableDictionary *t = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  [self shouldWhatObjectBeChecked:type], @"checked",
+                                  [type labelPlural],                    @"sobjectLabel",
+                                  [type name],                           @"type",
+                                  nil];
+		[types addObject:t];
+	}
+	whatObjectTypes = [types retain];
+	return whatObjectTypes;
+    return types;
+}
+
+- (void)setWhatSearchResultsData:(NSArray *)res {
+	if (whatResultsTableSource == nil) {
+		whatResultsTableSource = [[WhatSearchDataSource alloc] init];
+		[whatSearchResults setDataSource:whatResultsTableSource];
+	}
+	[whatResultsTableSource setSforce:sforce];
+	[whatResultsTableSource setResults:res];
+	[whatSearchResults reloadData];
+}
+
+- (void)saveCheckedWhats {
+	NSMutableArray *whats = [NSMutableArray array];
+	NSDictionary *r;
+	NSEnumerator *e = [[self whatObjectTypes] objectEnumerator];
+	while (r = [e nextObject]) {
+		if ([[r objectForKey:@"checked"] boolValue])
+			[whats addObject:[r objectForKey:@"type"]];
+	}
+	[[NSUserDefaults standardUserDefaults] setObject:whats forKey:@"selectedWhats"];
+}
+
+-(IBAction)search:(id)sender {
+    [self saveCheckedWhats];
+    NSString *sosl = [self buildWhatSosl];
+    if (sosl == nil) return;
+    @try {
+        NSArray *res = [sforce search:sosl];
+        [self setWhatSearchResultsData:res];
+        if ([res count] == 1)
+            [whatSearchResults selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+    }
+    @catch (ZKSoapException *ex) {
+        NSAlert * a = [NSAlert alertWithMessageText:@"Search Failed" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[ex reason]];
+        [a runModal];
+    }
+}
+
 @end
 
 @implementation CreateActivityController
@@ -170,23 +299,13 @@
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
     if ([key isEqualToString:@"emailSubject"])
         return [NSSet setWithObject:@"email"];
-    if ([key isEqualToString:@"whoSearchToolTip"])
-        return [NSSet setWithObject:@"sforce"];
     if ([key isEqualToString:@"hasStatusField"])
         return [NSSet setWithObject:@"email"];
     return [super keyPathsForValuesAffectingValueForKey:key];
 }
 
-- (id)init {
-	self = [super init];
-	whatObjectTypes = nil;
-	return self;
-}
-
 - (void)dealloc {
 	[sforce release];
-	[whatObjectTypes release];
-	[whatResultsTableSource release];
 	[selectedWho release];
 	[selectedWhat release];
 	[pendingTaskWhoWhat release];
@@ -252,9 +371,7 @@
 }
 
 - (ZKSObject *)selectedWhat {
-	int sel = [whatSearchResults selectedRow];
-	if (sel < 0) return nil;
-	return [[whatResultsTableSource results] objectAtIndex:sel];
+    return [whatController selected];
 }
 
 -(void)updateWhoWhat:(SObjectWhoWhat **)whoWhat from:(ZKSObject *)o {
@@ -333,54 +450,6 @@
     [builder build:self];
 }
 
-- (NSString *)buildWhatSosl {
-	NSMutableString *sosl = [NSMutableString stringWithFormat:@"FIND {%@*} IN ALL FIELDS RETURNING", [[whatController searchText] escapedForSosl]];
-	BOOL first = YES;
-    for (NSMutableDictionary *sobject in [self whatObjectTypes]) {
-		if (![[sobject objectForKey:@"checked"] boolValue]) continue;
-		ZKDescribeSObject *desc = [sforce describeSObject:[sobject objectForKey:@"type"]];
-		[sosl appendFormat:@"%@ %@(Id", first ? @"" : @",", [desc name]];
-		ZKDescribeField *f;
-		NSEnumerator *fe = [[desc nameFields] objectEnumerator];
-		while (f = [fe nextObject]) 
-			[sosl appendFormat:@", %@", [f name]];
-		f = [desc additionalDisplayField];
-		if (f != nil) 
-			[sosl appendFormat:@", %@", [f name]];
-		[sosl appendFormat:@")"];
-		first = NO;
-	}
-    // If we didn't find any checked types, first will still be true, and we should return nil to skip the search
-	return first ? nil : sosl;
-}
-
-- (void)setWhatSearchResultsData:(NSArray *)res {
-	if (whatResultsTableSource == nil) {
-		whatResultsTableSource = [[WhatSearchDataSource alloc] init];
-		[whatSearchResults setDataSource:whatResultsTableSource];
-	}
-	[whatResultsTableSource setSforce:sforce];
-	[whatResultsTableSource setResults:res];
-	[whatSearchResults reloadData];
-}
-
-- (IBAction)searchWhat:(id)sender {
-	[self saveCheckedWhats];
-	NSString *sosl = [self buildWhatSosl];
-    if (sosl == nil) return;
-	@try {
-		NSArray *res = [sforce search:sosl];
-		[self setWhatSearchResultsData:res];
-		if ([res count] == 1)
-			[whatSearchResults selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
-	}
-	@catch (ZKSoapException *ex) {
-		NSAlert * a = [NSAlert alertWithMessageText:@"Search Failed" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[ex reason]];
-		[a runModal];
-	}
-}
-
-
 -(void)createWhoWithController:(CreateContactController *)controller {
     NSString *type = [controller typeOfSObject];
     [controller showSheetFromEmail:self.email inWindow:window client:sforce created:^(NSString *recordId) {
@@ -410,7 +479,7 @@
 
 - (void)resetState {
     [whoController setSearchResults:nil];
-	[self setWhatSearchResultsData:nil];
+    [whatController setWhatSearchResultsData:nil];
     [whoController setSearchText:@""];
     [whatController setSearchText:@""];
 	[pendingTaskWhoWhat autorelease];
@@ -423,85 +492,13 @@
 	return s;
 }
 
-- (void)saveCheckedWhats {
-	NSMutableArray *whats = [NSMutableArray array];
-	NSDictionary *r;
-	NSEnumerator *e = [[self whatObjectTypes] objectEnumerator];
-	while (r = [e nextObject]) {
-		if ([[r objectForKey:@"checked"] boolValue])
-			[whats addObject:[r objectForKey:@"type"]];
-	}
-	[[NSUserDefaults standardUserDefaults] setObject:whats forKey:@"selectedWhats"];
-}
-
-- (NSNumber *)shouldWhatObjectBeChecked:(ZKDescribeSObject *)sobject {
-	NSArray * defaultWhats = [[NSUserDefaults standardUserDefaults] objectForKey:@"selectedWhats"];
-	bool checked = NO;
-	if (defaultWhats == nil) 
-		checked = ![sobject custom];
-	else 
-		checked = [defaultWhats containsObject:[sobject name]];
-	return [NSNumber numberWithBool:checked];
-}
-
-- (NSArray *)whatObjectTypeDescribes {
-	ZKDescribeSObject *desc = [sforce describeSObject:@"Task"];
-	NSMutableArray *types = [NSMutableArray array];
-	NSEnumerator *e = [[[desc fieldWithName:@"WhatId"] referenceTo] objectEnumerator];
-	NSString *type;
-	while (type = [e nextObject]) {
-		// for sosl, you can't search products or solutions with everything else
-		// they have to be done on there own, so for now, we'll just exclude them
-		// from the list all together.
-		if ([type isEqualToString:@"Product2"] || [type isEqualToString:@"Solution"]) continue;
-		ZKDescribeSObject * rd = [sforce describeSObject:type];
-		[types addObject:rd];
-	}
-	return types;
-}
-
-- (NSArray *)whatObjectTypes {
-	if (whatObjectTypes != nil) return whatObjectTypes;
-	NSArray *t = [self whatObjectTypeDescribes];
-	NSMutableArray * types = [NSMutableArray array];
-	NSEnumerator *e = [t objectEnumerator];
-	ZKDescribeSObject *type;
-	while (type = [e nextObject]) {
-		NSMutableDictionary *t = [NSMutableDictionary dictionaryWithObjectsAndKeys:[self shouldWhatObjectBeChecked:type], @"checked", [type labelPlural], @"sobjectLabel", [type name], @"type", nil];
-		[types addObject:t];
-	}
-	whatObjectTypes = [types retain];
-	return whatObjectTypes;
-}
-
-- (IBAction)configureWhatSearchColumns:(id)sender {
+-(IBAction)configureWhatSearchColumns:(id)sender {
 	[NSApp beginSheet:whatSearchConfigWindow modalForWindow:window modalDelegate:nil didEndSelector:nil contextInfo:nil];
 }
 
 - (IBAction)closeWhatConfig:(id)sender {
 	[NSApp endSheet:whatSearchConfigWindow];
 	[whatSearchConfigWindow orderOut:sender];
-}
-
-- (BOOL)isCreateableObjectType:(NSString *)sobjectName {
-	if (![sforce hasEntity:sobjectName]) return NO;
-	return [[sforce describeSObject:sobjectName] createable];
-}
-
-- (void)initWhats:(id)sender {
-	[self willChangeValueForKey:@"canSearchWho"];
-	[self didChangeValueForKey:@"canSearchWho"];
-	if (whatObjectTypes == nil) {
-		[self willChangeValueForKey:@"whatObjectTypes"];
-		[whatObjectTypes release];
-		whatObjectTypes = nil;
-		[self didChangeValueForKey:@"whatObjectTypes"];
-		[self willChangeValueForKey:@"whatObjectTypeDescribes"];
-		[self didChangeValueForKey:@"whatObjectTypeDescribes"];
-	}
-	whatController.searchText = email.subject;
-	if (email.subject.length > 0) 
-		[self searchWhat:sender];
 }
 
 -(NSArray *)taskStatus {
@@ -538,8 +535,6 @@
     [whatController setSforce:sforce];
     
     
-	[whatObjectTypes release];
-	whatObjectTypes = nil;
 	[taskStatus release];
 	taskStatus = nil;
 	[selectedWho release];
@@ -556,7 +551,8 @@
 	[self resetState];
 	[self setSforce:sf];
 	[self setEmail:theEmail];
-	[whoController setSearchText:[email addrOfInterest]];
+	whoController.searchText = email.addrOfInterest;
+    whatController.searchText = email.subject;
 	[self setClosedTaskStatus:[self defaultTaskStatus]];
 	self.storeTaskStatusDefault = NO;
 	[NSApp activateIgnoringOtherApps:YES];
@@ -564,8 +560,10 @@
 		NSTimer *t = [NSTimer timerWithTimeInterval:0.01 target:whoController selector:@selector(search:) userInfo:nil repeats:NO];
 		[[NSRunLoop currentRunLoop] addTimer:t forMode:NSModalPanelRunLoopMode];
 	}
-	NSTimer *t = [NSTimer timerWithTimeInterval:0.01 target:self selector:@selector(initWhats:) userInfo:nil repeats:NO];
-	[[NSRunLoop currentRunLoop] addTimer:t forMode:NSModalPanelRunLoopMode];
+    if (email.subject.length > 0) {
+        NSTimer *t = [NSTimer timerWithTimeInterval:0.01 target:whatController selector:@selector(search:) userInfo:nil repeats:NO];
+        [[NSRunLoop currentRunLoop] addTimer:t forMode:NSModalPanelRunLoopMode];
+    }
     
     if ([self hasStatusField]) {
         [topContainer removeConstraints:subjectOnlyConstraints];

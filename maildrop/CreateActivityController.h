@@ -1,4 +1,4 @@
-// Copyright (c) 2006-2011 Simon Fell
+// Copyright (c) 2006-2013 Simon Fell
 //
 // Permission is hereby granted, free of charge, to any person obtaining a 
 // copy of this software and associated documentation files (the "Software"), 
@@ -34,8 +34,8 @@
     ZKSforceClient  *sforce;
 }
 
-@property (retain) NSString *searchText;
-@property (retain) ZKSforceClient *sforce;
+@property (retain, nonatomic) NSString *searchText;
+@property (retain, nonatomic) ZKSforceClient *sforce;
 @property (readonly) ZKSObject *selected;
 
 -(IBAction)search:(id)sender;
@@ -56,17 +56,22 @@
 @end
 
 @interface WhatController : FkSearchController {
+    IBOutlet NSTableView    *whatSearchResults;
+	NSArray					*whatObjectTypes;
+    WhatSearchDataSource	*whatResultsTableSource;
 }
+
+- (NSArray *)whatObjectTypes;
+- (NSArray *)whatObjectTypeDescribes;
+
 @end
 
 @interface CreateActivityController : NSObject<ActivityBuilderDelegate> {
     IBOutlet WhoController      *whoController;
     IBOutlet WhatController     *whatController;
-    
-	IBOutlet NSTableView		*whatSearchResults;
+
+    IBOutlet NSWindow           *whatSearchConfigWindow;
 	IBOutlet NSWindow			*window;
-	IBOutlet NSWindow			*whatSearchConfigWindow;
-	
     IBOutlet NSView             *topContainer;
     IBOutlet NSView             *subjectLabel;
     IBOutlet NSView             *subjectText;
@@ -78,10 +83,8 @@
 	NSTextField					*whatNoResults;
 	
 	ZKSforceClient			*sforce;
-	NSArray					*whatObjectTypes;
 	NSString				*closedTaskStatus;
 	NSArray					*taskStatus;
-	WhatSearchDataSource	*whatResultsTableSource;
 
 	SObjectWhoWhat			*selectedWho;
 	SObjectWhoWhat			*selectedWhat;
@@ -95,7 +98,6 @@
 }
 
 - (NSString *)createActivity:(Email *)email sforce:(ZKSforceClient *)sforce;
-- (NSArray *)whatObjectTypes;
 - (NSArray *)taskStatus;
 
 @property (readonly) BOOL hasStatusField;
@@ -104,7 +106,6 @@
 @property (assign) BOOL storeTaskStatusDefault;
 @property (retain) Email *email;
 
-- (NSArray *)whatObjectTypeDescribes;
 - (NSArray *)selectedWhoWhats;
 
 - (IBAction)cancel:(id)sender;
@@ -113,10 +114,9 @@
 - (IBAction)showCreateContact:(id)sender;
 - (IBAction)showCreateLead:(id)sender;
 
-- (IBAction)searchWhat:(id)sender;
+- (IBAction)showActivityHelp:(id)sender;
 
 - (IBAction)configureWhatSearchColumns:(id)sender;
 - (IBAction)closeWhatConfig:(id)sender;
-- (IBAction)showActivityHelp:(id)sender;
 
 @end
