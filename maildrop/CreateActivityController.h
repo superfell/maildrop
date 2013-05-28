@@ -80,8 +80,6 @@
     IBOutlet NSView             *statusDefaultCheckbox;
     NSArray                     *subjectOnlyConstraints, *subjectAndStatusConstraints;
     
-	NSTextField					*whatNoResults;
-	
 	ZKSforceClient			*sforce;
 	NSString				*closedTaskStatus;
 	NSArray					*taskStatus;
