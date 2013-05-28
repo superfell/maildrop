@@ -35,6 +35,14 @@
 	IBOutlet NSWindow			*window;
 	IBOutlet NSWindow			*whatSearchConfigWindow;
 	
+    IBOutlet NSView             *topContainer;
+    IBOutlet NSView             *subjectLabel;
+    IBOutlet NSView             *subjectText;
+    IBOutlet NSView             *statusLabel;
+    IBOutlet NSView             *statusPopup;
+    IBOutlet NSView             *statusDefaultCheckbox;
+    NSArray                     *subjectOnlyConstraints, *subjectAndStatusConstraints;
+    
 	NSTextField					*whatNoResults;
 	
 	ZKSforceClient			*sforce;
