@@ -41,11 +41,13 @@
 
 @interface WhoController : FkSearchController {
     IBOutlet NSArrayController	*whoSearchController;
+    NSArray                     *searchResults;
 }
 
 @property (readonly) BOOL canSearch;
 @property (readonly) NSString *searchToolTip;
 @property (readonly) NSArrayController *whoSearchController; // temp
+@property (retain)   NSArray *searchResults;
 
 @end
 
@@ -75,7 +77,6 @@
 	NSArray					*whatObjectTypes;
 	NSString				*closedTaskStatus;
 	NSArray					*taskStatus;
-	NSArray					*whoSearchResults;
 	WhatSearchDataSource	*whatResultsTableSource;
 
 	SObjectWhoWhat			*selectedWho;
@@ -93,7 +94,6 @@
 
 - (NSString *)createActivity:(Email *)email sforce:(ZKSforceClient *)sforce;
 - (NSArray *)whatObjectTypes;
-- (NSArray *)whoSearchResults;
 - (NSArray *)taskStatus;
 
 @property (readonly) BOOL hasStatusField;

@@ -71,7 +71,7 @@
 
 @implementation WhoController
 
-@synthesize whoSearchController;
+@synthesize whoSearchController, searchResults;
 
 +(NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
     if ([key isEqualToString:@"canSearch"])
@@ -79,6 +79,11 @@
     if ([key isEqualToString:@"searchToolTip"])
         return [NSSet setWithObject:@"sforce"];
     return [super keyPathsForValuesAffectingValueForKey:key];
+}
+
+-(void)dealloc {
+    [searchResults release];
+    [super dealloc];
 }
 
 -(BOOL)canSearch {
@@ -120,7 +125,6 @@
 
 - (id)init {
 	self = [super init];
-	whoSearchResults = [[NSArray array] retain];
 	whatObjectTypes = nil;
 	return self;
 }
@@ -128,7 +132,6 @@
 - (void)dealloc {
 	[sforce release];
 	[whatObjectTypes release];
-	[whoSearchResults release];
 	[whatResultsTableSource release];
 	[selectedWho release];
 	[selectedWhat release];
@@ -288,12 +291,6 @@
 	return s;
 }
 
-- (void)setWhoSearchResults:(NSArray *)res {
-	if (res == whoSearchResults) return;
-	[whoSearchResults release];
-	whoSearchResults = [res retain];
-}
-
 -(NSString *)whoFieldsForType:(NSString *)type {
 	static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
 	static NSString *WHO_FIELDS_LEAD = @"Company";
@@ -316,7 +313,7 @@
 		[sosl appendFormat:@"%@Contact(%@)", hasLeads ? @", " : @"", [self whoFieldsForType:CONTACT]];
 	@try {
 		NSArray *res = [sforce search:sosl];
-		[self setWhoSearchResults:res];
+        [whoController setSearchResults:res];
 		if ([res count] == 1)
 			[whoController.whoSearchController setSelectionIndex:0];
 	}
@@ -373,10 +370,6 @@
 	}
 }
 
-- (NSArray *)whoSearchResults {
-	return whoSearchResults;
-}
-
 - (NSString *)emailSubject {
 	return [email subject];
 }
@@ -386,7 +379,7 @@
 }
 
 - (void)resetState {
-	[self setWhoSearchResults:nil];
+    [whoController setSearchResults:nil];
 	[self setWhatSearchResultsData:nil];
     [whoController setSearchText:@""];
     [whatController setSearchText:@""];
@@ -402,9 +395,9 @@
 		ZKSObject *n = [[[sforce query:[NSString stringWithFormat:@"select %@ from %@ where id='%@' LIMIT 1",
                                         [self whoFieldsForType:type], type, recordId]] records] objectAtIndex:0];
 		// add info to list view,
-		NSMutableArray *newList = [NSMutableArray arrayWithArray:[self whoSearchResults]];
+		NSMutableArray *newList = [NSMutableArray arrayWithArray:[whoController searchResults]];
 		[newList insertObject:n atIndex:0];
-		[self setWhoSearchResults:newList];
+        [whoController setSearchResults:newList];
 		[whoController.whoSearchController setSelectionIndex:0];
         
     } canceled:^ {
