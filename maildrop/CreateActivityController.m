@@ -32,6 +32,7 @@
 #import "Constants.h"
 #import "CreateContactController.h"
 #import "CreateLeadController.h"
+#import "NSString_sosl.h"
 
 @interface ZKSObject (AccountNameHelper)
 -(NSString *)accountName;
@@ -67,6 +68,9 @@
     return nil;
 }
 
+-(IBAction)search:(id)sender {
+}
+
 @end
 
 @implementation WhoController
@@ -98,6 +102,49 @@
     NSArray *sel = [whoSearchController selectedObjects];
 	if ([sel count] == 0) return nil;
 	return [sel objectAtIndex:0];
+}
+
+-(NSString *)whoFieldsForType:(NSString *)type {
+	static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
+	static NSString *WHO_FIELDS_LEAD = @"Company";
+	static NSString *WHO_FIELDS_CONTACT = @"Account.Name";
+    
+	if ([type isEqualToString:LEAD])
+		return [NSString stringWithFormat:@"%@,%@", WHO_FIELDS, WHO_FIELDS_LEAD];
+	if ([sforce hasEntity:ACCOUNT])
+		return [NSString stringWithFormat:@"%@,%@", WHO_FIELDS, WHO_FIELDS_CONTACT];
+	return WHO_FIELDS;
+}
+
+-(IBAction)search:(id)sender {
+	BOOL hasContacts = [sforce hasEntity:CONTACT];
+	BOOL hasLeads =    [sforce hasEntity:LEAD];
+	NSMutableString *sosl = [NSMutableString stringWithFormat:@"FIND {%@} IN ALL FIELDS RETURNING ", [searchText escapedForSosl]];
+	if (hasLeads)
+		[sosl appendFormat:@"Lead(%@)", [self whoFieldsForType:LEAD]];
+	if (hasContacts)
+		[sosl appendFormat:@"%@Contact(%@)", hasLeads ? @", " : @"", [self whoFieldsForType:CONTACT]];
+	@try {
+		NSArray *res = [sforce search:sosl];
+        [self setSearchResults:res];
+		if ([res count] == 1)
+			[whoSearchController setSelectionIndex:0];
+	}
+	@catch (ZKSoapException *ex) {
+		NSAlert * a = [NSAlert alertWithMessageText:@"Search Failed" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[ex reason]];
+		[a runModal];
+	}
+}
+
+-(void)insertNewRecordOfType:(NSString *)type withId:(NSString *)recordId {
+    // query the record back from salesforce.com, pick up the compound name, plus anything else done server side
+    ZKSObject *n = [[[sforce query:[NSString stringWithFormat:@"select %@ from %@ where id='%@' LIMIT 1",
+                                    [self whoFieldsForType:type], type, recordId]] records] objectAtIndex:0];
+    // add info to list view,
+    NSMutableArray *newList = [NSMutableArray arrayWithArray:[self searchResults]];
+    [newList insertObject:n atIndex:0];
+    [self setSearchResults:newList];
+    [whoSearchController setSelectionIndex:0];
 }
 
 @end
@@ -279,52 +326,8 @@
     [builder build:self];
 }
 
-- (NSString *)escapeSosl:(NSString *)src {
-    if (src == nil || [src length] == 0) return src;
-	// from docs, these are all reserved
-	NSArray *reserved = [NSArray arrayWithObjects:@"\\", @"&", @"|", @"!", @"{", @"}", @"[", @"]", @"^", @"~", @"*:", @":", @"'" ,@"\"", @"+", @"-", nil];
-	NSMutableString *s = [NSMutableString stringWithString:src];
-	NSString *r;
-	NSEnumerator *e = [reserved objectEnumerator];
-	while (r = [e nextObject]) 
-		[s replaceOccurrencesOfString:r withString:[NSString stringWithFormat:@"\\%@", r] options:NSLiteralSearch range:NSMakeRange(0, [s length])];
-	return s;
-}
-
--(NSString *)whoFieldsForType:(NSString *)type {
-	static NSString *WHO_FIELDS = @"Id, Email, Name, FirstName, LastName";
-	static NSString *WHO_FIELDS_LEAD = @"Company";
-	static NSString *WHO_FIELDS_CONTACT = @"Account.Name";
-
-	if ([type isEqualToString:LEAD])
-		return [NSString stringWithFormat:@"%@,%@", WHO_FIELDS, WHO_FIELDS_LEAD];
-	if ([sforce hasEntity:ACCOUNT])
-		return [NSString stringWithFormat:@"%@,%@", WHO_FIELDS, WHO_FIELDS_CONTACT];
-	return WHO_FIELDS;
-}
-
-- (IBAction)searchWho:(id)sender {
-	BOOL hasContacts = [sforce hasEntity:CONTACT];
-	BOOL hasLeads =    [sforce hasEntity:LEAD];
-	NSMutableString *sosl = [NSMutableString stringWithFormat:@"FIND {%@} IN ALL FIELDS RETURNING ", [self escapeSosl:[whoController searchText]]];
-	if (hasLeads)
-		[sosl appendFormat:@"Lead(%@)", [self whoFieldsForType:LEAD]];
-	if (hasContacts)
-		[sosl appendFormat:@"%@Contact(%@)", hasLeads ? @", " : @"", [self whoFieldsForType:CONTACT]];
-	@try {
-		NSArray *res = [sforce search:sosl];
-        [whoController setSearchResults:res];
-		if ([res count] == 1)
-			[whoController.whoSearchController setSelectionIndex:0];
-	}
-	@catch (ZKSoapException *ex) {
-		NSAlert * a = [NSAlert alertWithMessageText:@"Search Failed" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:[ex reason]];
-		[a runModal];
-	}
-}
-
 - (NSString *)buildWhatSosl {
-	NSMutableString *sosl = [NSMutableString stringWithFormat:@"FIND {%@*} IN ALL FIELDS RETURNING", [self escapeSosl:[whatController searchText]]];
+	NSMutableString *sosl = [NSMutableString stringWithFormat:@"FIND {%@*} IN ALL FIELDS RETURNING", [[whatController searchText] escapedForSosl]];
 	BOOL first = YES;
     for (NSMutableDictionary *sobject in [self whatObjectTypes]) {
 		if (![[sobject objectForKey:@"checked"] boolValue]) continue;
@@ -370,6 +373,26 @@
 	}
 }
 
+
+-(void)createWhoWithController:(CreateContactController *)controller {
+    NSString *type = [controller typeOfSObject];
+    [controller showSheetFromEmail:self.email inWindow:window client:sforce created:^(NSString *recordId) {
+        [whoController insertNewRecordOfType:type withId:recordId];
+        
+    } canceled:^ {
+    }];
+}
+
+- (IBAction)showCreateContact:(id)sender {
+    CreateContactController *c = [[[CreateContactController alloc] init] autorelease];
+    [self createWhoWithController:c];
+}
+
+- (IBAction)showCreateLead:(id)sender {
+    CreateLeadController *c = [[[CreateLeadController alloc] init] autorelease];
+    [self createWhoWithController:c];
+}
+
 - (NSString *)emailSubject {
 	return [email subject];
 }
@@ -385,33 +408,6 @@
     [whatController setSearchText:@""];
 	[pendingTaskWhoWhat autorelease];
 	pendingTaskWhoWhat = [[PendingTaskWhoWhat alloc] init];
-}
-
--(void)createWhoWithController:(CreateContactController *)controller {
-    NSString *type = [controller typeOfSObject];
-    [controller showSheetFromEmail:self.email inWindow:window client:sforce created:^(NSString *recordId) {
-        // query the record back from salesforce.com, pick up the compound name, plus anything else done server side
-        
-		ZKSObject *n = [[[sforce query:[NSString stringWithFormat:@"select %@ from %@ where id='%@' LIMIT 1",
-                                        [self whoFieldsForType:type], type, recordId]] records] objectAtIndex:0];
-		// add info to list view,
-		NSMutableArray *newList = [NSMutableArray arrayWithArray:[whoController searchResults]];
-		[newList insertObject:n atIndex:0];
-        [whoController setSearchResults:newList];
-		[whoController.whoSearchController setSelectionIndex:0];
-        
-    } canceled:^ {
-    }];
-}
-
-- (IBAction)showCreateContact:(id)sender {
-    CreateContactController *c = [[[CreateContactController alloc] init] autorelease];
-    [self createWhoWithController:c];
-}
-
-- (IBAction)showCreateLead:(id)sender {
-    CreateLeadController *c = [[[CreateLeadController alloc] init] autorelease];
-    [self createWhoWithController:c];
 }
 
 - (NSString *)makeNotNull:(NSString *)s {
@@ -560,7 +556,7 @@
 	self.storeTaskStatusDefault = NO;
 	[NSApp activateIgnoringOtherApps:YES];
 	if ([whoController canSearch]) {
-		NSTimer *t = [NSTimer timerWithTimeInterval:0.01 target:self selector:@selector(searchWho:) userInfo:nil repeats:NO];
+		NSTimer *t = [NSTimer timerWithTimeInterval:0.01 target:whoController selector:@selector(search:) userInfo:nil repeats:NO];
 		[[NSRunLoop currentRunLoop] addTimer:t forMode:NSModalPanelRunLoopMode];
 	}
 	NSTimer *t = [NSTimer timerWithTimeInterval:0.01 target:self selector:@selector(initWhats:) userInfo:nil repeats:NO];

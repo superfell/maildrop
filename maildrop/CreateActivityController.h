@@ -37,6 +37,8 @@
 @property (retain) NSString *searchText;
 @property (retain) ZKSforceClient *sforce;
 @property (readonly) ZKSObject *selected;
+
+-(IBAction)search:(id)sender;
 @end
 
 @interface WhoController : FkSearchController {
@@ -111,11 +113,10 @@
 - (IBAction)cancel:(id)sender;
 - (IBAction)create:(id)sender;
 
-- (IBAction)searchWho:(id)sender;
-- (IBAction)searchWhat:(id)sender;
-
 - (IBAction)showCreateContact:(id)sender;
 - (IBAction)showCreateLead:(id)sender;
+
+- (IBAction)searchWhat:(id)sender;
 
 - (IBAction)configureWhatSearchColumns:(id)sender;
 - (IBAction)closeWhatConfig:(id)sender;

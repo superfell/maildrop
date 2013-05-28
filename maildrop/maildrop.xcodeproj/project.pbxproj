@@ -89,6 +89,7 @@
 		F4BEF56117543CE7004207D3 /* NSApplication_scripting.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BEF56017543CE7004207D3 /* NSApplication_scripting.m */; };
 		F4BEF56A1754530D004207D3 /* Add Email to Salesforce.com.scpt in Resources */ = {isa = PBXBuildFile; fileRef = F4BEF5681754530C004207D3 /* Add Email to Salesforce.com.scpt */; };
 		F4BEF56B1754530D004207D3 /* Create Case In Salesforce.com.scpt in Resources */ = {isa = PBXBuildFile; fileRef = F4BEF5691754530D004207D3 /* Create Case In Salesforce.com.scpt */; };
+		F4BEF57217546706004207D3 /* NSString_sosl.m in Sources */ = {isa = PBXBuildFile; fileRef = F4BEF57117546706004207D3 /* NSString_sosl.m */; };
 		F4DBCAF70B3DC0C700D94639 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DBCAF50B3DC0C700D94639 /* LoginController.m */; };
 		F4DBCB0D0B3DC4F000D94639 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DBCB0C0B3DC4F000D94639 /* Security.framework */; };
 		F4DBCB390B3E259400D94639 /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = F4DBCB380B3E259400D94639 /* Credits.html */; };
@@ -260,6 +261,8 @@
 		F4BEF56017543CE7004207D3 /* NSApplication_scripting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSApplication_scripting.m; sourceTree = "<group>"; };
 		F4BEF5681754530C004207D3 /* Add Email to Salesforce.com.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Add Email to Salesforce.com.scpt"; sourceTree = "<group>"; };
 		F4BEF5691754530D004207D3 /* Create Case In Salesforce.com.scpt */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Create Case In Salesforce.com.scpt"; sourceTree = "<group>"; };
+		F4BEF57017546706004207D3 /* NSString_sosl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSString_sosl.h; sourceTree = "<group>"; };
+		F4BEF57117546706004207D3 /* NSString_sosl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSString_sosl.m; sourceTree = "<group>"; };
 		F4DBCAF50B3DC0C700D94639 /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
 		F4DBCAF60B3DC0C700D94639 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
 		F4DBCB0C0B3DC4F000D94639 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
@@ -517,6 +520,8 @@
 				F49210750B44D0D500C5C9AB /* ZKDescribeSObject_additions.m */,
 				F4BEF55F17543CE7004207D3 /* NSApplication_scripting.h */,
 				F4BEF56017543CE7004207D3 /* NSApplication_scripting.m */,
+				F4BEF57017546706004207D3 /* NSString_sosl.h */,
+				F4BEF57117546706004207D3 /* NSString_sosl.m */,
 			);
 			name = extensions;
 			sourceTree = "<group>";
@@ -716,6 +721,7 @@
 				F41F5B5A1742B2A1001297D9 /* CreateContactController.m in Sources */,
 				F41F5B651742E138001297D9 /* CreateLeadController.m in Sources */,
 				F4BEF56117543CE7004207D3 /* NSApplication_scripting.m in Sources */,
+				F4BEF57217546706004207D3 /* NSString_sosl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
